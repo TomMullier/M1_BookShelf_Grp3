@@ -16,15 +16,16 @@ const BooksPage: FC = (): ReactElement => {
         {books.map((book) => (
           <div
             key={book.id}
-            className="flex  flex-col m-10 book_card rounded overflow-hidden shadow-lg h-24 bg-back_card bg-cover from-orange-400 via-red-500 to-pink-500"
+            className="flex  flex-col m-10 book_card rounded shadow-lg h-24 bg-back_card bg-cover"
             style={{ width: '300px', height: '424px' }}
           >
-            <div className="book_card__title font-bold text-xl mb-2">
+            <div className="book_card__title font-bold text-xl mb-4 p-4">
               {book.name}
             </div>
-            <div className="book_card__author">
+            <div className="book_card__author p-4">
               {book.author.firstName}
               {book.author.lastName}
+              (author)
             </div>
             {/* Bottom right tailwind */}
             <div className="book_card__actions flex justify-end w-m bg-none bottom-0 content-end h-full items-end">
