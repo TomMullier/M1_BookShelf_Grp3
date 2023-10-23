@@ -12,9 +12,29 @@ const BooksPage: FC = (): ReactElement => {
   return (
     <>
       <h1>Books</h1>
-      {books.map((book) => (
-        <div key={book.id}>{book.name}</div>
-      ))}
+      <div className="flex" style={{ width: 'auto', height: 'auto' }}>
+        {books.map((book) => (
+          <div
+            key={book.id}
+            className="flex  flex-col m-10 book_card rounded overflow-hidden shadow-lg h-24 bg-back_card bg-cover from-orange-400 via-red-500 to-pink-500"
+            style={{ width: '300px', height: '424px' }}
+          >
+            <div className="book_card__title font-bold text-xl mb-2">
+              {book.name}
+            </div>
+            <div className="book_card__author">
+              {book.author.firstName}
+              {book.author.lastName}
+            </div>
+            {/* Bottom right tailwind */}
+            <div className="book_card__actions flex justify-end w-m bg-none bottom-0 content-end h-full items-end">
+              <button type="button" className="book_card__action text-blue_1">
+                R
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
