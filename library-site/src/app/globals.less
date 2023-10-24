@@ -1,0 +1,372 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@gray : #878e94;
+@gray_bg : #f5f5f5;
+@black: #17202A;
+@blue: #406bde;
+@dark_blue:#272d48;
+@gold : #f1c40f;
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Josefin+Sans&family=Montserrat:ital,wght@1,900&display=swap');
+@title: 'Montserrat';
+@text: 'Noto Sans';
+// :root {
+//   --foreground-rgb: 255, 0, 0;
+//   --background-start-rgb: 214, 219, 220;
+//   --background-end-rgb: 255, 255, 255;
+// }
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     --foreground-rgb: 255, 255, 255;
+//     --background-start-rgb: 0, 0, 0;
+//     --background-end-rgb: 0, 0, 0;
+//   }
+// }
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: @gray_bg;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                Global Layout                               */
+/* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------- Left Side ------------------------------- */
+.left_side {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: white;
+  color: @gray;
+
+  .website_title {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: @title;
+    font-weight: 900;
+    margin-top: 10px;
+    color: @black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      margin-right: 10px;
+      color: @blue;
+    }
+  }
+
+  .menu {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+
+    .menu_item {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: left;
+      font-size: 1rem;
+      font-family: @text;
+
+      i {
+        width: 20px;
+        margin-right: 10px;
+        color: @gray;
+        text-align: center;
+      }
+    }
+  }
+}
+
+/* --------------------------------- Top Bar -------------------------------- */
+
+.right_side{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom right, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  color: rgb(var(--foreground-rgb));
+
+  .top_bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color:white;
+    padding:20px 40px 20px 20px;
+
+    input {
+      width: 25%;
+      height: 40px;
+      border-radius: 20px;
+      border: 1px solid transparent;
+      padding: 0 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: @black;
+      background-color: @gray_bg;
+      outline:none;
+      font-family: @text;
+      transition: all 0.2s ease-in-out;
+      &:focus {
+        border: 1px solid @blue;
+        border-radius: 15px;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    .right_pp {
+      display: flex;
+      flex-direction:row-reverse;
+      align-items: center;
+      justify-content: right;
+      .pp{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: red;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: bold;
+        color: @black;
+        padding:2px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+      }
+      .pp_name{
+        font-size: 1rem;
+        font-weight: bold;
+        color: @gray;
+        margin-right: 0px;
+        font-family: @text;
+      }
+      
+    }
+  }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  BOOK PAGE                                 */
+/* -------------------------------------------------------------------------- */
+
+.layout_book{
+  display:flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  width:100%;
+  height: calc(100vh - 90px);
+  .left_side_book{
+    width:70%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding:20px;
+    overflow: auto;
+    height: 100%;
+    .top_section{
+      background-color: white;
+      width: 100%;
+      height:auto;
+      border-radius: 10px;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .text{
+        width:30%;
+        margin: 40px 0 40px 40px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        .welcome{
+          font-size: 1.5rem;
+          font-weight: bolder;
+          color: @black;
+          font-family: @text;
+        }
+        p{
+          font-size: 1rem;
+          color: @gray;
+          font-family: @text;
+          margin-bottom: 20px;
+        }
+        .latest{
+          background-color: @blue;
+          color:white;
+          padding: 10px 20px;
+          border-radius: 25px;
+          font-size: 1rem;
+          font-weight: bold;
+          font-family: @text;
+          cursor: pointer;
+          width:fit-content;
+        }
+      }
+      .image_{
+        width:70%;
+        height:100%;
+        display:flex ;
+        // background-color: blue;
+        height: 300px;
+        border-radius: 10px;
+      }
+
+    }
+    .books_container{
+      background-color: white;
+      width: 100%;
+      height:auto;
+      border-radius: 10px;
+      display:flex;
+      flex-direction: column;
+      align-items: center;  
+      justify-content: center;
+      padding: 40px;
+      margin-top: 20px; 
+      .filter_container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        width:auto;
+        color: @gray;
+        font-family: @text;
+        font-size: 1rem;
+        border-bottom: 2px solid rgb(204, 204, 204);
+        padding: 0px 10px;
+        .filter_title{
+          margin-right: 20px;
+          font-weight: bold;
+        }
+        .filter_item{
+          transition: all 0.2s ease-in-out;
+          margin-right: 20px;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          &:hover{
+            color: @blue;
+          }
+        }
+        .active{
+          color: @blue;
+          border-bottom: 2px solid @blue;
+          font-weight: bold;
+        }
+      }
+      .books_list{
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        .book_item{
+          &:hover{
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+          }
+          transition: all 0.2s ease-in-out;
+          width: 350px;
+          min-width: 33%;
+          height: 150px;
+          margin: 20px;
+          display:flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 10px;
+          .book_image{
+            width: 33%;
+            height: 100%;
+            background-color: red;
+            border-radius: 10px;
+            border:1px solid @gray;
+
+          }
+          .book_info{
+            width: 70%;
+            height: 100%;
+            display:flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            padding: 10px;
+            .book_title{
+              font-size: 1.1rem;
+              font-weight: bold;
+              color: @blue;
+              font-family: @text;
+            }
+            .book_author{
+              font-size: 0.8rem;
+              color: @black;
+              font-family: @text;
+              &::before {
+                content: "- By ";
+              }
+            }
+            .book_category{
+              font-size: 0.7rem;
+              color: @gray;
+              font-family: @text;
+              font-weight: 100;
+              margin-top: 10px;
+            }
+            .book_rating{
+              display:flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: left;
+              margin-top: 10px;
+              i{
+                color: @gold;
+                margin-right: 2px;
+              }
+            }
+          }
+
+        }
+      }
+    }
+
+  }
+  .right_side_book{
+    width:30%;
+    background-color: @dark_blue;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:20px;
+    height: 100%;
+  }
+}
