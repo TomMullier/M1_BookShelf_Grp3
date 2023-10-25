@@ -146,6 +146,175 @@ body {
   font-family: 'Noto Sans';
 }
 /* -------------------------------------------------------------------------- */
+/*                                  DASHBOARD                                 */
+/* -------------------------------------------------------------------------- */
+.home_container_top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+.home_container_top .your_library_card {
+  width: calc(70% - 10px);
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+}
+.home_container_top .your_library_card .image_ {
+  width: 50%;
+  height: 450px;
+  border-radius: 10px;
+}
+.home_container_top .your_library_card .text {
+  margin-bottom: 40px;
+  padding: 0;
+  padding: 0 30px;
+}
+.home_container_top .your_library_card .text h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #17202A;
+  font-family: 'Montserrat';
+  margin-top: 40px;
+  text-transform: uppercase;
+}
+.home_container_top .your_library_card .text h2 {
+  font-size: 1rem;
+  color: #406bde;
+  font-family: 'Noto Sans';
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+.home_container_top .your_library_card .text h3 {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  margin: 0;
+  padding: 0;
+}
+.home_container_top .your_library_card .text .opening {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  margin: 0;
+  padding: 0;
+  padding-left: 30px;
+  border-left: 2px solid #406bde;
+  margin-top: 20px;
+  font-weight: bold;
+}
+.home_container_top .your_library_card .text .opening h3 {
+  color: #406bde;
+}
+.home_container_top .opened {
+  width: calc(30% - 10px);
+  height: 490px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.home_container_top .opened .opened_title {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #17202A;
+  font-family: 'Montserrat';
+  margin-top: 40px;
+  text-transform: uppercase;
+}
+.home_container_top .opened .opened_text {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+  text-align: center;
+}
+.home_container_top .opened .opened_button {
+  background-color: #406bde;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  cursor: pointer;
+  width: fit-content;
+  margin-top: 20px;
+  transition: all 0.2s ease-in-out;
+}
+.home_container_top .opened .opened_button:hover {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+  color: #406bde;
+  background-color: white;
+}
+.home_discover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+.home_discover .discover_title {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #17202A;
+  font-family: 'Montserrat';
+  text-transform: uppercase;
+  width: 100%;
+  text-align: left;
+  padding-left: 60px;
+}
+.home_discover .discover_text {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+  padding-left: 60px;
+}
+.home_discover .home_books_elements {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  overflow: auto;
+  width: 100%;
+  padding: 0 40px;
+}
+.home_discover .home_books_elements .book_item {
+  transition: all 0.2s ease-in-out;
+  width: 220px;
+  height: 300px;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.home_discover .home_books_elements .book_item:hover {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+/* -------------------------------------------------------------------------- */
 /*                                  BOOK PAGE                                 */
 /* -------------------------------------------------------------------------- */
 .layout_book {

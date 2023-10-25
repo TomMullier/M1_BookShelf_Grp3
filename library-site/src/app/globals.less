@@ -167,6 +167,181 @@ body {
 
 
 /* -------------------------------------------------------------------------- */
+/*                                  DASHBOARD                                 */
+/* -------------------------------------------------------------------------- */
+
+.home_container_top{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  padding: 20px;
+
+  .your_library_card{
+    width: calc(70% - 10px);
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    .image_{
+      width: 50%;
+      height:450px;
+      border-radius: 10px;
+    }
+    .text{
+      margin-bottom: 40px;
+      padding:0;
+      padding: 0 30px;
+      h1{
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: @black;
+        font-family: @title;
+        margin-top: 40px;
+        text-transform: uppercase;
+      }
+      h2{
+        font-size: 1rem;
+        color: @blue;
+        font-family: @text;
+        margin: 0;
+        padding:0;
+        font-weight: bold;
+      }
+      h3{
+        font-size: 1rem;
+        color: @gray;
+        font-family: @text;
+        margin: 0;
+        padding:0;
+      }
+      .opening {
+        font-size: 1rem;
+        color: @gray;
+        font-family: @text;
+        margin: 0;
+        padding:0;
+        padding-left:30px;
+        border-left: 2px solid @blue;
+        margin-top: 20px;
+        font-weight: bold;
+        h3{
+          color:@blue;
+        }
+      }
+    }
+  }
+  .opened{
+    width: calc(30% - 10px);
+    height: 490px;
+    background-color: white;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    .opened_title{
+      font-size: 1.5rem;
+      font-weight: bolder;
+      color: @black;
+      font-family: @title;
+      margin-top: 40px;
+      text-transform: uppercase;
+    }
+    .opened_text{
+      font-size: 1rem;
+      color: @gray;
+      font-family: @text;
+      margin: 0;
+      padding:0;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .opened_button{
+      background-color: @blue;
+      color:white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      font-family: @text;
+      cursor: pointer;
+      width:fit-content;
+      margin-top: 20px;
+      transition: all 0.2s ease-in-out;
+      &:hover{
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+        color: @blue;
+        background-color: white;
+      }
+    }
+  
+  }
+}
+
+.home_discover{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width:100%;
+  padding: 20px;
+  .discover_title{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: @black;
+    font-family: @title;
+    text-transform: uppercase;
+    width:100%;
+    text-align: left;
+    padding-left: 60px;
+  }
+  .discover_text{
+    font-size: 1rem;
+    color: @gray;
+    font-family: @text;
+    margin: 0;
+    padding:0;
+    margin-top: 20px;
+    text-align: left;
+    width:100%;
+    padding-left: 60px;
+  }
+  .home_books_elements{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: auto;
+    width:100%;
+    padding:0 40px;
+    .book_item{
+      &:hover{
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+      transition: all 0.2s ease-in-out;
+      width: 220px;
+      height: 300px;
+      margin: 20px;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 10px;
+
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                  BOOK PAGE                                 */
 /* -------------------------------------------------------------------------- */
 
