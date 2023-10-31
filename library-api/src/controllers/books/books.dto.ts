@@ -1,4 +1,4 @@
-import { IsString, IsDate } from 'class-validator';
+import { IsString, IsDate, IsOptional } from 'class-validator';
 import { PlainAuthorModel } from 'library-api/src/models';
 
 export class CreateBookDto {
@@ -13,4 +13,22 @@ export class CreateBookDto {
 
   @IsString({ each: true })
   genres: string[];
+}
+
+export class UpdateBookDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsDate()
+  writtenOn?: Date;
+
+  @IsOptional()
+  @IsString()
+  author?: PlainAuthorModel;
+
+  @IsOptional()
+  @IsString({ each: true })
+  genres?: string[];
 }
