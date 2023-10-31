@@ -56,4 +56,14 @@ export class BookUseCases {
   ): Promise<PlainBookUseCasesOutput> {
     return this.bookRepository.updateById(id, input);
   }
+
+  /**
+   * Delete a book by its ID
+   * @param id Book's ID
+   * @throws 404: Book with this ID was not found
+   */
+  public async deleteById(id: BookId): Promise<void> {
+    const book = await this.bookRepository.getById(id);
+    await this.bookRepository.deleteById(book.id);
+  }
 }

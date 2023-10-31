@@ -238,4 +238,14 @@ export class BookRepository extends Repository<Book> {
 
     return this.getPlainById(id);
   }
+
+  /**
+   * Delete a book by its ID
+   * @param id Book's ID
+   * @throws 404: Book with this ID was not found
+   */
+  public async deleteById(id: BookId): Promise<void> {
+    const book = await this.getById(id);
+    await this.delete(book.id);
+  }
 }

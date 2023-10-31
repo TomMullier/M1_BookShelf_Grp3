@@ -50,4 +50,9 @@ export class BookController {
 
     return PlainBookPresenter.from(book);
   }
+
+  @Delete('/:id')
+  public async deleteById(@Param('id') id: BookId): Promise<void> {
+    await this.bookUseCases.deleteById(id);
+  }
 }
