@@ -21,7 +21,8 @@ export class BookController {
   @Get('/:id')
   public async getById(@Param('id') id: BookId): Promise<BookPresenter> {
     const book = await this.bookUseCases.getById(id);
-
+    console.log(book);
+    
     return BookPresenter.from(book);
   }
 

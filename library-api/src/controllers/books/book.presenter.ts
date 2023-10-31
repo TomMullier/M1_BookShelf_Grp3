@@ -19,8 +19,6 @@ export class PlainBookPresenter {
   }
 
   public static from(data: PlainBookModel): PlainBookPresenter {
-    console.log('PlainBookPresenter.from', data);
-    
     return new PlainBookPresenter({
       id: data.id,
       name: data.name,
