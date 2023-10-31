@@ -4,6 +4,7 @@ import { BookRepository } from 'library-api/src/repositories';
 import {
   BookUseCasesOutput,
   PlainBookUseCasesOutput,
+  CreateBookUseCasesInput,
 } from 'library-api/src/useCases/books/book.useCases.type';
 
 @Injectable()
@@ -26,5 +27,15 @@ export class BookUseCases {
    */
   public async getById(id: BookId): Promise<BookUseCasesOutput> {
     return this.bookRepository.getById(id);
+  }
+
+  /**
+   * Create a book
+   * @returns Created book
+   */
+  public async createBook(
+    input: CreateBookUseCasesInput,
+  ): Promise<PlainBookUseCasesOutput> {
+    return this.bookRepository.createBook(input);
   }
 }
