@@ -5,8 +5,9 @@ const getOpening = (): string => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const day = date.getDay();
-  if (hours < 9 || hours > 18 || (hours === 18 && minutes > 0) || day === 0)
+  if (hours < 9 || hours > 18 || (hours === 18 && minutes > 0) || day === 0) {
     return 'Currently closed';
+  }
   return 'Currently opened';
 };
 

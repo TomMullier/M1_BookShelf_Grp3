@@ -343,15 +343,20 @@ body {
   justify-content: space-between;
   width: 100%;
 }
-.layout_book .left_side_book .book_number_container {
+.layout_book .left_side_book .number_container {
   background-color: white;
-  width: calc(50% - 10px);
   height: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.books_number_container{
+  width: calc(50% - 10px);
+}
+.book_number_container{
+  width: calc(50% - 10px);
 }
 .layout_book .left_side_book .book_number_container h1 {
   font-size: 1.2rem;
@@ -381,13 +386,19 @@ body {
 }
 .layout_book .left_side_book .top_section {
   background-color: white;
-  width: calc(50% - 10px);
   height: auto;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.books_top_section{
+  width: calc(50% - 10px);
+}
+.book_top_section{
+  width: calc(50% - 10px);
+  padding: 20px;
 }
 .layout_book .left_side_book .top_section .text {
   width: 30%;

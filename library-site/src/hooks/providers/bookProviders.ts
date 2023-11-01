@@ -11,12 +11,12 @@ export const useListBooks = (): UseListBooksProvider => {
   const [books, setBooks] = useState<PlainBookModel[]>([]);
 
   const bookTest = {
-    id: '1',
+    id: '0',
     name: 'test',
     writtenOn: new Date(),
     author: {
-      id: '1',
-      firstName: 'test',
+      id: '0',
+      firstName: 'testname',
       lastName: 'test2',
     },
     genres: ['test', 'test2'],
@@ -25,9 +25,9 @@ export const useListBooks = (): UseListBooksProvider => {
   const fetchBooks = (): void => {
     // axios
     //   .get(`${process.env.NEXT_PUBLIC_API_URL}/books`)
-    //   .then(() => setBooks([bookTest]))
+    //   .then(() => setBooks(allbooks))
     //   .catch((err) => console.error(err));
-    setBooks([bookTest, bookTest]);
+    setBooks([bookTest]);
   };
 
   return { books, load: fetchBooks };

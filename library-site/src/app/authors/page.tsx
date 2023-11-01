@@ -2,6 +2,6 @@
 
 import { FC } from 'react';
 
-const AuthorsPage: FC = () => <>Authors page not implemented</>;
+const AuthorsPage: FC = () => <>not implemented yet</>;
 
 export default AuthorsPage;
