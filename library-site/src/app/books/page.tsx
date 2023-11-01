@@ -1,12 +1,17 @@
 'use client';
 
-import { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
 import 'flowbite';
 
+type bookfilter = {
+  search: string;
+  setSearch: (input: string) => void;
+};
 const BooksPage: FC = (): ReactElement => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
+  const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
 
   const openItemPage = (id: number): void => {
     window.location.href = `/books/${id}`;
@@ -16,7 +21,10 @@ const BooksPage: FC = (): ReactElement => {
     openItemPage(id);
   }
 
-  useEffect(() => load, [load]);
+  useEffect(() => load(), [load]);
+
+  const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()));
+
   return (
     <>
       <section className="layout_book">
@@ -34,11 +42,20 @@ const BooksPage: FC = (): ReactElement => {
             </div>
             <div className="number_container books_number_container shadow-md">
               <h1>You currently have</h1>
-              <h2>2</h2>
+              <h2>{books.length}</h2>
               <p>books</p>
             </div>
           </section>
           <div className="books_container shadow-md">
+            {/* Step 2: Add a search bar */}
+            <div className="search_container">
+              <input
+                type="text"
+                placeholder="Search by title"
+                value={searchInput}
+                onChange={(e): void => setSearchInput(e.target.value)}
+              />
+            </div>
             <div className="filter_container">
               <div className="filter_title">Filter by :</div>
               <div className="filter_item active">Title</div>
@@ -47,7 +64,7 @@ const BooksPage: FC = (): ReactElement => {
               <div className="filter_item">Rating</div>
             </div>
             <div className="books_list">
-              {books.map((book) => (
+              {filteredBooks.map((book) => (
                 <div
                   className="book_item"
                   id={book.id}
@@ -64,8 +81,14 @@ const BooksPage: FC = (): ReactElement => {
 
                   <div className="book_info">
                     <div className="book_title">{book.name}</div>
-                    <div className="book_author">JEAN</div>
-                    <div className="book_category">Thriller, Policier</div>
+                    <div className="book_author">
+                      {book.author.firstName + ' ' + book.author.lastName}
+                    </div>
+                    <div className="book_category flex">
+                      {book.genres.map((genre) => (
+                        <p className="pr-1">{genre}</p>
+                      ))}
+                    </div>
                     <div className="book_rating">
                       <i className="fa-solid fa-star" />
                       <i className="fa-solid fa-star" />
