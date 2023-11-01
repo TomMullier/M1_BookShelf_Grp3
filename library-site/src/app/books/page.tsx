@@ -2,6 +2,7 @@
 
 import { FC, ReactElement, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
+import Modal from './modal'; 
 import 'flowbite';
 
 type bookfilter = {
@@ -12,6 +13,15 @@ const BooksPage: FC = (): ReactElement => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
   const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const openItemPage = (id: number): void => {
     window.location.href = `/books/${id}`;
@@ -100,6 +110,17 @@ const BooksPage: FC = (): ReactElement => {
                 </div>
               ))}
             </div>
+          </div>
+          <div>
+            <button type="button" onClick={openModal}>
+              Open Modal
+            </button>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              title="Example Modal"
+              content={<p>This is the content of the modal.</p>}
+            />
           </div>
         </section>
       </section>
