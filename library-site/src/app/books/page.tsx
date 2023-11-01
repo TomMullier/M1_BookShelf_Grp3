@@ -63,7 +63,7 @@ const BooksPage: FC = (): ReactElement => {
                   <div className="book_image bg-book_cover bg-cover bg-center bg-no-repeat" />
 
                   <div className="book_info">
-                    <div className="book_title">{books[0].name}</div>
+                    <div className="book_title">{book.name}</div>
                     <div className="book_author">JEAN</div>
                     <div className="book_category">Thriller, Policier</div>
                     <div className="book_rating">

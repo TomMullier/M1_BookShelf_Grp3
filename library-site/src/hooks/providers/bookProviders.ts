@@ -12,22 +12,32 @@ export const useListBooks = (): UseListBooksProvider => {
 
   const bookTest = {
     id: '0',
-    name: 'test',
+    name: 'Cest Marquant',
     writtenOn: new Date(),
     author: {
       id: '0',
-      firstName: 'testname',
-      lastName: 'test2',
+      firstName: 'Jean',
+      lastName: 'MichMuch',
     },
-    genres: ['test', 'test2'],
+    genres: ['Quoi', 'Fantasy'],
   };
-
+  const bookTest2 = {
+    id: '1',
+    name: 'Moi aussi je suis marquant',
+    writtenOn: new Date(),
+    author: {
+      id: '1',
+      firstName: 'Sarah',
+      lastName: 'Croche',
+    },
+    genres: ['Roman', 'Policier'],
+  };
   const fetchBooks = (): void => {
     // axios
     //   .get(`${process.env.NEXT_PUBLIC_API_URL}/books`)
     //   .then(() => setBooks(allbooks))
     //   .catch((err) => console.error(err));
-    setBooks([bookTest]);
+    setBooks([bookTest, bookTest2]);
   };
 
   return { books, load: fetchBooks };
