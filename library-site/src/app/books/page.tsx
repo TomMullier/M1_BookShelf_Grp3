@@ -2,24 +2,24 @@
 
 import { FC, ReactElement, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
-import Modal from './modal'; 
+import Modal from './modal';
 import 'flowbite';
 
-type bookfilter = {
-  search: string;
-  setSearch: (input: string) => void;
-};
+// type bookfilter = {
+//  search: string;
+//  setSearch: (input: string) => void;
+// };
 const BooksPage: FC = (): ReactElement => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
   const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
+  const openModal = (): void => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModalOpen(false);
   };
 
@@ -33,8 +33,7 @@ const BooksPage: FC = (): ReactElement => {
 
   useEffect(() => load(), [load]);
 
-  const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()));
-
+  const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),);
   return (
     <>
       <section className="layout_book">
@@ -92,7 +91,7 @@ const BooksPage: FC = (): ReactElement => {
                   <div className="book_info">
                     <div className="book_title">{book.name}</div>
                     <div className="book_author">
-                      {book.author.firstName + ' ' + book.author.lastName}
+                      {`${book.author.firstName}${book.author.lastName}`}
                     </div>
                     <div className="book_category flex">
                       {book.genres.map((genre) => (

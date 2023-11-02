@@ -5,6 +5,7 @@ import styles from './modal.module.css';
 type ModalProps = {
   isOpen: boolean;
   onCancel: () => void;
+  onclose: () => void;
   onSubmit?: () => void;
   title?: ReactElement | string;
   children: ReactElement;
