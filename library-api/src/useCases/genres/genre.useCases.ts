@@ -11,8 +11,8 @@ export class GenreUseCases {
   constructor(private readonly genreRepository: GenreRepository) {}
 
   /**
-   * Get all plain genres
-   * @returns Array of plain genres
+   * Get all genres
+   * @returns Array of genres
    */
   public async getAll(): Promise<GenreUseCasesOutput[]> {
     return this.genreRepository.getAll();
@@ -38,5 +38,15 @@ export class GenreUseCases {
     input: CreateGenreUseCasesInput,
   ): Promise<GenreUseCasesOutput> {
     return this.genreRepository.createGenre(input);
+  }
+
+  /**
+   * Delete a genre by its ID
+   * @param id Genre's ID
+   * @throws 404: Genre with this ID was not found
+   */
+  public async deleteById(id: GenreId): Promise<void> {
+    const genre = await this.genreRepository.getById(id);
+    await this.genreRepository.deleteById(genre.id);
   }
 }

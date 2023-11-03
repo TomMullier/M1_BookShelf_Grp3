@@ -77,4 +77,14 @@ export class GenreRepository extends Repository<Genre> {
 
     return this.getById(id);
   }
+
+  /**
+   * Delete a genre by its ID
+   * @param id Genre's ID
+   * @throws 404: Genre with this ID was not found
+   */
+  public async deleteById(id: GenreId): Promise<void> {
+    const genre = await this.getById(id);
+    await this.delete(genre.id);
+  }
 }
