@@ -106,13 +106,28 @@ export class BookRepository extends Repository<Book> {
     }
 
     const id = await this.dataSource.transaction(async (manager) => {
-      const book = await manager.save<Book>(
-        manager.create<Book>(Book, {
-          ...input,
-          id: v4(),
-          bookGenres: undefined, // Réinitialisation des genres de livre
-        }),
-      );
+      const bookToSave = manager.create<Book>(Book, {
+        ...input,
+        id: v4(),
+        bookGenres: undefined, // Réinitialisation des genres de livre
+      });
+
+      if (input.author) {
+        const author = await manager.findOne<Author>(Author, {
+          where: {
+            firstName: input.author.firstName,
+            lastName: input.author.lastName,
+          },
+        });
+        if (!author) {
+          // await manager.delete<Book>(Book, { id: book.id });
+          throw new NotFoundException(
+            `Author - '${input.author.firstName} ${input.author.lastName}'`,
+          );
+        }
+        bookToSave.author = author;
+      }
+      const book = await manager.save<Book>(bookToSave);
 
       if (input.genres && input.genres.length > 0) {
         // Suppression des genres de livre pour éviter les doublons
@@ -123,9 +138,10 @@ export class BookRepository extends Repository<Book> {
             name: In(input.genres),
           },
         });
+
         // Vérification que tous les genres ont été trouvés
         if (newGenres.length !== input.genres.length) {
-          await manager.delete<Book>(Book, { id: book.id });
+          // await manager.delete<Book>(Book, { id: book.id });
           throw new NotFoundException(
             `Genre - '${input.genres.filter(
               (genre) => !newGenres.find((newGenre) => newGenre.name === genre),
@@ -144,25 +160,8 @@ export class BookRepository extends Repository<Book> {
           ),
         );
       }
-
-      if (input.author) {
-        const author = await manager.findOne<Author>(Author, {
-          where: {
-            firstName: input.author.firstName,
-            lastName: input.author.lastName,
-          },
-        });
-        if (!author) {
-          await manager.delete<Book>(Book, { id: book.id });
-          throw new NotFoundException(
-            `Author - '${input.author.firstName} ${input.author.lastName}'`,
-          );
-        }
-        await manager.update<Book>(Book, { id: book.id }, { author });
-      }
       return book.id;
     });
-
     return this.getPlainById(id);
   }
 
