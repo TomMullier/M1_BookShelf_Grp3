@@ -1,0 +1,136 @@
+@gray : #878e94;
+@gray_bg : #f5f5f5;
+@black: #17202A;
+@blue: #406bde;
+@dark_blue:#272d48;
+@gold : #f1c40f;
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Josefin+Sans&family=Montserrat:ital,wght@1,900&display=swap');
+@title: 'Montserrat';
+@text: 'Noto Sans';
+
+.modalOverlay{
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.modal {
+    width: 50%;
+    border-style: solid;
+    border-color: @blue;
+    border-width: 3px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.307);
+    z-index: 10000;
+    left: 25%;
+    top:0;
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 300px;
+    background-color: #fcfcfc;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    padding: 20px
+  }
+  
+  .divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: @gray;
+    height: 2px;
+    opacity: 0.5;
+  }
+  
+  .modalHeader {
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  
+  .headerTitle {
+    flex-grow: 1;
+    font-family: @title;
+    font-size: 1.5rem;
+    color: @blue;
+    text-align: center;
+    font-style: normal
+  }
+  
+  .modalBody {
+    padding: .5rem 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: @text;
+    font-size: 1rem;
+    color: @black;
+    
+  }
+  
+  .modalFooter {
+    flex-grow: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .button {
+    margin-left: .5rem;
+  }
+  
+  .cancelButton {
+    flex-grow: 0;
+    background-color: @gray_bg;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    font-family: @text;
+    font-size: 1rem;
+    color: @black;
+    cursor: pointer;
+    &:hover {
+      background-color: @gray_bg;
+      border: 2px solid @gray;
+    }
+
+  }
+  .cancelButtonCross{
+    flex-grow: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    font-family: @text;
+    font-size: 1rem;
+    font-weight: 900;
+    color: @blue;
+    cursor: pointer;
+    
+  }
+  .submitButton{
+    flex-grow: 0;
+    background-color: @blue;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    font-family: @text;
+    font-size: 1rem;
+    font-weight: 900;
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: white;
+      border: 2px solid @blue;
+      color: @blue;
+    }
+  }

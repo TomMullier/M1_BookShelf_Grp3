@@ -2,7 +2,7 @@
 
 import { FC, ReactElement, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
-import Modal from './modal';
+import Modal from '../../components/modal';
 import 'flowbite';
 
 // type bookfilter = {
@@ -21,6 +21,15 @@ const BooksPage: FC = (): ReactElement => {
 
   const closeModal = (): void => {
     setIsModalOpen(false);
+  };
+
+  const createBook = (): void => {
+    const valid = true;
+    if (valid) {
+      setIsModalOpen(false);
+    } else {
+      alert('Please fill all the fields');
+    }
   };
 
   const openItemPage = (id: number): void => {
@@ -113,17 +122,23 @@ const BooksPage: FC = (): ReactElement => {
                 </div>
               ))}
             </div>
+            <button
+              type="button"
+              className="create_book_button"
+              onClick={openModal}
+            >
+              Create Book
+            </button>
           </div>
           <div>
-            <button type="button" onClick={openModal}>
-              Open Modal
-            </button>
             <Modal
               isOpen={isModalOpen}
-              onClose={closeModal}
-              title="Example Modal"
-              content={<p>This is the content of the modal.</p>}
-            />
+              onCancel={closeModal}
+              onSubmit={createBook}
+              title="Create a Book"
+            >
+              <p>Modal Content</p>
+            </Modal>
           </div>
         </section>
       </section>
