@@ -58,21 +58,23 @@ const BooksPage: FC = (): ReactElement => {
             </div>
           </section>
           <div className="books_container shadow-md">
-            {/* Step 2: Add a search bar */}
-            <div className="search_container">
-              <input
-                type="text"
-                placeholder="Search by title"
-                value={searchInput}
-                onChange={(e): void => setSearchInput(e.target.value)}
-              />
-            </div>
-            <div className="filter_container">
-              <div className="filter_title">Filter by :</div>
-              <div className="filter_item active">Title</div>
-              <div className="filter_item">Author</div>
-              <div className="filter_item">Category</div>
-              <div className="filter_item">Rating</div>
+            <div className="books_option_container">
+              <div className="search_container">
+                <i className="fa-solid fa-search" />
+                <input
+                  type="text"
+                  placeholder="Search by title"
+                  value={searchInput}
+                  onChange={(e): void => setSearchInput(e.target.value)}
+                />
+              </div>
+              <div className="filter_container">
+                <div className="filter_title">Filter by :</div>
+                <div className="filter_item active">Title</div>
+                <div className="filter_item">Author</div>
+                <div className="filter_item">Category</div>
+                <div className="filter_item">Rating</div>
+              </div>
             </div>
             <div className="books_list">
               {fBooks.map((book) => (
