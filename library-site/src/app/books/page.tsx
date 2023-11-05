@@ -33,7 +33,9 @@ const BooksPage: FC = (): ReactElement => {
 
   useEffect(() => load(), [load]);
 
-  const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),);
+  const fBooks = books.filter((b) =>
+    b.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
   return (
     <>
       <section className="layout_book">
@@ -49,7 +51,7 @@ const BooksPage: FC = (): ReactElement => {
               </div>
               <div className="image_ bg-book_fly bg-contain bg-right bg-no-repeat" />
             </div>
-            <div className="number_container books_number_container shadow-md">
+            <div className="number_container book_number_container shadow-md">
               <h1>You currently have</h1>
               <h2>{books.length}</h2>
               <p>books</p>
@@ -73,7 +75,7 @@ const BooksPage: FC = (): ReactElement => {
               <div className="filter_item">Rating</div>
             </div>
             <div className="books_list">
-              {filteredBooks.map((book) => (
+              {fBooks.map((book) => (
                 <div
                   className="book_item"
                   id={book.id}
