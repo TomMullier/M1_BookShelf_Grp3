@@ -5,11 +5,73 @@ import { useBooksProviders } from '@/hooks';
 import Modal from '../../components/modal';
 import 'flowbite';
 
+import { ListItem } from '../../components/ListItem/ListItem';
+import { PlainBookModel } from '@/models';
+
 // type bookfilter = {
 //  search: string;
 //  setSearch: (input: string) => void;
 // };
-const BooksPage: FC = (): ReactElement => {
+
+type BooksProps = {
+  book: PlainBookModel;
+  load: () => void;
+};
+
+const openItemPage = (id: number): void => {
+  window.location.href = `/books/${id}`;
+};
+
+function handleKeyPress(id: number): void {
+  openItemPage(id);
+}
+
+const BooksList: FC<BooksProps> = ({ book }) => (
+  <ListItem>
+    <div
+      className="book_item"
+      id={book.id}
+      onClick={(): void => {
+        handleKeyPress(parseInt(book.id, 10));
+      }}
+      onKeyDown={(): void => {
+        handleKeyPress(parseInt(book.id, 10));
+      }}
+      role="button"
+      tabIndex={0}
+    >
+      <div className="book_image bg-book_cover bg-cover bg-center bg-no-repeat" />
+
+      <div className="book_info">
+        <div className="book_title">{book.name}</div>
+        <div className="book_author">
+          {`${book.author.firstName}${book.author.lastName}`}
+        </div>
+        <div className="book_category flex">
+          {book.genres.map((genre: string | null | undefined) => (
+            <p className="pr-1">{genre}</p>
+          ))}
+        </div>
+      </div>
+    </div>
+  </ListItem>
+);
+
+type BooksFilterProps = {
+  search: string;
+  setSearch: (input: string) => void;
+};
+const BooksFilter: FC<BooksFilterProps> = ({ search, setSearch }) => (
+  <input
+    type="text"
+    value={search}
+    onChange={(e): void => {
+      setSearch(e.target.value);
+    }}
+  />
+);
+
+export function Page(): ReactElement {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
   const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
@@ -52,23 +114,19 @@ const BooksPage: FC = (): ReactElement => {
         author: (document.getElementById('author') as HTMLInputElement).value,
         genres: genreChecked,
       };
+      // eslint-disable-next-line no-alert
       alert('Book created');
+      // eslint-disable-next-line no-console
       console.log(book);
       setIsModalOpen(false);
     } else {
+      // eslint-disable-next-line no-alert
       alert('Please fill all the fields');
     }
   };
 
-  const openItemPage = (id: number): void => {
-    window.location.href = `/books/${id}`;
-  };
-
-  function handleKeyPress(id: number): void {
-    openItemPage(id);
-  }
-
-  useEffect(() => load(), []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => load(), []); // if [load] reload element infinite loop
 
   const authors = [
     {
@@ -141,12 +199,13 @@ const BooksPage: FC = (): ReactElement => {
             <div className="books_option_container">
               <div className="search_container">
                 <i className="fa-solid fa-search" />
-                <input
+                {/*<input
                   type="text"
                   placeholder="Search by title"
                   value={searchInput}
                   onChange={(e): void => setSearchInput(e.target.value)}
-                />
+                />*/}
+                <BooksFilter search={searchInput} setSearch={setSearchInput} />
               </div>
               <div className="filter_container">
                 <div className="filter_title">Filter by :</div>
@@ -157,40 +216,8 @@ const BooksPage: FC = (): ReactElement => {
               </div>
             </div>
             <div className="books_list">
-              {fBooks.map((book) => (
-                <div
-                  className="book_item"
-                  id={book.id}
-                  onClick={(): void => {
-                    handleKeyPress(parseInt(book.id, 10));
-                  }}
-                  onKeyDown={(): void => {
-                    handleKeyPress(parseInt(book.id, 10));
-                  }}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <div className="book_image bg-book_cover bg-cover bg-center bg-no-repeat" />
-
-                  <div className="book_info">
-                    <div className="book_title">{book.name}</div>
-                    <div className="book_author">
-                      {`${book.author.firstName}${book.author.lastName}`}
-                    </div>
-                    <div className="book_category flex">
-                      {book.genres.map((genre) => (
-                        <p className="pr-1">{genre}</p>
-                      ))}
-                    </div>
-                    <div className="book_rating">
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                    </div>
-                  </div>
-                </div>
+              {books.map((book) => (
+                <BooksList key={book.id} book={book} load={load} />
               ))}
             </div>
             <button
@@ -247,6 +274,6 @@ const BooksPage: FC = (): ReactElement => {
       {/* BOOKS */}
     </>
   );
-};
+}
 
-export default BooksPage;
+export default Page;
