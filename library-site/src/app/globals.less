@@ -112,6 +112,7 @@ body {
     justify-content: space-between;
     background-color:white;
     padding:20px 40px 20px 20px;
+    height:100px;
 
     input {
       width: 25%;
@@ -316,8 +317,8 @@ body {
   .home_books_elements{
     display:flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
     overflow: auto;
     width:100%;
     padding:0 40px;
@@ -328,14 +329,40 @@ body {
         cursor: pointer;
       }
       transition: all 0.2s ease-in-out;
-      width: 220px;
-      height: 300px;
+      width: 200px;
+      // height: 300px;
       margin: 20px;
       display:flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items:center;
+      justify-content: flex-start;
       border-radius: 10px;
+      .bg-cover {
+        width: 200px;
+        height: 283px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+      }
+      .book_item_title{
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: @blue;
+        font-family: @text;
+        margin-top: 10px;
+        text-align: center;
+      }
+      .book_item_author{
+        font-size: 0.8rem;
+        color: @black;
+        font-family: @text;
+        margin-top: 5px;
+        text-align: center;
+        &::before {
+          content: "- By ";
+        }
+      }
+
 
     }
   }

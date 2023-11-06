@@ -21,10 +21,10 @@ export default function RootLayout({
       <script src="https://kit.fontawesome.com/b89837f3ad.js" /> {/*eslint-disable-line*/}
       <body className={inter.className}>
         <div className="left_side">
-          <div className="website_title">
+          <a href="/" className="website_title">
             <i className="fas fa-book" />
             <h1>Library</h1>
-          </div>
+          </a>
           <div className="menu">
             <div className="menu_item">
               <i className="fas fa-home" />
@@ -45,20 +45,7 @@ export default function RootLayout({
           </div>
         </div>
         <div className="right_side">
-          <div className="top_bar">
-            <input
-              type="text"
-              name="search"
-              id="search_book"
-              placeholder="Search"
-            />
-            <div className="right_pp">
-              <div className="pp bg-people bg-cover bg-center" />
-              <div className="pp_name">
-                <h3>Xavier Dupont</h3>
-              </div>
-            </div>
-          </div>
+          <div className="top_bar" />
           <div className="content">{children}</div>
         </div>
       </body>
