@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Author } from 'library-api/src/entities';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Author, AuthorId } from 'library-api/src/entities';
 import { DataSource, Repository } from 'typeorm';
 import { AuthorRepositoryOutput } from './author.repository.type';
 
@@ -19,5 +19,23 @@ export class AuthorRepository extends Repository<Author> {
       relations: { books: true },
     });
     return authors;
+  }
+
+  /**
+   * Get a author by its ID
+   * @param id Author's ID
+   * @returns Author if found
+   * @throws 404: author with this ID was not found
+   */
+  public async getById(id: AuthorId): Promise<AuthorRepositoryOutput> {
+    const author = await this.findOne({
+      where: { id },
+      relations: { books: true },
+    });
+
+    if (!author) {
+      throw new NotFoundException(`Author - '${id}'`);
+    }
+    return author;
   }
 }
