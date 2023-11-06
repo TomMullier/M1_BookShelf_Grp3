@@ -14,7 +14,7 @@ const AuthorsPage: FC = () => {
   function handleKeyPress(id: number): void {
     openItemPage(id);
   }
-  useEffect(() => load(), [load]);
+  useEffect(() => load(), []);
 
   const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),);
 
@@ -31,15 +31,49 @@ const AuthorsPage: FC = () => {
               onChange={(e): void => setSearchInput(e.target.value)}
             />
           </div>
-          <div className="filter_container">
-            <div className="filter_title">Filter by :</div>
-            <div className="filter_item active">Books</div>
-            <div className="filter_item">Author</div>
-            <div className="filter_item">Category</div>
-            <div className="filter_item">Rating</div>
-          </div>
           <div className="books_list">
-            <p>all author</p>
+            <div
+              className="author border rounded-lg border-blue_1 mr-10"
+              onClick={(): void => {
+                handleKeyPress(0);
+              }}
+              onKeyDown={(): void => {
+                handleKeyPress(0);
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              <div className="image_ bg-people bg-contain bg-right bg-no-repeat w-64 h-64 flex" />
+              <div className="author_name flex flex-row justify-center">
+                <h1>Author name </h1>
+                <h1>Author name</h1>
+              </div>
+              <div className="author_books_number flex flex-row justify-center">
+                <h1>4 </h1>
+                <h1>books</h1>
+              </div>
+            </div>
+            <div
+              className="author border rounded-lg border-blue_1 mr-10"
+              onClick={(): void => {
+                handleKeyPress(1);
+              }}
+              onKeyDown={(): void => {
+                handleKeyPress(1);
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              <div className="image_ bg-people bg-contain bg-right bg-no-repeat w-64 h-64 flex" />
+              <div className="author_name flex flex-row justify-center">
+                <h1>Author name </h1>
+                <h1>Author name</h1>
+              </div>
+              <div className="author_books_number flex flex-row justify-center">
+                <h1>4 </h1>
+                <h1>books</h1>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -80,7 +80,7 @@ const BooksPage: FC = (): ReactElement => {
                   onClick={(): void => {
                     handleKeyPress(parseInt(book.id, 10));
                   }}
-                  onKeyPress={(): void => {
+                  onKeyDown={(): void => {
                     handleKeyPress(parseInt(book.id, 10));
                   }}
                   role="button"

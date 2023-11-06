@@ -9,7 +9,7 @@ const BooksDetailsPage: FC = () => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
   const { id } = useParams();
-  useEffect(() => load(), [load]);
+  useEffect(() => load(), []);
   console.log(id[0]); // use with id
   return (
     <section className="layout_book">
