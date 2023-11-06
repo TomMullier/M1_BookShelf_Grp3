@@ -83,4 +83,14 @@ export class AuthorRepository extends Repository<Author> {
 
     return this.getById(id);
   }
+
+  /**
+   * Delete an author by its ID
+   * @param id Author's ID
+   * @throws 404: Author with this ID was not found
+   */
+  public async deleteById(id: AuthorId): Promise<void> {
+    const author = await this.getById(id);
+    await this.delete(author.id);
+  }
 }

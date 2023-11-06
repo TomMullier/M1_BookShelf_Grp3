@@ -39,4 +39,14 @@ export class AuthorUseCases {
   ): Promise<PlainAuthorUseCasesOutput> {
     return this.authorRepository.createAuthor(input);
   }
+
+  /**
+   * Delete an author by its ID
+   * @param id Author's ID
+   * @throws 404: Author with this ID was not found
+   */
+  public async deleteById(id: AuthorId): Promise<void> {
+    const book = await this.authorRepository.getById(id);
+    await this.authorRepository.deleteById(book.id);
+  }
 }
