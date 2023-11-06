@@ -600,3 +600,92 @@ body {
   color: #406bde;
   background-color: white;
 }
+/* ---------------------------- MODAL CREATE BOOK --------------------------- */
+.create_book_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+}
+.create_book_form label {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+}
+.create_book_form input[type="text"] {
+  width: 100%;
+  margin-left: 20px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #406bde;
+  background-color: #f5f5f5;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: #17202A;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+}
+.create_book_form input[type="text"]:focus {
+  border: 2px solid #406bde;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+.create_book_form select {
+  width: 100%;
+  margin-left: 20px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #406bde;
+  background-color: #f5f5f5;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: #17202A;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+}
+.create_book_form .title_group,
+.create_book_form .author_group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.create_book_form .genres_group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.create_book_form .genres_group .genresList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-left: 20px;
+  border: 2px solid #406bde;
+  border-radius: 10px;
+  padding: 10px;
+}
+.create_book_form .genres_group .genresList .genre_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  padding: 5px 0px;
+}
+.create_book_form .genres_group .genresList .genre_item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}

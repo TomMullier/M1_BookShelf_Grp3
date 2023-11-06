@@ -10,6 +10,24 @@ type ModalProps = {
   children: ReactElement;
 };
 
+const simulateKeyPress = (touch: string): void => {
+  const event = new KeyboardEvent('keydown', {
+    key: touch,
+  });
+  document.dispatchEvent(event);
+};
+
+const closeBackground = (
+  e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+): void => {
+  if (e.target === e.currentTarget) {
+    const backgroundModal = document.getElementById('backgroundModal');
+    if (backgroundModal) {
+      simulateKeyPress('Escape');
+    }
+  }
+};
+
 const Modal: FC<ModalProps> = ({
   isOpen,
   children,
@@ -21,7 +39,11 @@ const Modal: FC<ModalProps> = ({
     return null; // Render nothing if the modal is closed
   }
   return (
-    <div className={styles.modalOverlay}>
+    <div
+      id="backgroundModal"
+      className={styles.modalOverlay}
+      onClick={closeBackground}
+    >
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
           <button
