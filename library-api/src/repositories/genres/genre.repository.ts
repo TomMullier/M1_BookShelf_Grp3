@@ -66,13 +66,13 @@ export class GenreRepository extends Repository<Genre> {
     }
 
     const id = await this.dataSource.transaction(async (manager) => {
-      const book = await manager.save<Genre>(
+      const genre = await manager.save<Genre>(
         manager.create<Genre>(Genre, {
           ...input,
           id: v4(),
         }),
       );
-      return book.id;
+      return genre.id;
     });
 
     return this.getById(id);

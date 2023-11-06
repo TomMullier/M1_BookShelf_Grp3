@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { AuthorRepository } from 'library-api/src/repositories';
 import { AuthorId } from 'library-api/src/entities';
-import { PlainAuthorUseCasesOutput } from './author.useCases.type';
+import {
+  CreateAuthorUseCasesInput,
+  PlainAuthorUseCasesOutput,
+} from './author.useCases.type';
 
 @Injectable()
 export class AuthorUseCases {
@@ -23,5 +26,17 @@ export class AuthorUseCases {
    */
   public async getById(id: AuthorId): Promise<PlainAuthorUseCasesOutput> {
     return this.authorRepository.getById(id);
+  }
+
+  /**
+   * Create an author
+   * @param input Data for the author to be created
+   * @returns Created author
+   * @throws 409: Author with this name already exists
+   */
+  public async createAuthor(
+    input: CreateAuthorUseCasesInput,
+  ): Promise<PlainAuthorUseCasesOutput> {
+    return this.authorRepository.createAuthor(input);
   }
 }

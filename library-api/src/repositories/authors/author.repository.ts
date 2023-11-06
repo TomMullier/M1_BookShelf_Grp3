@@ -1,7 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Author, AuthorId } from 'library-api/src/entities';
 import { DataSource, Repository } from 'typeorm';
-import { AuthorRepositoryOutput } from './author.repository.type';
+import { v4 } from 'uuid';
+import {
+  AuthorRepositoryOutput,
+  CreateAuthorRepositoryInput,
+} from './author.repository.type';
 
 @Injectable()
 export class AuthorRepository extends Repository<Author> {
@@ -37,5 +45,42 @@ export class AuthorRepository extends Repository<Author> {
       throw new NotFoundException(`Author - '${id}'`);
     }
     return author;
+  }
+
+  /**
+   * Create an author
+   * @param input Data for the author to be created
+   * @returns Created author
+   * @throws 409: Author with this name already exists
+   */
+  public async createAuthor(
+    input: CreateAuthorRepositoryInput,
+  ): Promise<AuthorRepositoryOutput> {
+    const existingAuthor = await this.findOne({
+      where: {
+        lastName: input.lastName,
+        firstName: input.firstName,
+      },
+    });
+
+    // Vérification que le genre n'existe pas déjà
+    if (existingAuthor) {
+      throw new ConflictException(
+        `Author - '${input.lastName}' '${input.firstName}' already exists`,
+      );
+    }
+    const photoUrl = `${input.lastName}-${input.firstName}`;
+    const id = await this.dataSource.transaction(async (manager) => {
+      const author = await manager.save<Author>(
+        manager.create<Author>(Author, {
+          ...input,
+          id: v4(),
+          photoUrl,
+        }),
+      );
+      return author.id;
+    });
+
+    return this.getById(id);
   }
 }
