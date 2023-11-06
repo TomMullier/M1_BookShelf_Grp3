@@ -1,5 +1,9 @@
 export type PlainBookModel = {
-  author: any;
+  author: {
+    id: string;
+    firstName: string;
+    lastName: string;
+  };
   id: string;
   name: string;
 };

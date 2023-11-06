@@ -31,7 +31,7 @@ const BooksPage: FC = (): ReactElement => {
     openItemPage(id);
   }
 
-  useEffect(() => load(), [load]);
+  useEffect(() => load(), []);
 
   const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),);
   return (
