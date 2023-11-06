@@ -115,7 +115,9 @@ const BooksPage: FC = (): ReactElement => {
     },
   ];
 
-  const fBooks = books.filter((b) => b.name.toLowerCase().includes(searchInput.toLowerCase()),);
+  const fBooks = books.filter((b) =>
+    b.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
   return (
     <>
       <section className="layout_book">
@@ -123,7 +125,7 @@ const BooksPage: FC = (): ReactElement => {
           <section className="top_container">
             <div className="books_top_section top_section shadow-md">
               <div className="text">
-                <h1 className="welcome">Hello Xavier!</h1>
+                <h1 className="welcome">Hello !</h1>
                 <p>Selection of the best books, just for you</p>
                 <a href="/" className="latest">
                   Show latest
@@ -132,9 +134,13 @@ const BooksPage: FC = (): ReactElement => {
               <div className="image_ bg-book_fly bg-contain bg-right bg-no-repeat" />
             </div>
             <div className="number_container book_number_container shadow-md">
-              <h1>You currently have</h1>
+              <h1>
+                There
+                {books.length > 1 ? ' are ' : ' is '}
+                currently
+              </h1>
               <h2>{books.length}</h2>
-              <p>books</p>
+              <p>{books.length > 1 ? 'books' : 'book'}</p>
             </div>
           </section>
           <div className="books_container shadow-md">
@@ -174,21 +180,24 @@ const BooksPage: FC = (): ReactElement => {
 
                   <div className="book_info">
                     <div className="book_title">{book.name}</div>
-                    <div className="book_author">
+                    <a
+                      href={`/authors/${book.author.id}`}
+                      className="book_author"
+                    >
                       {`${book.author.firstName}${book.author.lastName}`}
-                    </div>
+                    </a>
                     <div className="book_category flex">
                       {book.genres.map((genre) => (
                         <p className="pr-1">{genre}</p>
                       ))}
                     </div>
-                    <div className="book_rating">
+                    {/* <div className="book_rating">
                       <i className="fa-solid fa-star" />
                       <i className="fa-solid fa-star" />
                       <i className="fa-solid fa-star" />
                       <i className="fa-solid fa-star" />
                       <i className="fa-solid fa-star" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}
@@ -223,7 +232,7 @@ const BooksPage: FC = (): ReactElement => {
                   <select name="create_book_author" id="author">
                     {authors.map((author) => (
                       <option value={author.id}>
-                        {author.firstName + ' ' + author.lastName}
+                        {`${author.firstName} ${author.lastName}`}
                       </option>
                     ))}
                   </select>
