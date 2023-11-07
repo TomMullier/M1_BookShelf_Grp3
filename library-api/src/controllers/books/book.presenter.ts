@@ -2,16 +2,41 @@ import { PlainAuthorPresenter } from 'library-api/src/controllers/authors/author
 import { GenrePresenter } from 'library-api/src/controllers/genres/genre.presenter';
 import { BookId } from 'library-api/src/entities';
 import { BookModel, PlainBookModel } from 'library-api/src/models';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class PlainBookPresenter {
+  @ApiProperty({
+    description: 'Book ID',
+    example: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
+  })
   id: BookId;
 
+  @ApiProperty({
+    description: 'Book name',
+    example: 'The Lord of the Rings',
+  })
   name: string;
 
+  @ApiProperty({
+    description: 'Book written on',
+    example: '1954-07-29T00:00:00.000Z',
+  })
   writtenOn: Date;
 
+  @ApiProperty({
+    description: 'Book author',
+    example: {
+      id: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
+      firstName: 'J.R.R.',
+      lastName: 'Tolkien',
+    },
+  })
   author: PlainAuthorPresenter;
 
+  @ApiProperty({
+    description: 'Book genres',
+    example: ['Fantasy', 'Adventure'],
+  })
   genres: string[];
 
   private constructor(data: PlainBookPresenter) {
@@ -30,14 +55,47 @@ export class PlainBookPresenter {
 }
 
 export class BookPresenter {
+  @ApiProperty({
+    description: 'Book ID',
+    example: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
+  })
   id: string;
 
+  @ApiProperty({
+    description: 'Book name',
+    example: 'The Lord of the Rings',
+  })
   name: string;
 
+  @ApiProperty({
+    description: 'Book author',
+    example: {
+      id: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
+      firstName: 'J.R.R.',
+      lastName: 'Tolkien',
+    },
+  })
   author: PlainAuthorPresenter;
 
+  @ApiProperty({
+    description: 'Book written on',
+    example: '1954-07-29T00:00:00.000Z',
+  })
   writtenOn: Date;
 
+  @ApiProperty({
+    description: 'Book genres',
+    example: [
+      {
+        id: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
+        name: 'Fantasy',
+      },
+      {
+        id: 'b9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
+        name: 'Adventure',
+      },
+    ],
+  })
   genres: GenrePresenter[];
 
   private constructor(data: BookPresenter) {
