@@ -10,20 +10,20 @@ export class AuthorController {
 
   @Get('/')
   public async getAll(): Promise<PlainAuthorPresenter[]> {
-    const genres = await this.authorUseCases.getAll();
-    return genres.map(PlainAuthorPresenter.from);
+    const author = await this.authorUseCases.getAll();
+    return author.map(PlainAuthorPresenter.from);
   }
 
   @Get('/:id')
   public async getById(
     @Param('id') id: AuthorId,
   ): Promise<PlainAuthorPresenter> {
-    const genre = await this.authorUseCases.getById(id);
-    return PlainAuthorPresenter.from(genre);
+    const author = await this.authorUseCases.getById(id);
+    return PlainAuthorPresenter.from(author);
   }
 
   @Post('/')
-  public async createBook(
+  public async createAuthor(
     @Body() input: CreateAuthorDto,
   ): Promise<PlainAuthorPresenter> {
     const author = await this.authorUseCases.createAuthor(input);
