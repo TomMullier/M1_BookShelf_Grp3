@@ -1053,3 +1053,243 @@ body {
   width: 100%;
   margin-bottom: 20px;
 }
+/* -------------------------------------------------------------------------- */
+/*                                   AUTHOR                                   */
+/* -------------------------------------------------------------------------- */
+.layout_author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  width: calc(100% - 40px);
+  padding: 20px;
+}
+.layout_author .search_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
+  margin-bottom: 20px;
+}
+.layout_author .search_container div:first-child {
+  width: 50%;
+}
+.layout_author .search_container i {
+  color: #406bde;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+.layout_author .search_container input {
+  width: 90%;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  padding: 0 20px;
+  font-size: 1rem;
+  color: #17202A;
+  background-color: #f5f5f5;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+}
+.layout_author .search_container input:focus {
+  border: 1px solid #406bde;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+.layout_author .search_container .add_author_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #406bde;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.layout_author .search_container .add_author_container:hover {
+  border: 1px solid #406bde;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+.layout_author .search_container .add_author_container i {
+  margin-right: 10px;
+  color: white;
+}
+.layout_author .author_list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.layout_author .author_list .author_card {
+  border: 2px solid #406bde;
+  background-color: #f5f5f5;
+  transition: all 0.2s ease-in-out;
+  width: 250px;
+  min-width: 33%;
+  padding: 25px 0;
+  height: auto;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 15px;
+}
+.layout_author .author_list .author_card .author_image {
+  width: 200px;
+  height: 250px;
+  background-color: red;
+  border-radius: 10px;
+}
+.layout_author .author_list .author_card .author_name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #406bde;
+  font-family: 'Noto Sans';
+  margin-top: 10px;
+  text-align: center;
+}
+.layout_author .author_list .author_card .number_written {
+  font-size: 0.8rem;
+  color: #17202A;
+  font-family: 'Noto Sans';
+  margin-top: 5px;
+  text-align: center;
+}
+.layout_author .author_list .author_card .number_written::before {
+  content: "Written ";
+}
+.layout_author .author_list .author_card .number_written::after {
+  content: " books";
+}
+.layout_author .author_list .author_card .author_button {
+  background-color: #406bde;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  cursor: pointer;
+  width: fit-content;
+  margin-top: 20px;
+  transition: all 0.2s ease-in-out;
+}
+.layout_author .author_list .author_card .author_button:hover {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+  color: #406bde;
+  background-color: white;
+}
+/* ------------------------------- ADD AUTHOR ------------------------------- */
+.create_author_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+}
+.create_author_form label {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+}
+.create_author_form input[type="text"] {
+  width: 100%;
+  margin-left: 20px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #406bde;
+  background-color: #f5f5f5;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: #17202A;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+}
+.create_author_form input[type="text"]:focus {
+  border: 2px solid #406bde;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+.create_author_form .inputfile {
+  width: 100%;
+  margin-left: 20px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #406bde;
+  background-color: #f5f5f5;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: #17202A;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+}
+.create_author_form .inputfile:focus {
+  border: 2px solid #406bde;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+.create_author_form .title_group,
+.create_author_form .author_group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.create_author_form .genres_group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.create_author_form .genres_group .genresList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-left: 20px;
+  border: 2px solid #406bde;
+  border-radius: 10px;
+  padding: 10px;
+}
+.create_author_form .genres_group .genresList .genre_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  padding: 5px 0px;
+}
+.create_author_form .genres_group .genresList .genre_item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
