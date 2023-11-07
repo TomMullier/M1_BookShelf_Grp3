@@ -13,13 +13,31 @@ import {
 } from 'library-api/src/controllers/books/book.presenter';
 import { BookId } from 'library-api/src/entities';
 import { BookUseCases } from 'library-api/src/useCases';
+import {
+  ApiConflictResponse,
+  ApiHeader,
+  ApiNotFoundResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateBookDto, UpdateBookDto } from './books.dto';
 
+@ApiTags('books')
+@ApiHeader({
+  name: 'Content-Type',
+  description: 'application/json',
+})
 @Controller('books')
 export class BookController {
   constructor(private readonly bookUseCases: BookUseCases) {}
 
   @Get('/')
+  @ApiResponse({
+    status: 200,
+    description: 'Get all books',
+    type: PlainBookPresenter,
+    isArray: true,
+  })
   public async getAll(): Promise<PlainBookPresenter[]> {
     const books = await this.bookUseCases.getAllPlain();
 
@@ -27,12 +45,31 @@ export class BookController {
   }
 
   @Get('/:id')
+  @ApiResponse({
+    status: 200,
+    description: 'Get a book by its ID',
+    type: BookPresenter,
+  })
+  @ApiNotFoundResponse({
+    description: 'Book not found',
+  })
   public async getById(@Param('id') id: BookId): Promise<BookPresenter> {
     const book = await this.bookUseCases.getById(id);
     return BookPresenter.from(book);
   }
 
   @Post('/')
+  @ApiResponse({
+    status: 201,
+    description: 'Create a book',
+    type: PlainBookPresenter,
+  })
+  @ApiNotFoundResponse({
+    description: 'Book not found',
+  })
+  @ApiConflictResponse({
+    description: 'Book already exists',
+  })
   public async createBook(
     @Body() input: CreateBookDto,
   ): Promise<PlainBookPresenter> {
@@ -42,6 +79,14 @@ export class BookController {
   }
 
   @Patch('/:id')
+  @ApiResponse({
+    status: 200,
+    description: 'Update a book by its ID',
+    type: PlainBookPresenter,
+  })
+  @ApiNotFoundResponse({
+    description: 'Book not found',
+  })
   public async updateById(
     @Param('id') id: BookId,
     @Body() input: UpdateBookDto,
@@ -52,6 +97,13 @@ export class BookController {
   }
 
   @Delete('/:id')
+  @ApiResponse({
+    status: 204,
+    description: 'Delete a book by its ID',
+  })
+  @ApiNotFoundResponse({
+    description: 'Book not found',
+  })
   public async deleteById(@Param('id') id: BookId): Promise<void> {
     await this.bookUseCases.deleteById(id);
   }
