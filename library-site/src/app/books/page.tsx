@@ -115,9 +115,7 @@ const BooksPage: FC = (): ReactElement => {
     },
   ];
 
-  const fBooks = books.filter((b) =>
-    b.name.toLowerCase().includes(searchInput.toLowerCase()),
-  );
+  const fBooks = books.filter((b) => b.name.toLowerCase().includes(searchInput.toLowerCase()),);
   return (
     <>
       <section className="layout_book">

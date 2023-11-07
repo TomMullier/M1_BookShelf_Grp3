@@ -15,6 +15,7 @@ import { useParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
 import Comment from '../../../components/comment/comment';
+import Modal from '../../../components/modal/modal';
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -37,6 +38,33 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+const checkCommentPost = (): void => {
+  let valid = true;
+  const checkForm = document.querySelectorAll('.create_post_form textarea');
+  checkForm.forEach((input) => {
+    const h = input as HTMLInputElement;
+    if (h.value === '') {
+      valid = false;
+    }
+  });
+  const author = document.getElementById('post_author') as HTMLInputElement;
+  if (author.value === '0') {
+    valid = false;
+  }
+  if (valid) {
+    const comment = {
+      comment: (document.getElementById('post_comment') as HTMLInputElement)
+        .value,
+      date: new Date().toLocaleDateString(),
+      author: author.value,
+    };
+    alert('Comment posted');
+    console.log(comment);
+  } else {
+    alert('Please fill all the fields');
+  }
+};
+
 const BooksDetailsPage: FC = () => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
@@ -50,6 +78,21 @@ const BooksDetailsPage: FC = () => {
   };
   const handleDrawerClose = (): void => {
     setOpen(false);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = (): void => {
+    setIsModalOpen(false);
+  };
+  const openModal = (): void => {
+    setIsModalOpen(true);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+        document.removeEventListener('keydown', () => {});
+      }
+    });
   };
 
   return (
@@ -114,8 +157,21 @@ const BooksDetailsPage: FC = () => {
                 <KeyboardArrowDownIcon />
               </IconButton>
 
-              <Typography variant="h6" noWrap component="div">
-                Comments on book
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                className="drawer_header_title"
+              >
+                <p>Comments</p>
+                {/* Add button */}
+                <div
+                  onClick={openModal}
+                  className="book_comments_button"
+                  title="Post a comment"
+                >
+                  <i className="fas fa-plus" />
+                </div>
               </Typography>
             </Toolbar>
           </AppBar>
@@ -166,6 +222,34 @@ const BooksDetailsPage: FC = () => {
           </div>
         </div>
       </section>
+      <Modal
+        isOpen={isModalOpen}
+        onCancel={closeModal}
+        onSubmit={checkCommentPost}
+        title="Post a comment"
+      >
+        <form className="create_post_form" action="">
+          <div className="title_group">
+            <label htmlFor="post_comment">Comment</label>
+            <textarea
+              name="post_comment"
+              id="post_comment"
+              placeholder="Write your comment..."
+            />
+            {/* Selkect author */}
+            <div className="select_author_container">
+              <label htmlFor="post_author">Author</label>
+              <select name="post_author" id="post_author">
+                <option value="0">Select author</option>
+                <option value="1">Author</option>
+                <option value="2">Author</option>
+                <option value="3">Author</option>
+              </select>
+            </div>
+
+          </div>
+        </form>
+      </Modal>
     </section>
   );
 };

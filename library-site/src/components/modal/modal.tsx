@@ -44,7 +44,7 @@ const Modal: FC<ModalProps> = ({
       className={styles.modalOverlay}
       onClick={closeBackground}
     >
-      <div className={styles.modal}>
+      <span className={styles.modal} role="dialog">
         <div className={styles.modalHeader}>
           <button
             type="button"
@@ -78,7 +78,7 @@ const Modal: FC<ModalProps> = ({
             Cancel
           </button>
         </div>
-      </div>
+      </span>
     </div>
   );
 };

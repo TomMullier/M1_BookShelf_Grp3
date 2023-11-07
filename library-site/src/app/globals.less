@@ -1001,3 +1001,107 @@ body {
     }
   }
 }
+
+.drawer_header_title{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding:5px;
+  .book_comments_button{
+    background-color: @blue;
+    color:white;
+    padding: 10px;
+    width: 40px ;
+    height: 40px;
+    text-align: center;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: @text;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid white;
+    &:hover{
+      color: @blue;
+      background-color: white;
+      border: 2px solid @blue;
+    }
+  }
+}
+
+/* --------------------------- POST COMMENT MODAL --------------------------- */
+.create_post_form{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width:100%;
+  height: auto;
+  label{
+    font-size: 1rem;
+    color: @gray;
+    font-family: @text;
+    font-weight: bold;
+  }
+  textarea{
+    width: 100%;
+    height: 100px;
+    resize: none;
+    border:2px solid transparent;
+    border: 2px solid @blue;
+    background-color: @gray_bg;
+    padding: 20px;
+    font-size: .8rem;
+    color: @black;
+    outline:none;
+    font-family: @text;
+    transition: all 0.2s ease-in-out;
+    border-radius: 15px;
+    margin-top:10px;
+    &:focus {
+      border: 2px solid @blue;
+      transition: all 0.2s ease-in-out;
+      background-color: white;
+    }
+  }
+  .select_author_container{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    margin-top: 20px;
+    label {
+      margin-right: 10px;     
+    }
+    select{
+      width: 100%;
+      margin-left: 20px;
+      height: 40px;
+      border:2px solid transparent;
+      border-bottom: 2px solid @blue;
+      background-color: @gray_bg;
+      padding: 0 20px;
+      font-size: .8rem;
+      color: @black;
+      outline:none;
+      font-family: @text;
+      transition: all 0.2s ease-in-out;
+    }
+  
+  }
+  .title_group{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width:100%;
+    margin-bottom: 20px;
+  }
+}

@@ -952,3 +952,104 @@ body {
   display: flex;
   flex-direction: column!important;
 }
+.drawer_header_title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+.drawer_header_title .book_comments_button {
+  background-color: #406bde;
+  color: white;
+  padding: 10px;
+  width: 40px ;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid white;
+}
+.drawer_header_title .book_comments_button:hover {
+  color: #406bde;
+  background-color: white;
+  border: 2px solid #406bde;
+}
+/* --------------------------- POST COMMENT MODAL --------------------------- */
+.create_post_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+}
+.create_post_form label {
+  font-size: 1rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+}
+.create_post_form textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border: 2px solid transparent;
+  border: 2px solid #406bde;
+  background-color: #f5f5f5;
+  padding: 20px;
+  font-size: 0.8rem;
+  color: #17202A;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+.create_post_form textarea:focus {
+  border: 2px solid #406bde;
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+}
+.create_post_form .select_author_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+.create_post_form .select_author_container label {
+  margin-right: 10px;
+}
+.create_post_form .select_author_container select {
+  width: 100%;
+  margin-left: 20px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #406bde;
+  background-color: #f5f5f5;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: #17202A;
+  outline: none;
+  font-family: 'Noto Sans';
+  transition: all 0.2s ease-in-out;
+}
+.create_post_form .title_group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+}

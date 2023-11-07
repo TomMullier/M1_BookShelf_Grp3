@@ -133,3 +133,20 @@
   border: 2px solid #406bde;
   color: #406bde;
 }
+.modal_enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.modal_enter_active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.modal_exit {
+  opacity: 1;
+}
+.modal_exit_active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
