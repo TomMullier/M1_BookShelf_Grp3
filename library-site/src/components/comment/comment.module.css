@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hAc5W1Q.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/josefinsans/v32/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXME.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v26/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX8.ttf) format('truetype');
+}
+.separator {
+  width: 70%;
+  height: 1px;
+  background-color: #f5f5f5;
+  margin: 20px auto;
+}
+.comment {
+  background-color: white;
+  padding: 0px 20px;
+  border: 2px solid transparent;
+  border-left: 2px solid #406bde;
+  font-family: 'Noto Sans';
+  margin-bottom: 20px;
+}
+.comment .commentAuthor {
+  font-family: 'Montserrat';
+  font-size: 1rem;
+  color: #17202A;
+  margin-bottom: 10px;
+}
+.comment .commentContent {
+  font-size: 0.9rem;
+  color: #17202A;
+  margin-bottom: 10px;
+}
+.comment .commentDate {
+  font-size: 0.8rem;
+  color: #878e94;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-align: right;
+}
+.comment .commentDate::before {
+  content: 'Posted on ';
+}

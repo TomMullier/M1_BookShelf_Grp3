@@ -2,7 +2,7 @@
 
 import { FC, ReactElement, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
-import Modal from '../../components/modal';
+import Modal from '../../components/modal/modal';
 import 'flowbite';
 
 // type bookfilter = {

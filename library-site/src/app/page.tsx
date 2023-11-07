@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect } from 'react';
 import { useBooksProviders } from '@/hooks';
 
 const getOpening = (): string => {

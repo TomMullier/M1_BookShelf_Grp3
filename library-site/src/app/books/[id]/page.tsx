@@ -1,45 +1,169 @@
 'use client';
 
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 import { useParams } from 'next/navigation';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
-import 'flowbite';
+import Comment from '../../../components/comment/comment';
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  width: '100%',
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: '100%',
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 const BooksDetailsPage: FC = () => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
   const { id } = useParams();
   useEffect(() => load(), []);
-  console.log(id[0]); // use with id
+
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const handleDrawerOpen = (): void => {
+    setOpen(true);
+  };
+  const handleDrawerClose = (): void => {
+    setOpen(false);
+  };
+
   return (
     <section className="layout_book">
-      <section className="left_side_book">
-        <section className="top_container">
-          <div className="book_top_section top_section shadow-md">
-            <div className="w-80 h-72 flex bg-book_cover bg-contain bg-right bg-no-repeat" />
-            <div className="flex flex-col ">
-              {books.length > 0 && books[id] && <h1 className="text-6xl">{books[id].name}</h1>}
-              {books.length > 0 && books[id] && <h1>{books[id].genres.map((genre)=><h1>{genre}</h1>)}</h1>}
+      <section className="left_book">
+        {/* Book owners */}
+        <div className="book_owners">
+          <div className="book_owners_title">Owners</div>
+          <div className="book_owners_list">
+            <div className="book_owners_item">
+              <div className="bg-people bg-cover bg-center bg-no-repeat" />
+              <p>Owner</p>
+            </div>
+            <div className="book_owners_item">
+              <div className="bg-people bg-cover bg-center bg-no-repeat" />
+              <p>Owner</p>
+            </div>
+            <div className="book_owners_item">
+              <div className="bg-people bg-cover bg-center bg-no-repeat" />
+              <p>Owner</p>
             </div>
           </div>
-          <div className="book_number_container number_container shadow-md">
-            <div className="image_ bg-people bg-contain bg-right bg-no-repeat w-64 h-64 flex" />
-            <div className="flex flex-row m-0">
-              {books.length > 0 && books[id] && (
-                <h1 className="pr-1">{books[id].author.firstName}</h1>
-              )}
-              {books.length > 0 && books[id] && (
-                <h1>{books[id].author.lastName}</h1>
-              )}
-            </div>
-          </div>
-        </section>
-        <div className="flex flex-row items-center justify-center flex-wrap bg-white_1 w-full rounded-md p-20 shadow-md mt-10">
-          <h1>Personnes posssédant le livre :</h1>
-          <div className="people_container"></div>
         </div>
-        <div className="flex flex-row items-center justify-center flex-wrap bg-white_1 w-full rounded-md mt-10 p-20 shadow-md">
-          <h1>Commentaires</h1>
+        {/* Book comments using drawers */}
+        <Box
+          sx={{
+            display: 'flex',
+            height: 'auto',
+            width: '100%',
+            backgroundColor: 'white',
+            marginTop: '20px',
+            borderRadius: '10px',
+          }}
+        >
+          <CssBaseline />
+          <AppBar position="relative" open={open} className="book_comments_bar">
+            <Toolbar
+              sx={{
+                ...(open && {
+                  backgroundColor: 'white',
+                  transition: 'background 0s',
+                  transitionDelay: '400ms',
+                }),
+              }}
+            >
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{ mr: 2, ...(open && { display: 'none' }) }}
+              >
+                <KeyboardArrowRightIcon />
+              </IconButton>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerClose}
+                edge="start"
+                sx={{ mr: 2, ...(!open && { display: 'none' }) }}
+              >
+                <KeyboardArrowDownIcon />
+              </IconButton>
+
+              <Typography variant="h6" noWrap component="div">
+                Comments on book
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="persistent"
+            anchor="top"
+            open={open}
+            className="book_comments_wrapper"
+            transitionDuration={{ enter: 500, exit: 1000 }}
+          >
+            <div className="comments">
+              <Comment
+                author={{
+                  id: '1',
+                  firstName: 'Author',
+                  lastName: 'Author',
+                }}
+                date="Date"
+              >
+                ieohfbvozeih
+              </Comment>
+            </div>
+          </Drawer>
+        </Box>
+      </section>
+      <section className="right_book">
+        {/* Books infos */}
+        <div className="book_infos">
+          <div className="book_image bg-book_cover bg-cover bg-center bg-no-repeat" />
+          <div className="book_title">Titre</div>
+          <div className="book_author">
+            <div className="bg-people bg-cover bg-center bg-no-repeat" />
+            <p>Auteur</p>
+          </div>
+          <ul className="book_genres">
+            <li>Genre</li>
+            <li>Genre</li>
+            <li>Genre</li>
+          </ul>
+        </div>
+        {/* Books actions */}
+        <div className="book_actions">
+          <div className="book_actions_title">Actions</div>
+          <div className="book_actions_buttons">
+            <div className="book_actions_button">Edit</div>
+            <div className="book_actions_button">Delete</div>
+            <div className="book_actions_button">Go to author page</div>
+          </div>
         </div>
       </section>
     </section>

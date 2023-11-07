@@ -714,3 +714,241 @@ body {
   height: 15px;
   margin-right: 5px;
 }
+/* -------------------------------------------------------------------------- */
+/*                                  BOOK PAGE                                 */
+/* -------------------------------------------------------------------------- */
+.layout_book {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 20px;
+}
+.layout_book .left_book {
+  width: 70%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: auto;
+  margin-left: 20px;
+}
+.layout_book .left_book .book_owners {
+  background-color: white;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+}
+.layout_book .left_book .book_owners .book_owners_title {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #406bde;
+  font-family: 'Montserrat';
+  text-transform: uppercase;
+}
+.layout_book .left_book .book_owners .book_owners_list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.layout_book .left_book .book_owners .book_owners_list .book_owners_item {
+  background-color: #406bde;
+  transition: all 0.2s ease-in-out;
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.layout_book .left_book .book_owners .book_owners_list .book_owners_item:hover {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.layout_book .left_book .book_owners .book_owners_list .book_owners_item div {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.layout_book .left_book .book_owners .book_owners_list .book_owners_item p {
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.layout_book .right_book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+}
+.layout_book .right_book .book_image {
+  width: 200px;
+  height: 300px;
+  background-color: red;
+  border-radius: 10px;
+  border: 1px solid #878e94;
+}
+.layout_book .right_book .book_title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #406bde;
+  font-family: 'Montserrat';
+  margin-top: 30px;
+  text-align: center;
+}
+.layout_book .right_book .book_author {
+  font-size: 1rem;
+  color: #17202A;
+  font-family: 'Noto Sans';
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.layout_book .right_book .book_author div {
+  margin-right: 5px;
+  background-color: #406bde;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  border: 4px solid #406bde;
+}
+.layout_book .right_book .book_genres {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.layout_book .right_book .book_genres li {
+  font-size: 0.8rem;
+  color: #878e94;
+  font-family: 'Noto Sans';
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+.layout_book .right_book .book_actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  border-top: 2px solid #f5f5f5;
+  padding-top: 20px;
+}
+.layout_book .right_book .book_actions .book_actions_title {
+  font-size: 1rem;
+  color: #406bde;
+  font-family: 'Noto Sans';
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.layout_book .right_book .book_actions .book_actions_buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.layout_book .right_book .book_actions .book_actions_buttons .book_actions_button {
+  background-color: #406bde;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  cursor: pointer;
+  width: fit-content;
+  margin-bottom: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.layout_book .right_book .book_actions .book_actions_buttons .book_actions_button:hover {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.329);
+  color: #406bde;
+  background-color: white;
+}
+.book_comments_bar {
+  background-color: white;
+  height: auto;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: none;
+  color: #17202A;
+  font-family: 'Noto Sans';
+  font-size: 1rem;
+  margin-top: 0px;
+  font-weight: normal;
+}
+.MuiBox-root {
+  flex-direction: column;
+  background-color: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+.book_comments_wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+.book_comments_wrapper .MuiPaper-root {
+  position: unset;
+  width: 100%;
+  height: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: none;
+  color: #17202A;
+  font-family: 'Noto Sans';
+  font-size: 1rem;
+  background-color: white;
+  font-weight: normal;
+  z-index: -1;
+  padding: 20px;
+}
+.book_comments_wrapper .MuiPaper-root .comments {
+  display: flex;
+  flex-direction: column!important;
+}
