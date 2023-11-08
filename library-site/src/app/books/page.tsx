@@ -161,7 +161,7 @@ const BooksPage: FC = (): ReactElement => {
         <div className="books_container shadow-md">
           <div className="books_option_container">
             <div className="search_container">
-              <i className="fa-solid fa-search" />
+              <i aria-hidden className="fa-solid fa-search" />
               <input
                 type="text"
                 placeholder="Search by title"

@@ -54,3 +54,24 @@
 .comment .commentDate::before {
   content: 'Posted on ';
 }
+.commentActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #878e94;
+}
+.commentActions button {
+  margin-left: 10px;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #406bde;
+}
+.commentActions button:hover {
+  color: #406bde;
+  border: 1px solid #406bde;
+}

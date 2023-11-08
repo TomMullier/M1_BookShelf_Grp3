@@ -18,26 +18,28 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <title>Library</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <script src="https://kit.fontawesome.com/b89837f3ad.js" /> {/*eslint-disable-line*/}
+      <head>
+        <title>Library</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://kit.fontawesome.com/b89837f3ad.js" /> {/*eslint-disable-line*/}
+      </head>
       <body className={inter.className}>
         <div className="left_side">
           <a href="/" className="website_title">
-            <i className="fas fa-book" />
+            <i aria-hidden className="fas fa-book" />
             <h1>Library</h1>
           </a>
           <div className="menu">
             <div className="menu_item">
-              <i className="fas fa-home" />
+              <i aria-hidden className="fas fa-home" />
               <a href="/">Home</a>
             </div>
             <div className="menu_item">
-              <i className="fas fa-book" />
+              <i aria-hidden className="fas fa-book" />
               <a href="/books">Books</a>
             </div>
             <div className="menu_item">
-              <i className="fas fa-user" />
+              <i aria-hidden className="fas fa-user" />
               <a href="/authors">Authors</a>
             </div>
           </div>

@@ -304,7 +304,7 @@ const BooksDetailsPage: FC = () => {
                   className="book_comments_button"
                   title="Post a comment"
                 >
-                  <i className="fas fa-plus" />
+                  <i aria-hidden className="fas fa-plus" />
                 </div>
               </Typography>
             </Toolbar>

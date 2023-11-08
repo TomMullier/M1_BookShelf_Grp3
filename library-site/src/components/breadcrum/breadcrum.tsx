@@ -9,7 +9,6 @@ const returnBCHtml = (url: string): string => {
   const urlArray = url.split('/');
   let html = '';
   html += '<div class = "breadcrum"><ol>';
-  console.log(url);
   urlArray.forEach((element, index) => {
     if (index === 0) {
       html += "<li className='breadcrum_home breadcrum_item'>";

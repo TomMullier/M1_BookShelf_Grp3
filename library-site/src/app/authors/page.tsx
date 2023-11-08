@@ -52,7 +52,7 @@ const AuthorsPage: FC = () => {
         const reader = new FileReader();
         reader.onload = (): void => {
           // creation de la propriété photo
-          author.photo = reader.result; // eslint-disable-line
+          author.photoUrl = reader.result; // eslint-disable-line
         };
       }
 
@@ -70,7 +70,7 @@ const AuthorsPage: FC = () => {
     openItemPage(id);
   }
   useEffect(() => load(), []);
-
+  
   // Disable Line -> Il veut que je passe une ligne, mais quand je le fais
   // il veut que je revienne en arrière, donc je laisse comme ça
   const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),); // eslint-disable-line
@@ -80,7 +80,7 @@ const AuthorsPage: FC = () => {
       {/* Step 2: Add a search bar */}
       <div className="search_container">
         <div>
-          <i className="fa fa-search" />
+          <i aria-hidden className="fa fa-search" />
           <input
             type="text"
             placeholder="Search by author"
@@ -95,7 +95,7 @@ const AuthorsPage: FC = () => {
           role="button"
           tabIndex={0}
         >
-          <i className="fa fa-plus" />
+          <i aria-hidden className="fa fa-plus" />
           Add author
         </div>
       </div>
