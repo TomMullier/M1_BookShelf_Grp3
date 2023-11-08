@@ -8,16 +8,6 @@ import 'flowbite';
 import { ListItem } from '../../components/ListItem/ListItem';
 import { PlainBookModel } from '@/models';
 
-// type bookfilter = {
-//  search: string;
-//  setSearch: (input: string) => void;
-// };
-
-type BooksProps = {
-  book: PlainBookModel;
-  load: () => void;
-};
-
 const openItemPage = (id: number): void => {
   window.location.href = `/books/${id}`;
 };
@@ -26,10 +16,15 @@ function handleKeyPress(id: number): void {
   openItemPage(id);
 }
 
+type BooksProps = {
+  book: PlainBookModel;
+};
+
 const BooksList: FC<BooksProps> = ({ book }) => (
   <ListItem>
     <div
       className="book_item"
+      key="book.id"
       id={book.id}
       onClick={(): void => {
         handleKeyPress(parseInt(book.id, 10));
@@ -49,7 +44,7 @@ const BooksList: FC<BooksProps> = ({ book }) => (
         </div>
         <div className="book_category flex">
           {book.genres.map((genre: string | null | undefined) => (
-            <p className="pr-1">{genre}</p>
+            <p key={genre} className="pr-1">{genre}</p>
           ))}
         </div>
       </div>
@@ -66,15 +61,16 @@ const BooksFilter: FC<BooksFilterProps> = ({ search, setSearch }) => (
     type="text"
     value={search}
     onChange={(e): void => {
+      e.preventDefault();
       setSearch(e.target.value);
     }}
   />
 );
 
 export function Page(): ReactElement {
-  const { useListBooks } = useBooksProviders();
+  const [search, setSearchInput] = useState('');
+  const { useListBooks } = useBooksProviders({ search });
   const { books, load } = useListBooks();
-  const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = (): void => {
@@ -124,7 +120,6 @@ export function Page(): ReactElement {
       alert('Please fill all the fields');
     }
   };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => load(), []); // if [load] reload element infinite loop
 
@@ -172,8 +167,6 @@ export function Page(): ReactElement {
       name: 'Biography',
     },
   ];
-
-  const fBooks = books.filter((b) => b.name.toLowerCase().includes(searchInput.toLowerCase()),);
   return (
     <>
       <section className="layout_book">
@@ -199,13 +192,7 @@ export function Page(): ReactElement {
             <div className="books_option_container">
               <div className="search_container">
                 <i className="fa-solid fa-search" />
-                {/*<input
-                  type="text"
-                  placeholder="Search by title"
-                  value={searchInput}
-                  onChange={(e): void => setSearchInput(e.target.value)}
-                />*/}
-                <BooksFilter search={searchInput} setSearch={setSearchInput} />
+                <BooksFilter search={search} setSearch={setSearchInput} />
               </div>
               <div className="filter_container">
                 <div className="filter_title">Filter by :</div>
@@ -217,7 +204,7 @@ export function Page(): ReactElement {
             </div>
             <div className="books_list">
               {books.map((book) => (
-                <BooksList key={book.id} book={book} load={load} />
+                <BooksList key={book.id} book={book} />
               ))}
             </div>
             <button
@@ -249,7 +236,7 @@ export function Page(): ReactElement {
                   <label htmlFor="create_book_author">Author</label>
                   <select name="create_book_author" id="author">
                     {authors.map((author) => (
-                      <option value={author.id}>
+                      <option key={author.firstName} value={author.id}>
                         {author.firstName + ' ' + author.lastName}
                       </option>
                     ))}
@@ -259,7 +246,7 @@ export function Page(): ReactElement {
                   <label htmlFor="create_book_genres">Genres</label>
                   <div className="genresList">
                     {genres.map((genre) => (
-                      <div className="genre_item">
+                      <div key={genre.name} className="genre_item">
                         <input type="checkbox" id={genre.name} />
                         <label htmlFor={genre.name}>{genre.name}</label>
                       </div>
