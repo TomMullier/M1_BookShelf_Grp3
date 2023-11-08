@@ -52,23 +52,97 @@ const BooksList: FC<BooksProps> = ({ book }) => (
   </ListItem>
 );
 
+const genres = [
+  {
+    id: '1',
+    name: 'Thriller',
+  },
+  {
+    id: '2',
+    name: 'Fantasy',
+  },
+  {
+    id: '3',
+    name: 'Romance',
+  },
+  {
+    id: '4',
+    name: 'Science-fiction',
+  },
+  {
+    id: '5',
+    name: 'Historical',
+  },
+  {
+    id: '6',
+    name: 'Biography',
+  },
+];
+
 type BooksFilterProps = {
   search: string;
   setSearch: (input: string) => void;
+  filterTypes: typeof genres;
+  setFilterTypes: (input: typeof genres) => void;
 };
-const BooksFilter: FC<BooksFilterProps> = ({ search, setSearch }) => (
-  <input
-    type="text"
-    value={search}
-    onChange={(e): void => {
-      e.preventDefault();
-      setSearch(e.target.value);
-    }}
-  />
-);
+
+const BooksFilter: FC<BooksFilterProps> = ({
+  search,
+  setSearch,
+  filterTypes,
+  setFilterTypes,
+}) => {
+  const [typeSelect, setTypeSelect] = useState('');
+
+  const onSelectType = (e: any): void => {
+    e.preventDefault();
+
+    setTypeSelect(e.target.value);
+  };
+
+  const addType = (): void => {
+    if (typeSelect) {
+      setFilterTypes([...filterTypes, { id: '', name: typeSelect }]);
+    }
+  };
+
+  const removeType = (type: (typeof genres)[0]): void => {
+    setFilterTypes(filterTypes.filter((filterType) => filterType !== type));
+  };
+  return (
+    <div>
+      <input
+        type="text"
+        value={search}
+        onChange={(e): void => {
+          e.preventDefault();
+          setSearch(e.target.value);
+        }}
+      />
+      <br />
+      <select onChange={onSelectType}>
+        {genres.map((genre) => (
+          <option value={genre.name}>{genre.name}</option>
+        ))}
+      </select>
+      <button type="button" onClick={addType}>
+        <p>Add filter</p>
+      </button>
+      <br />
+      {filterTypes.map((type) => (
+        <button type="button" onClick={(): void => removeType(type)}>
+          {type.name}
+          {' '}
+          x
+        </button>
+      ))}
+    </div>
+  );
+};
 
 export function Page(): ReactElement {
   const [search, setSearchInput] = useState('');
+  const [filterTypes, setFilterTypes] = useState([]);
   const { useListBooks } = useBooksProviders({ search });
   const { books, load } = useListBooks();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -141,32 +215,6 @@ export function Page(): ReactElement {
     },
   ];
 
-  const genres = [
-    {
-      id: '1',
-      name: 'Thriller',
-    },
-    {
-      id: '2',
-      name: 'Fantasy',
-    },
-    {
-      id: '3',
-      name: 'Romance',
-    },
-    {
-      id: '4',
-      name: 'Science-fiction',
-    },
-    {
-      id: '5',
-      name: 'Historical',
-    },
-    {
-      id: '6',
-      name: 'Biography',
-    },
-  ];
   return (
     <>
       <section className="layout_book">
@@ -192,7 +240,12 @@ export function Page(): ReactElement {
             <div className="books_option_container">
               <div className="search_container">
                 <i className="fa-solid fa-search" />
-                <BooksFilter search={search} setSearch={setSearchInput} />
+                <BooksFilter
+                  search={search}
+                  setSearch={setSearchInput}
+                  filterTypes={filterTypes}
+                  setFilterTypes={setFilterTypes}
+                />
               </div>
               <div className="filter_container">
                 <div className="filter_title">Filter by :</div>

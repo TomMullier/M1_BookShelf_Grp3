@@ -9,11 +9,11 @@ type UseListBooksProvider = {
 
 type UseListBooksProviderInput = {
   search?: string;
+  genre?: string[];
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useListBooks = (input?: UseListBooksProviderInput) => {
-  console.log('in uslistbooks', input?.search);
   const [books, setBooks] = useState<PlainBookModel[]>([]);
   const bookTest = {
     id: '0',
