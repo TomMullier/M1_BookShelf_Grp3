@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { BookGenre } from './BookGenre';
 import { Author } from './Author';
+import { Comment } from './Comment';
 
 export type BookId = string & { __brand: 'Book' };
 
@@ -28,4 +29,7 @@ export class Book extends BaseEntity {
 
   @OneToMany(() => BookGenre, (bookGenre) => bookGenre.book)
   bookGenres: BookGenre[];
+
+  @OneToMany(() => Comment, (comment) => comment.book)
+  comments: Comment[];
 }

@@ -35,7 +35,7 @@ export class BookRepository extends Repository<Book> {
    */
   public async getAllPlain(): Promise<PlainBookRepositoryOutput[]> {
     const books = await this.find({
-      relations: { bookGenres: { genre: true }, author: true },
+      relations: { bookGenres: { genre: true }, author: true, comments: true },
     });
     return books.map(adaptBookEntityToPlainBookModel);
   }
@@ -49,7 +49,7 @@ export class BookRepository extends Repository<Book> {
   public async getById(id: BookId): Promise<BookRepositoryOutput> {
     const book = await this.findOne({
       where: { id },
-      relations: { bookGenres: { genre: true }, author: true },
+      relations: { bookGenres: { genre: true }, author: true, comments: true },
     });
 
     if (!book) {
@@ -67,7 +67,7 @@ export class BookRepository extends Repository<Book> {
   public async getPlainById(id: BookId): Promise<PlainBookRepositoryOutput> {
     const book = await this.findOne({
       where: { id },
-      relations: { bookGenres: { genre: true }, author: true },
+      relations: { bookGenres: { genre: true }, author: true, comments: true },
     });
 
     if (!book) {
@@ -111,6 +111,8 @@ export class BookRepository extends Repository<Book> {
           ...input,
           id: v4(),
           bookGenres: undefined, // Réinitialisation des genres de livre
+          author: undefined,
+          comments: undefined,
         }),
       );
 
@@ -230,6 +232,7 @@ export class BookRepository extends Repository<Book> {
         ...input,
         bookGenres: undefined,
         author: undefined,
+        comments: undefined,
       };
       delete obj.genres;
       // update si au moins une propriété de l'objet est définie

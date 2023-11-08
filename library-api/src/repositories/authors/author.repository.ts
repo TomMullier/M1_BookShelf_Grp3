@@ -24,7 +24,9 @@ export class AuthorRepository extends Repository<Author> {
   public async getAllPlain(): Promise<AuthorRepositoryOutput[]> {
     const authors = await this.find({
       order: { lastName: 'ASC' },
-      relations: { books: true },
+      relations: {
+        books: { bookGenres: { genre: true } },
+      },
     });
     return authors;
   }
@@ -63,7 +65,7 @@ export class AuthorRepository extends Repository<Author> {
       },
     });
 
-    // Vérification que le genre n'existe pas déjà
+    // Vérification que l'auteur n'existe pas déjà
     if (existingAuthor) {
       throw new ConflictException(
         `Author - '${input.lastName}' '${input.firstName}' already exists`,

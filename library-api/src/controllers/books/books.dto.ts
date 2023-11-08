@@ -1,5 +1,5 @@
 import { IsString, IsDate, IsOptional } from 'class-validator';
-import { PlainAuthorModel } from 'library-api/src/models';
+import { PlainAuthorModelForBook } from 'library-api/src/models';
 
 export class CreateBookDto {
   @IsString()
@@ -9,7 +9,7 @@ export class CreateBookDto {
   writtenOn: Date;
 
   @IsString()
-  author: PlainAuthorModel;
+  author: PlainAuthorModelForBook;
 
   @IsString({ each: true })
   genres: string[];
@@ -26,7 +26,7 @@ export class UpdateBookDto {
 
   @IsOptional()
   @IsString()
-  author?: PlainAuthorModel;
+  author?: PlainAuthorModelForBook;
 
   @IsOptional()
   @IsString({ each: true })

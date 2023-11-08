@@ -6,3 +6,6 @@ export * from './books/book.repository.type';
 
 export * from './genres/genre.repository';
 // export * from './genres/genre.repository.type';
+
+export * from './comments/comment.repository';
+// export * from './comments/comment.repository.type';
