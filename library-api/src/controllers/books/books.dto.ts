@@ -1,5 +1,5 @@
 import { IsString, IsDate, IsOptional } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { PlainAuthorModelForBook } from 'library-api/src/models';
 
 export class CreateBookDto {
@@ -20,7 +20,6 @@ export class CreateBookDto {
   @ApiProperty({
     description: 'Book author',
     example: {
-      id: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
       firstName: 'J.R.R.',
       lastName: 'Tolkien',
     },
@@ -31,13 +30,14 @@ export class CreateBookDto {
   @ApiProperty({
     description: 'Book genres',
     example: ['Fantasy', 'Adventure'],
+    isArray: true,
   })
   @IsString({ each: true })
   genres: string[];
 }
 
 export class UpdateBookDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Book name',
     example: 'The Lord of the Rings',
   })
@@ -45,7 +45,7 @@ export class UpdateBookDto {
   @IsString()
   name?: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Book written on',
     example: '1954-07-29T00:00:00.000Z',
   })
@@ -53,10 +53,9 @@ export class UpdateBookDto {
   @IsDate()
   writtenOn?: Date;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Book author',
     example: {
-      id: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
       firstName: 'J.R.R.',
       lastName: 'Tolkien',
     },
@@ -65,7 +64,7 @@ export class UpdateBookDto {
   @IsString()
   author?: PlainAuthorModelForBook;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Book genres',
     example: ['Fantasy', 'Adventure'],
   })

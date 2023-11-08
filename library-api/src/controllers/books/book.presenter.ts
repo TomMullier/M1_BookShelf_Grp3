@@ -40,6 +40,16 @@ export class PlainBookPresenter {
   })
   genres: string[];
 
+  @ApiProperty({
+    description: 'Book comments',
+    example: [
+      {
+        id: '0d3e2940-cd5b-4dce-b80b-d94c48d5ebdc',
+        user: 'Albert',
+        comment: 'Super !',
+      },
+    ],
+  })
   comments: CommentPresenter[];
 
   private constructor(data: PlainBookPresenter) {
@@ -89,19 +99,20 @@ export class BookPresenter {
 
   @ApiProperty({
     description: 'Book genres',
-    example: [
-      {
-        id: 'a9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
-        name: 'Fantasy',
-      },
-      {
-        id: 'b9f8c7d6-b5a4-4a3b-9f0e-1b0b1b1b1b1b',
-        name: 'Adventure',
-      },
-    ],
+    example: ['Fantasy', 'Adventure'],
   })
   genres: GenrePresenter[];
 
+  @ApiProperty({
+    description: 'Book comments',
+    example: [
+      {
+        id: '0d3e2940-cd5b-4dce-b80b-d94c48d5ebdc',
+        user: 'Albert',
+        comment: 'Super !',
+      },
+    ],
+  })
   comments: CommentPresenter[];
 
   private constructor(data: BookPresenter) {

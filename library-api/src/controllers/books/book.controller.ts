@@ -7,10 +7,7 @@ import {
   Delete,
   Patch,
 } from '@nestjs/common';
-import {
-  BookPresenter,
-  PlainBookPresenter,
-} from 'library-api/src/controllers/books/book.presenter';
+import { PlainBookPresenter } from 'library-api/src/controllers/books/book.presenter';
 import { BookId } from 'library-api/src/entities';
 import { BookUseCases } from 'library-api/src/useCases';
 import {
@@ -48,14 +45,14 @@ export class BookController {
   @ApiResponse({
     status: 200,
     description: 'Get a book by its ID',
-    type: BookPresenter,
+    type: PlainBookPresenter,
   })
   @ApiNotFoundResponse({
     description: 'Book not found',
   })
-  public async getById(@Param('id') id: BookId): Promise<BookPresenter> {
+  public async getById(@Param('id') id: BookId): Promise<PlainBookPresenter> {
     const book = await this.bookUseCases.getById(id);
-    return BookPresenter.from(book);
+    return PlainBookPresenter.from(book);
   }
 
   @Post('/')
@@ -65,7 +62,7 @@ export class BookController {
     type: PlainBookPresenter,
   })
   @ApiNotFoundResponse({
-    description: 'Book not found',
+    description: 'Author or genre not found',
   })
   @ApiConflictResponse({
     description: 'Book already exists',
@@ -81,7 +78,7 @@ export class BookController {
   @Patch('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Update a book by its ID',
+    description: 'Book updated by its ID',
     type: PlainBookPresenter,
   })
   @ApiNotFoundResponse({
@@ -99,7 +96,7 @@ export class BookController {
   @Delete('/:id')
   @ApiResponse({
     status: 204,
-    description: 'Delete a book by its ID',
+    description: 'Book deleted by its ID',
   })
   @ApiNotFoundResponse({
     description: 'Book not found',
