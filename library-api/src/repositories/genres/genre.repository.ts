@@ -40,7 +40,7 @@ export class GenreRepository extends Repository<Genre> {
     });
 
     if (!genre) {
-      throw new NotFoundException(`Book - '${id}'`);
+      throw new NotFoundException(`Genre - '${id}'`);
     }
     return genre;
   }
@@ -66,12 +66,11 @@ export class GenreRepository extends Repository<Genre> {
     }
 
     const id = await this.dataSource.transaction(async (manager) => {
-      const genre = await manager.save<Genre>(
-        manager.create<Genre>(Genre, {
-          ...input,
-          id: v4(),
-        }),
-      );
+      const genreToCreate = manager.create<Genre>(Genre, {
+        ...input,
+        id: v4(),
+      });
+      const genre = await manager.save<Genre>(genreToCreate);
       return genre.id;
     });
 
@@ -85,6 +84,9 @@ export class GenreRepository extends Repository<Genre> {
    */
   public async deleteById(id: GenreId): Promise<void> {
     const genre = await this.getById(id);
+    if (!genre) {
+      throw new NotFoundException(`Genre - '${id}'`);
+    }
     await this.delete(genre.id);
   }
 }
