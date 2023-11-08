@@ -3,7 +3,7 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import * as React from 'react';
-import { ReactElement, ReactNode, FC } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import Breadcrumb from '../components/breadcrum/breadcrum';
 
@@ -15,8 +15,6 @@ export default function RootLayout({
   children: ReactNode;
 }): ReactElement {
   const pathname = usePathname();
-  const pathnameArray = pathname.split('/');
-  const currentPage = pathnameArray[pathnameArray.length - 1];
 
   return (
     <html lang="en">
@@ -42,10 +40,6 @@ export default function RootLayout({
               <i className="fas fa-user" />
               <a href="/authors">Authors</a>
             </div>
-            {/* <div className="menu_item">
-              <i className="fas fa-users" />
-              <a href="/users">Utilisateurs</a>
-            </div> */}
           </div>
         </div>
         <div className="right_side">

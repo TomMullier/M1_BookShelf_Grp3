@@ -1,72 +1,52 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 import Modal from '../../../components/modal/modal';
 
 const AuthorDetailsPage: FC = () => {
-  const { id } = useParams();
-
   const openItemPage = (id: number): void => {
     window.location.href = `/books/${id}`;
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenDeleteAuthor, setIsModalOpenDeleteAuthor] = useState(false);
 
   function handleKeyPress(id: number): void {
     openItemPage(id);
   }
-  const closeModal = (): void => {
-    setIsModalOpen(false);
+
+  const closeModalDeleteAuthor = (): void => {
+    setIsModalOpenDeleteAuthor(false);
   };
-  const openModal = (): void => {
-    setIsModalOpen(true);
+  const openModalDeleteAuthor = (): void => {
+    setIsModalOpenDeleteAuthor(true);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        setIsModalOpen(false);
+        setIsModalOpenDeleteAuthor(false);
         document.removeEventListener('keydown', () => {});
       }
     });
   };
 
-  const CheckAuthorCreation = (): void => {
-    let valid = true;
-    const checkForm = document.querySelectorAll('.create_author_form input');
-    checkForm.forEach((input) => {
-      if (input.value === '') {
-        valid = false;
-      }
-    });
-    if (valid) {
-      const author = {
-        firstname: (
-          document.getElementById('author_firstname') as HTMLInputElement
-        ).value,
-        lastname: (
-          document.getElementById('author_lastname') as HTMLInputElement
-        ).value,
-        photo: (document.getElementById('author_photo') as HTMLInputElement)
-          .value,
-      };
-      alert('Author created');
-      console.log(author);
-      setIsModalOpen(false);
-    } else {
-      alert('Please fill all the fields');
-    }
+  const confirmDeleteAuthor = (): void => {
+    console.log('Author deleted');
+    setIsModalOpenDeleteAuthor(false);
   };
+
   return (
     <section className="layout_book">
       <section className="left_book_author">
         {/* Book List */}
         <h1>Book List</h1>
         <div className="book_list_author">
+          {/* Element est focusable */}
+          {/* eslint-disable-next-line */}
           <div className="book_list_author_item" onClick={(): void => {
-                handleKeyPress(0);
-              }}
-              onKeyDown={(): void => {
-                handleKeyPress(0);
-              }}
-              role="button">
+              handleKeyPress(0);
+            }}
+            onKeyDown={(): void => {
+              handleKeyPress(0);
+            }}
+            role="button"
+          >
             <div className="book_list_author_item_image bg-book_cover bg-center bg-no-repeat bg-cover" />
             <div className="book_list_author_item_name">Book</div>
           </div>
@@ -90,54 +70,23 @@ const AuthorDetailsPage: FC = () => {
             </div>
           </div>
           <div className="actions_container">
-            <div className="button_author_edit" onClick={openModal}>
-              Edit
-            </div>
-            <div className="button_author_delete">Delete</div>
+            {/* No need for keyboard listener */}
+            {/* eslint-disable-next-line */}
+            <div className="button_author_delete" onClick={openModalDeleteAuthor}>Delete</div>
           </div>
         </div>
       </section>
-      {/* Modal */}
+      {/* modal confirm delete */}
       <Modal
-        isOpen={isModalOpen}
-        onCancel={closeModal}
-        onSubmit={CheckAuthorCreation}
-        title="Edit author informations"
+        isOpen={isModalOpenDeleteAuthor}
+        onCancel={closeModalDeleteAuthor}
+        onSubmit={confirmDeleteAuthor}
+        title="Delete a book"
       >
-        <form className="create_author_form" action="">
-          {/* Firstname, Lastname, Photo */}
-          <div className="title_group">
-            <label htmlFor="author_firstname">Firstname</label>
-            <input type="text" name="author_firstname" id="author_firstname" />
-          </div>
-          <div className="title_group">
-            <label htmlFor="author_lastname">Lastname</label>
-            <input type="text" name="author_lastname" id="author_lastname" />
-          </div>
-          <div className="title_group">
-            <label htmlFor="author_photo">Photo</label>
-            <input
-              type="file"
-              name="author_photo"
-              id="author_photo"
-              className="inputfile"
-            />
-          </div>
-        </form>
+        <h2 className="delete_text">
+          Are you sure you want to delete this book ?
+        </h2>
       </Modal>
-      {/* confirm delete modal
-      <Modal
-        isOpen={isModalOpen}
-        onCancel={closeModal}
-        onSubmit={CheckAuthorCreation}
-        title="Delete author"
-      >
-        <form className="create_author_form" action="">
-          <div className="title_group">
-            <p>Are you sure you want to delete this author ?</p>
-          </div>
-        </form>
-      </Modal> */}
     </section>
   );
 };

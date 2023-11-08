@@ -206,13 +206,6 @@ const BooksPage: FC = (): ReactElement => {
                       <p className="pr-1">{genre}</p>
                     ))}
                   </div>
-                  {/* <div className="book_rating">
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                    </div> */}
                 </div>
               </div>
             ))}

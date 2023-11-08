@@ -28,23 +28,22 @@ const AuthorsPage: FC = () => {
     let valid = true;
     const checkForm = document.querySelectorAll('.create_author_form input');
     checkForm.forEach((input) => {
-      if (input.value === '') {
+      if ((input as HTMLInputElement).value === '') {
         valid = false;
       }
     });
     if (valid) {
       const author = {
-        firstname: (
+        firstName: (
           document.getElementById('author_firstname') as HTMLInputElement
         ).value,
-        lastname: (
+        lastName: (
           document.getElementById('author_lastname') as HTMLInputElement
         ).value,
-        photo: (
-          document.getElementById('author_photo') as HTMLInputElement
-        ).value,
+        photo: (document.getElementById('author_photo') as HTMLInputElement)
+          .value,
       };
-      alert('Author created');
+      console.log('Author created :');
       console.log(author);
       setIsModalOpen(false);
     } else {
@@ -59,9 +58,9 @@ const AuthorsPage: FC = () => {
   }
   useEffect(() => load(), []);
 
-  const filteredBooks = books.filter((book) =>
-    book.name.toLowerCase().includes(searchInput.toLowerCase()),
-  );
+  // Disable Line -> Il veut que je passe une ligne, mais quand je le fais
+  // il veut que je revienne en arrière, donc je laisse comme ça
+  const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),); // eslint-disable-line
 
   return (
     <section className="layout_author">
@@ -92,6 +91,8 @@ const AuthorsPage: FC = () => {
           <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
           <div className="author_name">Author</div>
           <div className="number_written">4</div>
+          {/* Element is focusable mais dit qu'il ne l'est pas */}
+          {/* eslint-disable-next-line */}
           <div
             onClick={(): void => {
               handleKeyPress(0);
@@ -115,14 +116,20 @@ const AuthorsPage: FC = () => {
         <form className="create_author_form" action="">
           {/* Firstname, Lastname, Photo */}
           <div className="title_group">
+            {/* Ne prend pas en compte mon htmlFor */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="author_firstname">Firstname</label>
             <input type="text" name="author_firstname" id="author_firstname" />
           </div>
           <div className="title_group">
+            {/* Ne prend pas en compte mon htmlFor */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="author_lastname">Lastname</label>
             <input type="text" name="author_lastname" id="author_lastname" />
           </div>
           <div className="title_group">
+            {/* Ne prend pas en compte mon htmlFor */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="author_photo">Photo</label>
             <input
               type="file"

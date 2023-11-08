@@ -1,11 +1,6 @@
 'use client';
 
-import React, { FC, ReactElement, useEffect, useState } from 'react';
-
-function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
+import React, { FC, useEffect, useState } from 'react';
 
 type BreadcrumProps = {
   url: string;

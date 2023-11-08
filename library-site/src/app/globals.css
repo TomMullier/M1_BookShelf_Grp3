@@ -644,6 +644,17 @@ body {
   color: #f1c40f;
   margin-right: 2px;
 }
+.delete_text {
+  font-size: 1rem;
+  color: red;
+  font-family: 'Noto Sans';
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+}
 /* ------------------------------- CREATE BOOK ------------------------------ */
 .create_book_button {
   background-color: #406bde;
