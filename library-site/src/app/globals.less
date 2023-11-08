@@ -40,7 +40,44 @@ body {
 /*                                Global Layout                               */
 /* -------------------------------------------------------------------------- */
 
-
+/* -------------------------------- BREADCRUM ------------------------------- */
+.breadcrum{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width:100%;
+  ol{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap:5px;
+    list-style: none;
+    li :not(.breadcrum_separator) {
+      font-size: 1rem;
+      background-color: @gray_bg;
+      color: @gray;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-family: @text;
+      font-weight: normal;
+      &:hover{
+        cursor: pointer;
+        color: @blue;
+      }
+    }
+    li:last-child{
+      font-size: 1rem;
+      background-color: @gray_bg;
+      color: @blue;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-family: @text;
+      font-weight: bold;
+    }
+  }
+}
 
 /* -------------------------------- Left Side ------------------------------- */
 .left_side {

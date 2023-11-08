@@ -34,6 +34,44 @@ body {
 /* -------------------------------------------------------------------------- */
 /*                                Global Layout                               */
 /* -------------------------------------------------------------------------- */
+/* -------------------------------- BREADCRUM ------------------------------- */
+.breadcrum {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+.breadcrum ol {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  list-style: none;
+}
+.breadcrum ol li :not(.breadcrum_separator) {
+  font-size: 1rem;
+  background-color: #f5f5f5;
+  color: #878e94;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-family: 'Noto Sans';
+  font-weight: normal;
+}
+.breadcrum ol li :not(.breadcrum_separator):hover {
+  cursor: pointer;
+  color: #406bde;
+}
+.breadcrum ol li:last-child {
+  font-size: 1rem;
+  background-color: #f5f5f5;
+  color: #406bde;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+}
 /* -------------------------------- Left Side ------------------------------- */
 .left_side {
   display: flex;

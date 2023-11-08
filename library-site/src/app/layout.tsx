@@ -1,20 +1,23 @@
-import type { Metadata } from 'next';
+'use client';
+
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ReactElement, ReactNode } from 'react';
+import * as React from 'react';
+import { ReactElement, ReactNode, FC } from 'react';
+import { usePathname } from 'next/navigation';
+import Breadcrumb from '../components/breadcrum/breadcrum';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'Library',
-  description: 'Book management system',
-};
 
 export default function RootLayout({
   children,
 }: {
   children: ReactNode;
 }): ReactElement {
+  const pathname = usePathname();
+  const pathnameArray = pathname.split('/');
+  const currentPage = pathnameArray[pathnameArray.length - 1];
+
   return (
     <html lang="en">
       <title>Library</title>
@@ -46,7 +49,10 @@ export default function RootLayout({
           </div>
         </div>
         <div className="right_side">
-          <div className="top_bar" />
+          <div className="top_bar">
+            {/* Breadcrum */}
+            <Breadcrumb url={pathname} />
+          </div>
           <div className="content">{children}</div>
         </div>
       </body>
