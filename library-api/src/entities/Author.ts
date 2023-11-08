@@ -25,5 +25,5 @@ export class Author extends BaseEntity {
   photoUrl?: string;
 
   @OneToMany(() => Book, (book) => book.author)
-  books: Book[];
+  books?: Book[];
 }

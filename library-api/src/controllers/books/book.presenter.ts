@@ -1,8 +1,9 @@
-import { PlainAuthorPresenter } from 'library-api/src/controllers/authors/author.presenter';
+import { PlainAuthorPresenterForBook } from 'library-api/src/controllers/authors/author.presenter';
 import { GenrePresenter } from 'library-api/src/controllers/genres/genre.presenter';
 import { BookId } from 'library-api/src/entities';
 import { BookModel, PlainBookModel } from 'library-api/src/models';
 import { ApiProperty } from '@nestjs/swagger';
+import { CommentPresenter } from '../comments/comment.presenter';
 
 export class PlainBookPresenter {
   @ApiProperty({
@@ -31,13 +32,15 @@ export class PlainBookPresenter {
       lastName: 'Tolkien',
     },
   })
-  author: PlainAuthorPresenter;
+  author: PlainAuthorPresenterForBook;
 
   @ApiProperty({
     description: 'Book genres',
     example: ['Fantasy', 'Adventure'],
   })
   genres: string[];
+
+  comments: CommentPresenter[];
 
   private constructor(data: PlainBookPresenter) {
     Object.assign(this, data);
@@ -49,7 +52,8 @@ export class PlainBookPresenter {
       name: data.name,
       genres: data.genres,
       writtenOn: data.writtenOn,
-      author: PlainAuthorPresenter.from(data.author),
+      author: PlainAuthorPresenterForBook.from(data.author),
+      comments: data.comments.map(CommentPresenter.from),
     });
   }
 }
@@ -75,7 +79,7 @@ export class BookPresenter {
       lastName: 'Tolkien',
     },
   })
-  author: PlainAuthorPresenter;
+  author: PlainAuthorPresenterForBook;
 
   @ApiProperty({
     description: 'Book written on',
@@ -98,6 +102,8 @@ export class BookPresenter {
   })
   genres: GenrePresenter[];
 
+  comments: CommentPresenter[];
+
   private constructor(data: BookPresenter) {
     Object.assign(this, data);
   }
@@ -107,8 +113,9 @@ export class BookPresenter {
       id: data.id,
       name: data.name,
       writtenOn: data.writtenOn,
-      author: PlainAuthorPresenter.from(data.author),
+      author: PlainAuthorPresenterForBook.from(data.author),
       genres: data.genres.map(GenrePresenter.from),
+      comments: data.comments.map(CommentPresenter.from),
     });
   }
 }

@@ -35,7 +35,7 @@ export class BookRepository extends Repository<Book> {
    */
   public async getAllPlain(): Promise<PlainBookRepositoryOutput[]> {
     const books = await this.find({
-      relations: { bookGenres: { genre: true }, author: true },
+      relations: { bookGenres: { genre: true }, author: true, comments: true },
     });
     return books.map(adaptBookEntityToPlainBookModel);
   }
@@ -49,7 +49,7 @@ export class BookRepository extends Repository<Book> {
   public async getById(id: BookId): Promise<BookRepositoryOutput> {
     const book = await this.findOne({
       where: { id },
-      relations: { bookGenres: { genre: true }, author: true },
+      relations: { bookGenres: { genre: true }, author: true, comments: true },
     });
 
     if (!book) {
@@ -67,7 +67,7 @@ export class BookRepository extends Repository<Book> {
   public async getPlainById(id: BookId): Promise<PlainBookRepositoryOutput> {
     const book = await this.findOne({
       where: { id },
-      relations: { bookGenres: { genre: true }, author: true },
+      relations: { bookGenres: { genre: true }, author: true, comments: true },
     });
 
     if (!book) {
@@ -109,7 +109,9 @@ export class BookRepository extends Repository<Book> {
       const bookToSave = manager.create<Book>(Book, {
         ...input,
         id: v4(),
-        bookGenres: undefined, // Réinitialisation des genres de livre
+        bookGenres: undefined,
+        author: undefined,
+        comments: undefined,
       });
 
       if (input.author) {
@@ -149,12 +151,13 @@ export class BookRepository extends Repository<Book> {
 
         // Création des relations entre le livre et les genres
         await manager.save<BookGenre>(
-          newGenres.map((genre) =>
-            manager.create<BookGenre>(BookGenre, {
-              id: v4(),
-              book: { id: book.id },
-              genre,
-            }),
+          // eslint-disable-next-line prettier/prettier
+          newGenres.map((genre) => manager.create<BookGenre>(BookGenre, {
+                id: v4(),
+                book: { id: book.id },
+                genre,
+              }),
+            // eslint-disable-next-line function-paren-newline
           ),
         );
       }
@@ -201,12 +204,13 @@ export class BookRepository extends Repository<Book> {
 
         // Création des relations entre le livre et les genres
         await manager.save<BookGenre>(
-          newGenres.map((genre) =>
-            manager.create<BookGenre>(BookGenre, {
-              id: v4(),
-              book: { id },
-              genre,
-            }),
+          // eslint-disable-next-line prettier/prettier
+          newGenres.map((genre) => manager.create<BookGenre>(BookGenre, {
+                id: v4(),
+                book: { id },
+                genre,
+              }),
+            // eslint-disable-next-line function-paren-newline
           ),
         );
       }
@@ -228,6 +232,7 @@ export class BookRepository extends Repository<Book> {
         ...input,
         bookGenres: undefined,
         author: undefined,
+        comments: undefined,
       };
       delete obj.genres;
       // update si au moins une propriété de l'objet est définie

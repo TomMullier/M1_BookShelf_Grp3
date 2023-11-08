@@ -19,8 +19,7 @@ import {
 } from 'library-api/src/entities';
 import { v4 } from 'uuid';
 import { CreateBookRepositoryInput } from 'library-api/src/repositories/books/book.repository.type';
-import { BookModel, PlainBookModel } from 'library-api/src/models';
-import exp from 'constants';
+import { PlainBookModel } from 'library-api/src/models';
 
 describe('BookRepository', () => {
   describe('getAllPlain', () => {
@@ -38,7 +37,11 @@ describe('BookRepository', () => {
 
       expect(findSpy).toHaveBeenCalledTimes(1);
       expect(findSpy).toHaveBeenCalledWith({
-        relations: { bookGenres: { genre: true }, author: true },
+        relations: {
+          bookGenres: { genre: true },
+          author: true,
+          comments: true,
+        },
       });
 
       expect(result).toStrictEqual(books.map(adaptBookEntityToPlainBookModel));
@@ -57,7 +60,11 @@ describe('BookRepository', () => {
 
       expect(findSpy).toHaveBeenCalledTimes(1);
       expect(findSpy).toHaveBeenCalledWith({
-        relations: { bookGenres: { genre: true }, author: true },
+        relations: {
+          bookGenres: { genre: true },
+          author: true,
+          comments: true,
+        },
       });
 
       expect(result).toStrictEqual(books);
@@ -80,7 +87,11 @@ describe('BookRepository', () => {
       expect(findSpy).toHaveBeenCalledTimes(1);
       expect(findSpy).toHaveBeenCalledWith({
         where: { id: book.id },
-        relations: { bookGenres: { genre: true }, author: true },
+        relations: {
+          bookGenres: { genre: true },
+          author: true,
+          comments: true,
+        },
       });
       expect(result).toStrictEqual(adaptBookEntityToBookModel(book));
     });
@@ -103,7 +114,11 @@ describe('BookRepository', () => {
       expect(findSpy).toHaveBeenCalledTimes(1);
       expect(findSpy).toHaveBeenCalledWith({
         where: { id },
-        relations: { bookGenres: { genre: true }, author: true },
+        relations: {
+          bookGenres: { genre: true },
+          author: true,
+          comments: true,
+        },
       });
     });
   });
@@ -124,7 +139,11 @@ describe('BookRepository', () => {
       expect(findSpy).toHaveBeenCalledTimes(1);
       expect(findSpy).toHaveBeenCalledWith({
         where: { id: book.id },
-        relations: { bookGenres: { genre: true }, author: true },
+        relations: {
+          bookGenres: { genre: true },
+          author: true,
+          comments: true,
+        },
       });
       expect(result).toStrictEqual(adaptBookEntityToPlainBookModel(book));
     });
@@ -147,7 +166,11 @@ describe('BookRepository', () => {
       expect(findSpy).toHaveBeenCalledTimes(1);
       expect(findSpy).toHaveBeenCalledWith({
         where: { id },
-        relations: { bookGenres: { genre: true }, author: true },
+        relations: {
+          bookGenres: { genre: true },
+          author: true,
+          comments: true,
+        },
       });
     });
   });
@@ -179,6 +202,7 @@ describe('BookRepository', () => {
         name: bookFixture().name,
         writtenOn: bookFixture().writtenOn,
         author: {
+          id: author.id,
           firstName: author.firstName,
           lastName: author.lastName,
         },
@@ -283,6 +307,7 @@ describe('BookRepository', () => {
         name: existingBook.name,
         writtenOn: existingBook.writtenOn,
         author: {
+          id: existingBook.author.id,
           firstName: existingBook.author.firstName,
           lastName: existingBook.author.lastName,
         },
@@ -359,6 +384,7 @@ describe('BookRepository', () => {
         name: bookFixture().name,
         writtenOn: bookFixture().writtenOn,
         author: {
+          id: author.id,
           firstName: author.firstName,
           lastName: author.lastName,
         },
@@ -454,6 +480,7 @@ describe('BookRepository', () => {
         name: bookFixture().name,
         writtenOn: bookFixture().writtenOn,
         author: {
+          id: author.id,
           firstName: author.firstName,
           lastName: author.lastName,
         },
@@ -552,6 +579,7 @@ describe('BookRepository', () => {
         name: existingBook.name,
         writtenOn: existingBook.writtenOn,
         author: {
+          id: existingBook.author.id,
           firstName: existingBook.author.firstName,
           lastName: existingBook.author.lastName,
         },
@@ -690,6 +718,7 @@ describe('BookRepository', () => {
         name: existingBook.name,
         writtenOn: existingBook.writtenOn,
         author: {
+          id: existingBook.author.id,
           firstName: existingBook.author.firstName,
           lastName: existingBook.author.lastName,
         },
@@ -741,6 +770,7 @@ describe('BookRepository', () => {
         name: existingBook.name,
         writtenOn: existingBook.writtenOn,
         author: {
+          id: existingBook.author.id,
           firstName: existingBook.author.firstName,
           lastName: existingBook.author.lastName,
         },
@@ -811,6 +841,7 @@ describe('BookRepository', () => {
         name: existingBook.name,
         writtenOn: existingBook.writtenOn,
         author: {
+          id: existingBook.author.id,
           firstName: existingBook.author.firstName,
           lastName: existingBook.author.lastName,
         },

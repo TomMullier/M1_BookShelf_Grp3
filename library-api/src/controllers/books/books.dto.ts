@@ -1,6 +1,6 @@
 import { IsString, IsDate, IsOptional } from 'class-validator';
-import { PlainAuthorModel } from 'library-api/src/models';
 import { ApiProperty } from '@nestjs/swagger';
+import { PlainAuthorModelForBook } from 'library-api/src/models';
 
 export class CreateBookDto {
   @ApiProperty({
@@ -26,7 +26,7 @@ export class CreateBookDto {
     },
   })
   @IsString()
-  author: PlainAuthorModel;
+  author: PlainAuthorModelForBook;
 
   @ApiProperty({
     description: 'Book genres',
@@ -63,7 +63,7 @@ export class UpdateBookDto {
   })
   @IsOptional()
   @IsString()
-  author?: PlainAuthorModel;
+  author?: PlainAuthorModelForBook;
 
   @ApiProperty({
     description: 'Book genres',

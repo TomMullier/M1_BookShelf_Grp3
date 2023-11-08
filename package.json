@@ -16,6 +16,7 @@
     "site:lint": "cd library-site && next lint"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.2.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
@@ -85,7 +86,14 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^library-api/src/(.*)$": "<rootDir>/$1"
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>"
+    ]
   },
   "repository": {
     "type": "git",
