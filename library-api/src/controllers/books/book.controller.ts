@@ -17,6 +17,7 @@ import {
   ApiConflictResponse,
   ApiHeader,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -32,8 +33,7 @@ export class BookController {
   constructor(private readonly bookUseCases: BookUseCases) {}
 
   @Get('/')
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Get all books',
     type: PlainBookPresenter,
     isArray: true,
@@ -45,8 +45,7 @@ export class BookController {
   }
 
   @Get('/:id')
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Get a book by its ID',
     type: BookPresenter,
   })
@@ -79,8 +78,7 @@ export class BookController {
   }
 
   @Patch('/:id')
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Update a book by its ID',
     type: PlainBookPresenter,
   })
