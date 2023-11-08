@@ -40,9 +40,22 @@ const AuthorsPage: FC = () => {
         lastName: (
           document.getElementById('author_lastname') as HTMLInputElement
         ).value,
-        photo: (document.getElementById('author_photo') as HTMLInputElement)
-          .value,
       };
+      // gestion de la photo
+      const fileInput = document.getElementById(
+        'author_photo',
+      ) as HTMLInputElement;
+      // ne peux pas être null
+      const image = fileInput.files[0]; // eslint-disable-line
+      const imageType = /image.*/;
+      if (image && image.type.match(imageType)) {
+        const reader = new FileReader();
+        reader.onload = (): void => {
+          // creation de la propriété photo
+          author.photo = reader.result; // eslint-disable-line
+        };
+      }
+
       console.log('Author created :');
       console.log(author);
       setIsModalOpen(false);
