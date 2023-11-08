@@ -52,7 +52,7 @@ export class CommentRepository extends Repository<Comment> {
    * Create a comment
    * @param input Data for the comment to be created
    * @returns Created comment
-   * @throws 409: Comment with this book already exists
+   * @throws 409: User has already commented this book
    */
   public async createComment(
     input: CreateCommentRepositoryInput,
@@ -108,17 +108,16 @@ export class CommentRepository extends Repository<Comment> {
     await this.getById(id);
 
     await this.dataSource.transaction(async (manager) => {
-      if (input.book) {
-        const book = await manager.findOne<Book>(Book, {
-          where: {
-            id: input.book,
-          },
-        });
-        if (!book) {
-          throw new NotFoundException(`Book - '${input.book}'`);
-        }
-        await manager.update<Comment>(Comment, { id }, { book });
+      const book = await manager.findOne<Book>(Book, {
+        where: {
+          id: input.book,
+        },
+      });
+      if (!book) {
+        throw new NotFoundException(`Book - '${input.book}'`);
       }
+      await manager.update<Comment>(Comment, { id }, { book });
+
       const obj = {
         ...input,
         book: undefined,
@@ -139,6 +138,9 @@ export class CommentRepository extends Repository<Comment> {
    */
   public async deleteById(id: CommentId): Promise<void> {
     const comment = await this.getById(id);
+    if (!comment) {
+      throw new NotFoundException(`Comment - '${id}'`);
+    }
     await this.delete(comment.id);
   }
 }
