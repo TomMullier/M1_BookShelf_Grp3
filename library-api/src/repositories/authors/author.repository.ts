@@ -93,6 +93,9 @@ export class AuthorRepository extends Repository<Author> {
    */
   public async deleteById(id: AuthorId): Promise<void> {
     const author = await this.getById(id);
+    if (!author) {
+      throw new NotFoundException(`Author - '${id}'`);
+    }
     await this.delete(author.id);
   }
 }
