@@ -7,7 +7,10 @@ import {
   Delete,
   Patch,
 } from '@nestjs/common';
-import { PlainBookPresenter } from 'library-api/src/controllers/books/book.presenter';
+import {
+  // BookPresenter,
+  PlainBookPresenter,
+} from 'library-api/src/controllers/books/book.presenter';
 import { BookId } from 'library-api/src/entities';
 import { BookUseCases } from 'library-api/src/useCases';
 import {
@@ -96,6 +99,9 @@ export class BookController {
   @ApiResponse({
     status: 204,
     description: 'Book deleted by its ID',
+  })
+  @ApiNotFoundResponse({
+    description: 'Book not found',
   })
   @ApiNotFoundResponse({
     description: 'Book not found',

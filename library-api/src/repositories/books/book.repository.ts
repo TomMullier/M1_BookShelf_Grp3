@@ -11,11 +11,15 @@ import {
   Genre,
 } from 'library-api/src/entities';
 import {
+  BookRepositoryOutput,
   PlainBookRepositoryOutput,
   CreateBookRepositoryInput,
   UpdateBookRepositoryInput,
 } from 'library-api/src/repositories/books/book.repository.type';
-import { adaptBookEntityToPlainBookModel } from 'library-api/src/repositories/books/book.utils';
+import {
+  adaptBookEntityToBookModel,
+  adaptBookEntityToPlainBookModel,
+} from 'library-api/src/repositories/books/book.utils';
 import { DataSource, Repository, In } from 'typeorm';
 import { v4 } from 'uuid';
 
@@ -42,7 +46,7 @@ export class BookRepository extends Repository<Book> {
    * @returns Book if found
    * @throws 404: book with this ID was not found
    */
-  public async getById(id: BookId): Promise<PlainBookRepositoryOutput> {
+  public async getById(id: BookId): Promise<BookRepositoryOutput> {
     const book = await this.findOne({
       where: { id },
       relations: { bookGenres: { genre: true }, author: true, comments: true },
@@ -51,7 +55,7 @@ export class BookRepository extends Repository<Book> {
     if (!book) {
       throw new NotFoundException(`Book - '${id}'`);
     }
-    return adaptBookEntityToPlainBookModel(book);
+    return adaptBookEntityToBookModel(book);
   }
 
   /**

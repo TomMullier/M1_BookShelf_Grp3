@@ -105,12 +105,12 @@ export class CommentRepository extends Repository<Comment> {
     input: UpdateCommentRepositoryInput,
   ): Promise<CommentRepositoryOutput> {
     // Vérification que le commentaire existe déjà
-    await this.getById(id);
+    const comment = await this.getById(id);
 
     await this.dataSource.transaction(async (manager) => {
       const book = await manager.findOne<Book>(Book, {
         where: {
-          id: input.book,
+          id: comment.book.id,
         },
       });
       if (!book) {

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BookId } from 'library-api/src/entities';
 import { BookRepository } from 'library-api/src/repositories';
 import {
+  // BookUseCasesOutput,
   PlainBookUseCasesOutput,
   CreateBookUseCasesInput,
   UpdateBookUseCasesInput,
@@ -26,7 +27,7 @@ export class BookUseCases {
    * @throws 404: book with this ID was not found
    */
   public async getById(id: BookId): Promise<PlainBookUseCasesOutput> {
-    return this.bookRepository.getById(id);
+    return this.bookRepository.getPlainById(id);
   }
 
   /**
