@@ -120,7 +120,6 @@ export class BookRepository extends Repository<Book> {
           },
         });
         if (!author) {
-          // await manager.delete<Book>(Book, { id: book.id });
           throw new NotFoundException(
             `Author - '${input.author.firstName} ${input.author.lastName}'`,
           );
@@ -141,7 +140,6 @@ export class BookRepository extends Repository<Book> {
 
         // Vérification que tous les genres ont été trouvés
         if (newGenres.length !== input.genres.length) {
-          // await manager.delete<Book>(Book, { id: book.id });
           throw new NotFoundException(
             `Genre - '${input.genres.filter(
               (genre) => !newGenres.find((newGenre) => newGenre.name === genre),
@@ -177,7 +175,10 @@ export class BookRepository extends Repository<Book> {
     input: UpdateBookRepositoryInput,
   ): Promise<PlainBookRepositoryOutput> {
     // Vérification que le livre existe déjà
-    await this.getById(id);
+    const existingBook = await this.getById(id);
+    if (!existingBook) {
+      throw new NotFoundException(`Book - '${id}'`);
+    }
 
     await this.dataSource.transaction(async (manager) => {
       if (input.genres) {
@@ -245,6 +246,9 @@ export class BookRepository extends Repository<Book> {
    */
   public async deleteById(id: BookId): Promise<void> {
     const book = await this.getById(id);
+    if (!book) {
+      throw new NotFoundException(`Book - '${id}'`);
+    }
     await this.delete(book.id);
   }
 }
