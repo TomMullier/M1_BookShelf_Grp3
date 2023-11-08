@@ -238,15 +238,9 @@ const BooksDetailsPage: FC = () => {
             />
             {/* Selkect author */}
             <div className="select_author_container">
-              <label htmlFor="post_author">Author</label>
-              <select name="post_author" id="post_author">
-                <option value="0">Select author</option>
-                <option value="1">Author</option>
-                <option value="2">Author</option>
-                <option value="3">Author</option>
-              </select>
+              <label htmlFor="post_author">User</label>
+              <input type="text" className="post_author" placeholder="User name" />
             </div>
-
           </div>
         </form>
       </Modal>
