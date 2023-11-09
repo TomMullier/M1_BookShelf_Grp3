@@ -3,10 +3,12 @@
 import { FC, useEffect, useState } from 'react';
 import { useBooksProviders, useGetAuthor } from '@/hooks';
 import Modal from '../../components/modal/modal';
+import { useGetAuthorSpecific } from '@/hooks';
 
 const AuthorsPage: FC = () => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
+  const { author, updateAuthor, deleteAuthor, createAuthor } = useGetAuthorSpecific("id");
   const authors = useGetAuthor();
   const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
 
@@ -34,13 +36,16 @@ const AuthorsPage: FC = () => {
       }
     });
     if (valid) {
-      const author = {
+      const Addauthor = {
         firstName: (
           document.getElementById('author_firstname') as HTMLInputElement
         ).value,
         lastName: (
           document.getElementById('author_lastname') as HTMLInputElement
         ).value,
+        books: [],
+        id: '1',
+        photoUrl: '',
       };
       // gestion de la photo
       const fileInput = document.getElementById(
@@ -49,17 +54,17 @@ const AuthorsPage: FC = () => {
       // ne peux pas être null
       const image = fileInput.files[0]; // eslint-disable-line
       const imageType = /image.*/;
-      if (image && image.type.match(imageType)) {
-        const reader = new FileReader();
-        reader.onload = (): void => {
-          // creation de la propriété photo
-          author.photoUrl = reader.result; // eslint-disable-line
-        };
-      }
+      const reader = new FileReader();
+      reader.onload = (): void => {
+        // creation de la propriété photo
+        Addauthor.photoUrl = reader.result; // eslint-disable-line
+      };
 
       console.log('Author created :');
-      console.log(author);
+      console.log(Addauthor);
       setIsModalOpen(false);
+      createAuthor(Addauthor);
+      window.location.reload();
     } else {
       alert('Please fill all the fields');
     }

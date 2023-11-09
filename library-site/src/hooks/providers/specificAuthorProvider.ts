@@ -19,7 +19,10 @@ export const useGetAuthorSpecific = (id: string) => {
 
   const updateAuthor = (authorToUpdate: AuthorModel): void => {
     axios
-      .patch<AuthorModel>(`${process.env.NEXT_PUBLIC_API_URL}/author/${id}`, authorToUpdate)
+      .patch<AuthorModel>(
+        `${process.env.NEXT_PUBLIC_API_URL}/authors/${id}`,
+        authorToUpdate,
+      )
       .then((data) => {
         setAuthor(data.data);
       })
@@ -30,7 +33,7 @@ export const useGetAuthorSpecific = (id: string) => {
 
   const deleteAuthor = (): void => {
     axios
-      .delete<AuthorModel>(`${process.env.NEXT_PUBLIC_API_URL}/author/${id}`)
+      .delete<AuthorModel>(`${process.env.NEXT_PUBLIC_API_URL}/authors/${id}`)
       .then(() => {
         setAuthor(undefined);
       })
@@ -41,9 +44,13 @@ export const useGetAuthorSpecific = (id: string) => {
 
   const createAuthor = (authorToCreate: AuthorModel): void => {
     axios
-      .post<AuthorModel>(`${process.env.NEXT_PUBLIC_API_URL}/author/`, authorToCreate)
+      .post<AuthorModel>(
+        `${process.env.NEXT_PUBLIC_API_URL}/authors/`,
+        authorToCreate,
+      )
       .then((data) => {
         setAuthor(data.data);
+        console.log(data.data);
       })
       .catch((err) => {
         console.log(err);

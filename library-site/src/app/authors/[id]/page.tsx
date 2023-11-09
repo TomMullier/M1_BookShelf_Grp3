@@ -36,6 +36,7 @@ const AuthorDetailsPage: FC = () => {
     console.log('Author deleted');
     setIsModalOpenDeleteAuthor(false);
     deleteAuthor();
+    window.location.href = '/authors';
   };
 
   return (
