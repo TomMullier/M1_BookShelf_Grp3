@@ -22,6 +22,12 @@ export class PlainCommentPresenter {
   comment: string;
 
   @ApiProperty({
+    description: 'Comment written on',
+    example: '1954-07-29T00:00:00.000Z',
+  })
+  date: Date;
+
+  @ApiProperty({
     description: 'Book commented',
     example: '7b6bf72e-e42b-49e8-8f19-3c50dac38ede',
   })
@@ -36,6 +42,7 @@ export class PlainCommentPresenter {
       id: data.id,
       user: data.user,
       comment: data.comment,
+      date: data.date,
       book: data.book,
     });
   }
@@ -61,6 +68,12 @@ export class CommentPresenter {
   comment: string;
 
   @ApiProperty({
+    description: 'Comment written on',
+    example: '1954-07-29T00:00:00.000Z',
+  })
+  date: Date;
+
+  @ApiProperty({
     description: 'Book commented',
     type: Object,
     example: {
@@ -71,7 +84,8 @@ export class CommentPresenter {
         id: '7b6bf72e-e42b-49e8-8f19-3c50dac38ede',
         firstName: 'John',
         lastName: 'Doe',
-        photoUrl: 'Doe-John',
+        photoUrl:
+          'data:image/png;base64,dVBORw0KGgoAAAANSUhEUgAgAZoAAAAuCAYAAAARKt',
       },
     },
   })
@@ -86,6 +100,7 @@ export class CommentPresenter {
       id: data.id,
       user: data.user,
       comment: data.comment,
+      date: data.date,
       book: data.book,
     });
   }

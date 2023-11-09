@@ -7,6 +7,7 @@ export function commentFixture(): Comment {
     id: faker.string.uuid() as CommentId,
     user: faker.internet.userName(),
     comment: faker.lorem.paragraph(),
+    date: faker.date.past(),
     book: bookFixture(),
   } as Comment;
 }

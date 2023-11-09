@@ -60,7 +60,7 @@ export class PlainAuthorPresenter {
 
   @ApiProperty({
     description: 'Author photo url',
-    example: 'Doe-John',
+    example: 'data:image/png;base64,dVBORw0KGgoAAAANSUhEUgAgAZoAAAAuCAYAAAARKt',
   })
   photoUrl: string;
 

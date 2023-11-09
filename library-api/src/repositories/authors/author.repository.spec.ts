@@ -109,6 +109,7 @@ describe('AuthorRepository', () => {
       const input = {
         firstName: author.firstName,
         lastName: author.lastName,
+        photoUrl: author.photoUrl,
       };
 
       const transactionSpy = jest
@@ -143,7 +144,6 @@ describe('AuthorRepository', () => {
       expect(createSpy).toHaveBeenCalledWith(Author, {
         ...input,
         id: expect.any(String),
-        photoUrl: `${input.lastName}-${input.firstName}`,
       });
       expect(saveSpy).toHaveBeenCalledTimes(1);
       expect(saveSpy).toHaveBeenCalledWith([author]);
@@ -170,6 +170,7 @@ describe('AuthorRepository', () => {
       const input = {
         firstName: author.firstName,
         lastName: author.lastName,
+        photoUrl: author.photoUrl,
       };
 
       const transactionSpy = jest

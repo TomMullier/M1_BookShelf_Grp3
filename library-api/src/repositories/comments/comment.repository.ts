@@ -60,6 +60,7 @@ export class CommentRepository extends Repository<Comment> {
     const existingComment = await this.findOne({
       where: {
         user: input.user,
+        book: { id: input.book },
       },
       relations: { book: true },
     });

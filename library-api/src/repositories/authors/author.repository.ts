@@ -71,13 +71,11 @@ export class AuthorRepository extends Repository<Author> {
         `Author - '${input.lastName}' '${input.firstName}' already exists`,
       );
     }
-    const photoUrl = `${input.lastName}-${input.firstName}`;
     const id = await this.dataSource.transaction(async (manager) => {
       const author = await manager.save<Author>(
         manager.create<Author>(Author, {
           ...input,
           id: v4(),
-          photoUrl,
         }),
       );
       return author.id;

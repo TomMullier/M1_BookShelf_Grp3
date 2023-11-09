@@ -21,6 +21,9 @@ export class Comment extends BaseEntity {
   @Column()
   comment: string;
 
+  @Column({ type: 'date' })
+  date: Date;
+
   @ManyToOne(() => Book, (book) => book.id, {
     onDelete: 'CASCADE',
   })

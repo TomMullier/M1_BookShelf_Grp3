@@ -107,6 +107,7 @@ describe('CommentRepository', () => {
       const input = {
         user: comment.user,
         comment: comment.comment,
+        date: comment.date,
         book: comment.book.id,
       };
 
@@ -135,6 +136,7 @@ describe('CommentRepository', () => {
       expect(findOneSpy).toHaveBeenCalledWith({
         where: {
           user: comment.user,
+          book: { id: input.book },
         },
         relations: { book: true },
       });
@@ -178,6 +180,7 @@ describe('CommentRepository', () => {
       const input = {
         user: comment.user,
         comment: comment.comment,
+        date: comment.date,
         book: comment.book.id,
       };
 
@@ -196,6 +199,7 @@ describe('CommentRepository', () => {
       expect(findOneSpy).toHaveBeenCalledWith({
         where: {
           user: comment.user,
+          book: { id: input.book },
         },
         relations: { book: true },
       });
@@ -221,6 +225,7 @@ describe('CommentRepository', () => {
       const input = {
         user: comment.user,
         comment: comment.comment,
+        date: comment.date,
         book: comment.book.id,
       };
 
@@ -242,6 +247,7 @@ describe('CommentRepository', () => {
       expect(findOneSpy).toHaveBeenCalledWith({
         where: {
           user: comment.user,
+          book: { id: input.book },
         },
         relations: { book: true },
       });
@@ -276,6 +282,7 @@ describe('CommentRepository', () => {
       const comment = commentFixture();
       const input = {
         comment: comment.comment,
+        date: comment.date,
         book: comment.book.id,
       };
 
@@ -327,6 +334,8 @@ describe('CommentRepository', () => {
       const comment = commentFixture();
       const input = {
         comment: comment.comment,
+        date: comment.date,
+        book: comment.book.id,
       };
 
       const findOneSpy = jest

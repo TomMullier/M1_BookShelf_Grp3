@@ -15,4 +15,11 @@ export class CreateAuthorDto {
   })
   @IsString()
   firstName: string;
+
+  @ApiProperty({
+    description: 'Author photo url',
+    example: 'data:image/png;base64,dVBORw0KGgoAAAANSUhEUgAgAZoAAAAuCAYAAAARKt',
+  })
+  @IsString()
+  photoUrl: string;
 }
