@@ -1,3 +1,8 @@
+export type Genres = {
+  id: string;
+  name: string;
+};
+
 export type PlainBookModel = {
   author: {
     id: string;
@@ -6,5 +11,5 @@ export type PlainBookModel = {
   };
   id: string;
   name: string;
-  genres: string[];
+  genres: Genres[];
 };

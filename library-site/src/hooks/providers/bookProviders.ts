@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 // import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { PlainBookModel } from '@/models';
+import { PlainBookModel, Genres } from '@/models';
 
 type UseListBooksProvider = {
   books: PlainBookModel[];
@@ -9,7 +10,7 @@ type UseListBooksProvider = {
 
 type UseListBooksProviderInput = {
   search?: string;
-  genre?: string[];
+  genre?: Genres[];
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -24,7 +25,10 @@ export const useListBooks = (input?: UseListBooksProviderInput) => {
       firstName: 'Jean',
       lastName: 'MichMuch',
     },
-    genres: ['Quoi', 'Fantasy'],
+    genres: [
+      { id: '1', name: 'Thriller' },
+      { id: '2', name: 'Fantasy' },
+    ],
   };
   const bookTest2 = {
     id: '1',
@@ -35,7 +39,10 @@ export const useListBooks = (input?: UseListBooksProviderInput) => {
       firstName: 'Sarah',
       lastName: 'Croche',
     },
-    genres: ['Roman', 'Policier'],
+    genres: [
+      { id: '3', name: 'Romance' },
+      { id: '5', name: 'Historical' },
+    ],
   };
 
   const fetchBooks = (): void => {
@@ -46,12 +53,27 @@ export const useListBooks = (input?: UseListBooksProviderInput) => {
     setBooks([bookTest, bookTest2]);
   };
   useEffect(() => {
-    const allbooks = [bookTest, bookTest2];
-    const filteredbooks = allbooks.filter((book) =>
-      (input?.search ? book.name.toLowerCase().includes(input.search.toLowerCase()): true),
-    );
-    setBooks(filteredbooks);
-  }, [books, input?.search]);
+    if (input?.search === '' && input?.genre?.length === 0) {
+      setBooks([bookTest, bookTest2]);
+    } else {
+      const allbooks = [bookTest, bookTest2];
+      const inputgenres = input?.genre?.map((genre) => genre.name);
+      console.log(input);
+      // eslint-disable-next-line max-len, prettier/prettier
+      const filteredbooks = allbooks.filter((book) => (
+        input?.search ? book.name.toLowerCase().includes(input.search.toLowerCase()) : true
+        ),
+          // eslint-disable-next-line function-paren-newline
+        ).filter((book) => (
+        inputgenres?.length ? book.genres.some((genre) => inputgenres.includes(genre.name)!) : true
+
+        ),
+      // eslint-disable-next-line function-paren-newline
+      );
+      setBooks(filteredbooks);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input?.search, input?.genre]);
   return { books, load: fetchBooks };
   // return { books, load: (): void => {} };
 };

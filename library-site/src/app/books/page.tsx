@@ -2,11 +2,11 @@
 
 import { FC, ReactElement, useEffect, useState } from 'react';
 import { useBooksProviders } from '@/hooks';
+import { Genres, PlainBookModel } from '@/models';
 import Modal from '../../components/modal';
 import 'flowbite';
 
 import { ListItem } from '../../components/ListItem/ListItem';
-import { PlainBookModel } from '@/models';
 
 const openItemPage = (id: number): void => {
   window.location.href = `/books/${id}`;
@@ -43,8 +43,10 @@ const BooksList: FC<BooksProps> = ({ book }) => (
           {`${book.author.firstName}${book.author.lastName}`}
         </div>
         <div className="book_category flex">
-          {book.genres.map((genre: string | null | undefined) => (
-            <p key={genre} className="pr-1">{genre}</p>
+          {book.genres.map((genre: Genres) => (
+            <p key={genre.name} className="pr-1">
+              {genre.name}
+            </p>
           ))}
         </div>
       </div>
@@ -82,8 +84,8 @@ const genres = [
 type BooksFilterProps = {
   search: string;
   setSearch: (input: string) => void;
-  filterTypes: typeof genres;
-  setFilterTypes: (input: typeof genres) => void;
+  filterTypes: Genres[];
+  setFilterTypes: (input: Genres[]) => void;
 };
 
 const BooksFilter: FC<BooksFilterProps> = ({
@@ -92,17 +94,16 @@ const BooksFilter: FC<BooksFilterProps> = ({
   filterTypes,
   setFilterTypes,
 }) => {
-  const [typeSelect, setTypeSelect] = useState('');
+  const [typeSelect, setTypeSelect] = useState<Genres>(genres[0]);
 
-  const onSelectType = (e: any): void => {
+  const onSelectType = (e): void => {
     e.preventDefault();
-
-    setTypeSelect(e.target.value);
+    setTypeSelect(genres.find((genre) => genre.name === e.target.value));
   };
 
   const addType = (): void => {
     if (typeSelect) {
-      setFilterTypes([...filterTypes, { id: '', name: typeSelect }]);
+      setFilterTypes([...filterTypes, typeSelect]);
     }
   };
 
@@ -132,8 +133,7 @@ const BooksFilter: FC<BooksFilterProps> = ({
       {filterTypes.map((type) => (
         <button type="button" onClick={(): void => removeType(type)}>
           {type.name}
-          {' '}
-          x
+          {' X'}
         </button>
       ))}
     </div>
@@ -142,8 +142,8 @@ const BooksFilter: FC<BooksFilterProps> = ({
 
 export function Page(): ReactElement {
   const [search, setSearchInput] = useState('');
-  const [filterTypes, setFilterTypes] = useState([]);
-  const { useListBooks } = useBooksProviders({ search });
+  const [filterTypes, setFilterTypes] = useState<Genres[]>([]);
+  const { useListBooks } = useBooksProviders({ search, genre: filterTypes });
   const { books, load } = useListBooks();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
