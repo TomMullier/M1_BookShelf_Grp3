@@ -39,5 +39,16 @@ export const useGetOneBook = (id: string) => {
       });
   };
 
-  return { book, updateBook, deleteBook };
+  const createBook = (bookToCreate: PlainBookModel): void => {
+    axios
+      .post<PlainBookModel>(`${process.env.NEXT_PUBLIC_API_URL}/books/`, bookToCreate)
+      .then((data) => {
+        setBook(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return { book, updateBook, deleteBook, createBook };
 };

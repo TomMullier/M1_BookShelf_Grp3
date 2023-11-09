@@ -1,62 +1,15 @@
 'use client';
 
 import { FC, ReactElement, useEffect, useState } from 'react';
-import { useBooksProviders } from '@/hooks';
+import { useBooksProviders, useGetOneBook, useGetAuthor, useGetGenre } from '@/hooks';
 import Modal from '../../components/modal/modal';
-
-// type bookfilter = {
-//  search: string;
-//  setSearch: (input: string) => void;
-// };
-
-const authors = [
-  {
-    id: '1',
-    firstName: 'Tom',
-    lastName: 'Clancy',
-  },
-  {
-    id: '2',
-    firstName: 'Maxime',
-    lastName: 'Decoster',
-  },
-  {
-    id: '3',
-    firstName: 'Paul',
-    lastName: 'de Vries',
-  },
-];
-
-const genres = [
-  {
-    id: '1',
-    name: 'Thriller',
-  },
-  {
-    id: '2',
-    name: 'Fantasy',
-  },
-  {
-    id: '3',
-    name: 'Romance',
-  },
-  {
-    id: '4',
-    name: 'Science-fiction',
-  },
-  {
-    id: '5',
-    name: 'Historical',
-  },
-  {
-    id: '6',
-    name: 'Biography',
-  },
-];
 
 const BooksPage: FC = (): ReactElement => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
+  const { createBook } = useGetOneBook('id');
+  const authors = useGetAuthor();
+  const genres = useGetGenre();
   const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -73,7 +26,7 @@ const BooksPage: FC = (): ReactElement => {
     });
   };
 
-  const createBook = (): void => {
+  const checkCreateBook = (): void => {
     let valid = true;
     const checkForm = document.querySelectorAll('.create_book_form input');
     checkForm.forEach((input) => {
@@ -95,27 +48,22 @@ const BooksPage: FC = (): ReactElement => {
       const book = {
         name: (document.getElementById('title') as HTMLInputElement).value,
         author: {
-          firstName:
-            authors[
-              parseInt(
-                (document.getElementById('author') as HTMLInputElement).value,
-                10,
-              ) - 1
-            ].firstName,
-          lastName:
-            authors[
-              parseInt(
-                (document.getElementById('author') as HTMLInputElement).value,
-                10,
-              ) - 1
-            ].lastName,
+          firstName: (
+            document.getElementById('author') as HTMLSelectElement
+          ).value.split(' ')[0],
+          lastName: (
+            document.getElementById('author') as HTMLSelectElement
+          ).value.split(' ')[1],
         },
         genres: genreChecked,
         writtenOn: (document.getElementById('date') as HTMLInputElement).value,
+        id:'id',
+        comments: [],
       };
       setIsModalOpen(false);
       console.log('Book Created');
       console.log(book);
+      createBook(book);
     } else {
       alert('Please fill all the fields');
     }
@@ -222,7 +170,7 @@ const BooksPage: FC = (): ReactElement => {
           <Modal
             isOpen={isModalOpen}
             onCancel={closeModal}
-            onSubmit={createBook}
+            onSubmit={checkCreateBook}
             title="Create a Book"
           >
             <form className="create_book_form" action="">
@@ -243,7 +191,7 @@ const BooksPage: FC = (): ReactElement => {
                 <label htmlFor="create_book_author">Author</label>
                 <select name="create_book_author" id="author">
                   {authors.map((author) => (
-                    <option value={author.id}>
+                    <option value={`${author.firstName} ${author.lastName}`}>
                       {`${author.firstName} ${author.lastName}`}
                     </option>
                   ))}

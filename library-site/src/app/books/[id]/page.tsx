@@ -51,7 +51,7 @@ const BooksDetailsPage: FC = () => {
   const id = url.substring(url.lastIndexOf('/') + 1);
 
   const { book, updateBook, deleteBook } = useGetOneBook(id);
-  const { genres } = useGetGenre();
+  const genres = useGetGenre();
   const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
   const { comment, updateComment, createComment } = useGetComment(name);
   const authorUrl = `/authors/${book?.author.id}`;

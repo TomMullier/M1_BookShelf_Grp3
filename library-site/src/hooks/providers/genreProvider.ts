@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GenreModel } from '@/models';
 
-export const useGetGenre = (): object => {
+export const useGetGenre = (): GenreModel[] => {
   const [genres, setGenres] = useState<GenreModel[]>([]);
 
   useEffect(() => {
@@ -17,5 +17,5 @@ export const useGetGenre = (): object => {
       });
   }, []);
 
-  return { genres };
+  return genres;
 };
