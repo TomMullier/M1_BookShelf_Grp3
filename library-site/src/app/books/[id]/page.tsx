@@ -92,11 +92,19 @@ const BooksDetailsPage: FC = () => {
 
   const [open, setOpen] = useState(false);
 
+  let drawerCont: HTMLElement | null;
   const handleDrawerOpen = (): void => {
     setOpen(true);
+    drawerCont = document.querySelector('.MuiToolbar-root');
+    setTimeout(() => {
+      if (drawerCont) drawerCont.style.borderRadius = '0';
+    }, 400);
   };
   const handleDrawerClose = (): void => {
     setOpen(false);
+    if (document.querySelector('.MuiToolbar-root')) {
+      document.querySelector('.MuiToolbar-root').style.borderRadius = '10px';
+    }
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -152,6 +160,7 @@ const BooksDetailsPage: FC = () => {
 
   const OpenModalEdit = (): void => {
     setIsModalOpenEditBook(true);
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         setIsModalOpenEditBook(false);

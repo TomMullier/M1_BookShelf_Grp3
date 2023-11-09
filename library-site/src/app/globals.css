@@ -395,7 +395,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px;
+  padding: 0 20px;
   overflow: auto;
   height: 100%;
 }
@@ -976,6 +976,11 @@ body {
   padding: 0;
   overflow: hidden;
 }
+.MuiToolbar-root {
+  z-index: 1;
+  background-color: white;
+  border-radius: 10px;
+}
 .book_comments_wrapper {
   display: flex;
   position: relative;
@@ -997,7 +1002,7 @@ body {
   font-size: 1rem;
   background-color: white;
   font-weight: normal;
-  z-index: -1;
+  z-index: 0;
   padding: 20px;
 }
 .book_comments_wrapper .MuiPaper-root .comments {

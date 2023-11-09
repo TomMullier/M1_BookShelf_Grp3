@@ -17,9 +17,17 @@ const Comment: FC<CommentProps> = ({ children, author, date }) => {
   const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
   const closeModalEditComment = (): void => {
     setIsModalOpenEditComment(false);
+    const trucToRemove = document.querySelector('.MuiToolbar-root') as HTMLElement;
+    if (trucToRemove) {
+      trucToRemove.style.zIndex = '5';
+    }
   };
   const openModalEditComment = (): void => {
     setIsModalOpenEditComment(true);
+    const trucToRemove = document.querySelector('.MuiToolbar-root') as HTMLElement;
+    if (trucToRemove) {
+      trucToRemove.style.zIndex = 'unset';
+    }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         setIsModalOpenEditComment(false);
@@ -27,6 +35,7 @@ const Comment: FC<CommentProps> = ({ children, author, date }) => {
       }
     });
   };
+
   const pathname = usePathname();
   const checkCommentEdit = (): void => {
     let valid = true;
