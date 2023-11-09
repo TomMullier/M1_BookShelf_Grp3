@@ -21,9 +21,9 @@ export class Author extends BaseEntity {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ nullable: true })
   photoUrl?: string;
 
   @OneToMany(() => Book, (book) => book.author)
-  books: Book[];
+  books?: Book[];
 }
