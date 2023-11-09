@@ -17,7 +17,7 @@ const getOpening = (): string => {
 const Home: FC = (): ReactElement => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
-  useEffect(() => load(), []);
+  useEffect(() => load());
 
   const openItemPage = (id: number): void => {
     window.location.href = `/books/${id}`;
@@ -62,7 +62,8 @@ const Home: FC = (): ReactElement => {
         <div className="discover_text">Book recommendations</div>
         <div className="home_books_elements">
           {books.slice(0, 5).map((book) => (
-            <div
+            // No need for keayboard listener
+            <div // eslint-disable-line
               className="book_item"
               id={book.id}
               onClick={(): void => {
