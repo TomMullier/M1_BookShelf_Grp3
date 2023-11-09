@@ -1019,12 +1019,14 @@ body {
   flex-direction: column;
   background-color: transparent;
   padding:0;
-  overflow: hidden;
+  overflow: hidden; 
 }
 .MuiToolbar-root{
   z-index: 1;
   background-color: white;
   border-radius: 10px;
+  color: @black;
+  box-shadow:none;
 }
 .book_comments_wrapper{
   display:flex;
@@ -1040,7 +1042,6 @@ body {
     height: auto;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    box-shadow: none;
     color: @black;
     font-family: @text;
     font-size: 1rem;
@@ -1048,6 +1049,7 @@ body {
     font-weight: normal;
     z-index: 0;
     padding:20px;
+    box-shadow: none;
     .comments{
       display: flex;
       flex-direction: column!important;
@@ -1084,6 +1086,9 @@ body {
       color: @blue;
       background-color: white;
       border: 2px solid @blue;
+    }
+    i{
+      color: white;
     }
   }
 }

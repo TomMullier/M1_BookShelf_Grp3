@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 
 // import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
+import { useGetOneBook, useGetGenre, useGetComment } from '@/hooks';
 // import { useBooksProviders } from '@/hooks';
 import Comment from '../../../components/comment/comment';
 import Modal from '../../../components/modal/modal';
@@ -21,51 +22,6 @@ import Modal from '../../../components/modal/modal';
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
-const authors = [
-  {
-    id: '1',
-    firstName: 'Tom',
-    lastName: 'Clancy',
-  },
-  {
-    id: '2',
-    firstName: 'Maxime',
-    lastName: 'Decoster',
-  },
-  {
-    id: '3',
-    firstName: 'Paul',
-    lastName: 'de Vries',
-  },
-];
-
-const genres = [
-  {
-    id: '1',
-    name: 'Thriller',
-  },
-  {
-    id: '2',
-    name: 'Fantasy',
-  },
-  {
-    id: '3',
-    name: 'Romance',
-  },
-  {
-    id: '4',
-    name: 'Science-fiction',
-  },
-  {
-    id: '5',
-    name: 'Historical',
-  },
-  {
-    id: '6',
-    name: 'Biography',
-  },
-];
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -90,6 +46,15 @@ const BooksDetailsPage: FC = () => {
   // const { id } = useParams();
   // useEffect(() => load(), []);
 
+  // get id from url
+  const url = window.location.href;
+  const id = url.substring(url.lastIndexOf('/') + 1);
+
+  const { book, updateBook, deleteBook } = useGetOneBook(id);
+  const { genres } = useGetGenre();
+  const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
+  const { comment, updateComment, createComment } = useGetComment(name);
+  const authorUrl = `/authors/${book?.author.id}`;
   const [open, setOpen] = useState(false);
 
   let drawerCont: HTMLElement | null;
@@ -140,15 +105,19 @@ const BooksDetailsPage: FC = () => {
       valid = false;
     }
     if (valid) {
-      const comment = {
+      const Checomment = {
         comment: (document.getElementById('post_comment') as HTMLInputElement)
           .value,
         date: new Date().toLocaleDateString(),
         user: author.value,
         book: bookId,
+        id: '1',
       };
       console.log('Comment posted');
-      console.log(comment);
+      console.log(Checomment);
+      createComment(Checomment);
+      setIsModalOpen(false);
+      window.location.href = `/books/${bookId}`;
     } else {
       alert('Please fill all the fields');
     }
@@ -160,13 +129,26 @@ const BooksDetailsPage: FC = () => {
 
   const OpenModalEdit = (): void => {
     setIsModalOpenEditBook(true);
-
+    // set Values
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         setIsModalOpenEditBook(false);
         document.removeEventListener('keydown', () => {});
       }
     });
+    setTimeout(() => {
+      (document.getElementById('title') as HTMLInputElement).value = book?.name;
+      (document.getElementById('date') as HTMLInputElement).value =
+        book?.writtenOn;
+      const genresList = document.querySelectorAll('.genresList input');
+      book?.genres.forEach((genre) => {
+        genresList.forEach((genre2) => {
+          if (genre === genre2.id) {
+            genre2.checked = true;
+          }
+        });
+      });
+    }, 100);
   };
 
   const closeModalDeleteBook = (): void => {
@@ -176,6 +158,8 @@ const BooksDetailsPage: FC = () => {
   const confirmDeleteBook = (): void => {
     setIsModalOpenDeleteBook(false);
     console.log('Book deleted');
+    deleteBook();
+    window.location.href = '/books';
   };
 
   const OpenModalDelete = (): void => {
@@ -207,30 +191,16 @@ const BooksDetailsPage: FC = () => {
       valid = false;
     }
     if (valid) {
-      const book = {
+      const Modbook = {
         name: (document.getElementById('title') as HTMLInputElement).value,
-        author: {
-          firstName:
-            authors[
-              parseInt(
-                (document.getElementById('author') as HTMLInputElement).value,
-                10,
-              ) - 1
-            ].firstName,
-          lastName:
-            authors[
-              parseInt(
-                (document.getElementById('author') as HTMLInputElement).value,
-                10,
-              ) - 1
-            ].lastName,
-        },
+        author: book?.author,
         genres: genreChecked,
         writtenOn: (document.getElementById('date') as HTMLInputElement).value,
       };
       setIsModalOpenEditBook(false);
       console.log('Book Created');
-      console.log(book);
+      console.log(Modbook);
+      updateBook(Modbook);
     } else {
       alert('Please fill all the fields');
     }
@@ -240,7 +210,7 @@ const BooksDetailsPage: FC = () => {
     <section className="layout_book">
       <section className="left_book">
         {/* Book owners */}
-        <div className="book_owners">
+        {/* <div className="book_owners">
           <div className="book_owners_title">Owners</div>
           <div className="book_owners_list">
             <div className="book_owners_item">
@@ -256,7 +226,7 @@ const BooksDetailsPage: FC = () => {
               <p>Owner</p>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Book comments using drawers */}
         <Box
           sx={{
@@ -266,6 +236,7 @@ const BooksDetailsPage: FC = () => {
             backgroundColor: 'white',
             marginTop: '20px',
             borderRadius: '10px',
+            color: 'black',
           }}
         >
           <CssBaseline />
@@ -326,16 +297,15 @@ const BooksDetailsPage: FC = () => {
             transitionDuration={{ enter: 500, exit: 1000 }}
           >
             <div className="comments">
-              <Comment
-                author={{
-                  id: '1',
-                  firstName: 'Author',
-                  lastName: 'Author',
-                }}
-                date="Date"
-              >
-                ieohfbvozeih
-              </Comment>
+              {book?.comments.map((commentOne) => (
+                <Comment
+                  name={commentOne.id}
+                  author={commentOne.user}
+                  date={commentOne.date}
+                >
+                  {commentOne.comment}
+                </Comment>
+              ))}
             </div>
           </Drawer>
         </Box>
@@ -344,15 +314,17 @@ const BooksDetailsPage: FC = () => {
         {/* Books infos */}
         <div className="book_infos">
           <div className="book_image bg-book_cover bg-cover bg-center bg-no-repeat" />
-          <div className="book_title">Titre</div>
+          <div className="book_title">{book?.name}</div>
           <div className="book_author">
             <div className="bg-people bg-cover bg-center bg-no-repeat" />
-            <p>Auteur</p>
+            <p>
+              {book?.author.firstName}
+              {' '}
+              {book?.author.lastName}
+            </p>
           </div>
           <ul className="book_genres">
-            <li>Genre</li>
-            <li>Genre</li>
-            <li>Genre</li>
+            {book?.genres.map((genre) => <li id={genre}>{genre}</li>)}
           </ul>
         </div>
         {/* Books actions */}
@@ -361,11 +333,18 @@ const BooksDetailsPage: FC = () => {
           <div className="book_actions_buttons">
             {/* Pas besoin de keyboard listener */}
             {/* eslint-disable-next-line */}
-            <div className="book_actions_button" onClick={OpenModalEdit}>Edit</div>
+            <div className="book_actions_button" onClick={OpenModalEdit}>
+              Edit
+            </div>
             {/* Pas besoin de keyboard listener */}
             {/* eslint-disable-next-line */}
-            <div className="book_actions_button" onClick={OpenModalDelete}>Delete</div>
-            <div className="book_actions_button">Go to author page</div>
+            <div className="book_actions_button" onClick={OpenModalDelete}>
+              Delete
+            </div>
+            <a className="book_actions_button" href={authorUrl}>
+              {' '}
+              Go to author page
+            </a>
           </div>
         </div>
       </section>
@@ -394,6 +373,7 @@ const BooksDetailsPage: FC = () => {
                 type="text"
                 className="post_author"
                 placeholder="User name"
+                id="post_author"
               />
             </div>
           </div>
@@ -417,9 +397,9 @@ const BooksDetailsPage: FC = () => {
               placeholder="Title"
             />
           </div>
-          <div className="author_group">
-            {/* Ne prend pas en compte mon htmlFor */}
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          {/* <div className="author_group">
+            /* Ne prend pas en compte mon htmlFor
+            /* eslint-disable-next-line jsx-a11y/label-has-associated-control
             <label htmlFor="create_book_author">Author</label>
             <select name="create_book_author" id="author">
               {authors.map((author) => (
@@ -428,11 +408,11 @@ const BooksDetailsPage: FC = () => {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
           <div className="date_group">
             {/* Ne prend pas en compte mon htmlFor */}
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="create_book_date">Genres</label>
+            <label htmlFor="create_book_date">Written on </label>
             <input name="create_book_date" type="date" id="date" />
           </div>
           <div className="genres_group">

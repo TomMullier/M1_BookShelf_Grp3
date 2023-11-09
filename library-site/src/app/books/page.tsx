@@ -121,11 +121,11 @@ const BooksPage: FC = (): ReactElement => {
     }
   };
 
-  const openItemPage = (id: number): void => {
+  const openItemPage = (id: string): void => {
     window.location.href = `/books/${id}`;
   };
 
-  function handleKeyPress(id: number): void {
+  function handleKeyPress(id: string): void {
     openItemPage(id);
   }
 
@@ -183,10 +183,10 @@ const BooksPage: FC = (): ReactElement => {
                 className="book_item"
                 id={book.id}
                 onClick={(): void => {
-                  handleKeyPress(parseInt(book.id, 10));
+                  handleKeyPress(book.id);
                 }}
                 onKeyDown={(): void => {
-                  handleKeyPress(parseInt(book.id, 10));
+                  handleKeyPress(book.id);
                 }}
                 role="button"
                 tabIndex={0}

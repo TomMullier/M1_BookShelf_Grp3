@@ -20,7 +20,6 @@ export const useListBooks = (): UseListBooksProvider => {
         console.error(error);
       });
   };
-
   return { books, load: fetchBooks };
 };
 

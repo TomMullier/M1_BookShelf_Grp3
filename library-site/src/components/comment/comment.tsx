@@ -2,19 +2,19 @@ import React, { FC, ReactElement, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import styles from './comment.module.css';
 import Modal from '../modal/modal';
+import { useGetComment } from '@/hooks';
 
 type CommentProps = {
   children: ReactElement | string;
-  author: {
-    id: string;
-    firstName: string;
-    lastName: string;
-  };
+  author: string;
   date: string;
+  name: string;
 };
 
-const Comment: FC<CommentProps> = ({ children, author, date }) => {
+const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
   const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
+  const { comment, updateComment, createComment } = useGetComment(name);
+
   const closeModalEditComment = (): void => {
     setIsModalOpenEditComment(false);
     const trucToRemove = document.querySelector(
@@ -38,6 +38,12 @@ const Comment: FC<CommentProps> = ({ children, author, date }) => {
         document.removeEventListener('keydown', () => {});
       }
     });
+    setTimeout(() => {
+      const comment2 = document.getElementById('post_comment') as HTMLInputElement;
+      comment2.value = children as string;
+      const author2 = document.getElementById('post_author') as HTMLInputElement;
+      author2.value = document.getElementById('commAuth')?.textContent as string;
+    },100);
   };
 
   const pathname = usePathname();
@@ -57,15 +63,19 @@ const Comment: FC<CommentProps> = ({ children, author, date }) => {
       valid = false;
     }
     if (valid) {
-      const comment = {
+      const Modcomment = {
         comment: (document.getElementById('post_comment') as HTMLInputElement)
           .value,
         date: new Date().toLocaleDateString(),
         user: author2.value,
         book: bookId,
+        id: name,
       };
       console.log('Comment posted');
-      console.log(comment);
+      console.log(Modcomment);
+      updateComment(Modcomment);
+      closeModalEditComment();
+      window.location.reload();
     } else {
       alert('Please fill all the fields');
     }
@@ -73,8 +83,10 @@ const Comment: FC<CommentProps> = ({ children, author, date }) => {
   return (
     <span>
       <div className={styles.comment}>
-        <div className={styles.commentAuthor}>
-          <p>{`${author.firstName} ${author.lastName}`}</p>
+        <div id="commAuth" className={styles.commentAuthor}>
+          <p>
+            {author}
+          </p>
         </div>
         <div className={styles.commentContent}>
           <p>{children}</p>
@@ -112,6 +124,7 @@ const Comment: FC<CommentProps> = ({ children, author, date }) => {
                 type="text"
                 className="post_author"
                 placeholder="User name"
+                id="post_author"
               />
             </div>
           </div>

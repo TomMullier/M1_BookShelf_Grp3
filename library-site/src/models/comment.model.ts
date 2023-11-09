@@ -3,4 +3,5 @@ export type PlainCommentModel = {
   user: string;
   comment: string;
   date: string;
+  book: string;
 };
