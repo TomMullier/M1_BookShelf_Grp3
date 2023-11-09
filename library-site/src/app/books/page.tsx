@@ -63,7 +63,7 @@ const BooksPage: FC = (): ReactElement => {
       setIsModalOpen(false);
       console.log('Book Created');
       console.log(book);
-      createBook(book);
+      window.location.reload();
     } else {
       alert('Please fill all the fields');
     }

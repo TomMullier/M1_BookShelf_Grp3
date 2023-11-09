@@ -1,13 +1,19 @@
 'use client';
 
 import { FC, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Modal from '../../../components/modal/modal';
+
+import { useGetAuthorSpecific } from '@/hooks';
 
 const AuthorDetailsPage: FC = () => {
   const openItemPage = (id: number): void => {
     window.location.href = `/books/${id}`;
   };
   const [isModalOpenDeleteAuthor, setIsModalOpenDeleteAuthor] = useState(false);
+  const idAuth = usePathname().split('/')[2];
+  const { author, updateAuthor, deleteAuthor, createAuthor } =
+    useGetAuthorSpecific(idAuth);
 
   function handleKeyPress(id: number): void {
     openItemPage(id);
@@ -29,6 +35,7 @@ const AuthorDetailsPage: FC = () => {
   const confirmDeleteAuthor = (): void => {
     console.log('Author deleted');
     setIsModalOpenDeleteAuthor(false);
+    deleteAuthor();
   };
 
   return (
@@ -39,17 +46,24 @@ const AuthorDetailsPage: FC = () => {
         <div className="book_list_author">
           {/* Element est focusable */}
           {/* eslint-disable-next-line */}
-          <div className="book_list_author_item" onClick={(): void => {
-              handleKeyPress(0);
-            }}
-            onKeyDown={(): void => {
-              handleKeyPress(0);
-            }}
-            role="button"
-          >
-            <div className="book_list_author_item_image bg-book_cover bg-center bg-no-repeat bg-cover" />
-            <div className="book_list_author_item_name">Book</div>
-          </div>
+          {
+            author?.books.map((book) => (
+            <div
+                className="book_list_author_item"
+                key={book.id}
+                onClick={(): void => {
+                handleKeyPress(book.id);
+              }}
+                onKeyDown={(): void => {
+                handleKeyPress(book.id);
+              }}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="book_list_author_item_image bg-book_cover bg-center bg-no-repeat bg-cover" />
+                <div className="book_list_author_item_name">{book.name}</div>
+              </div>
+          ))}
         </div>
       </section>
       <section className="right_book">
@@ -62,11 +76,11 @@ const AuthorDetailsPage: FC = () => {
             </div>
             <div className="author_informations_item">
               <span>Firstname :</span>
-              <p>Author</p>
+              <p>{author?.firstName}</p>
             </div>
             <div className="author_informations_item">
               <span>Lastname :</span>
-              <p>Author</p>
+              <p>{author?.lastName}</p>
             </div>
           </div>
           <div className="actions_container">

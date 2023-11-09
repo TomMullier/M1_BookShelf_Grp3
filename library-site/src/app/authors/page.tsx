@@ -1,12 +1,13 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
-import { useBooksProviders } from '@/hooks';
+import { useBooksProviders, useGetAuthor } from '@/hooks';
 import Modal from '../../components/modal/modal';
 
 const AuthorsPage: FC = () => {
   const { useListBooks } = useBooksProviders();
   const { books, load } = useListBooks();
+  const authors = useGetAuthor();
   const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,14 +64,14 @@ const AuthorsPage: FC = () => {
       alert('Please fill all the fields');
     }
   };
-  const openItemPage = (id: number): void => {
+  const openItemPage = (id: string): void => {
     window.location.href = `/authors/${id}`;
   };
-  function handleKeyPress(id: number): void {
+  function handleKeyPress(id: string): void {
     openItemPage(id);
   }
   useEffect(() => load(), []);
-  
+
   // Disable Line -> Il veut que je passe une ligne, mais quand je le fais
   // il veut que je revienne en arrière, donc je laisse comme ça
   const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),); // eslint-disable-line
@@ -100,25 +101,29 @@ const AuthorsPage: FC = () => {
         </div>
       </div>
       <div className="author_list">
-        <div className="author_card">
-          <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
-          <div className="author_name">Author</div>
-          <div className="number_written">4</div>
-          {/* Element is focusable mais dit qu'il ne l'est pas */}
-          {/* eslint-disable-next-line */}
-          <div
-            onClick={(): void => {
-              handleKeyPress(0);
-            }}
-            onKeyDown={(): void => {
-              handleKeyPress(0);
-            }}
-            role="button"
-            className="author_button"
-          >
-            Author Page
+        {authors.map((aut) => (
+          <div className="author_card">
+            <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
+            <div className="author_name">
+              {aut.firstName}{' '}{aut.lastName}
+            </div>
+            <div className="number_written">{aut.books.length}</div>
+            {/* Element is focusable mais dit qu'il ne l'est pas */}
+            {/* eslint-disable-next-line */}
+            <div
+              onClick={(): void => {
+                handleKeyPress(aut.id);
+              }}
+              onKeyDown={(): void => {
+                handleKeyPress(aut.id);
+              }}
+              role="button"
+              className="author_button"
+            >
+              Author Page
+            </div>
           </div>
-        </div>
+        ))}
       </div>
       <Modal
         isOpen={isModalOpen}
