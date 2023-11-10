@@ -63,8 +63,8 @@ const BooksDetailsPage: FC = (): ReactElement => {
   const handleDrawerClose = (): void => {
     setOpen(false);
     if (document.querySelector('.MuiToolbar-root')) {
-      document.querySelector('.MuiToolbar-root').style.borderRadius = '10px'; // eslint-disable-line
       // say that could be null, but made verification before
+      document.querySelector('.MuiToolbar-root').style.borderRadius = '10px';
     }
   };
 
@@ -131,7 +131,7 @@ const BooksDetailsPage: FC = (): ReactElement => {
       }
     });
     setTimeout(() => {
-      (document.getElementById('title') as HTMLInputElement).value = book?.name; 
+      (document.getElementById('title') as HTMLInputElement).value = book?.name;
       (document.getElementById('date') as HTMLInputElement).value =
         book?.writtenOn;
       const genresList = document.querySelectorAll('.genresList input');
@@ -313,9 +313,7 @@ const BooksDetailsPage: FC = (): ReactElement => {
             <div className="bg-people bg-cover bg-center bg-no-repeat" />
             <p>
               {/* eslint-disable-next-line */}
-              {book?.author.firstName}
-              {' '}
-              {book?.author.lastName}
+              {book?.author.firstName} {book?.author.lastName}
             </p>
           </div>
           <ul className="book_genres">
