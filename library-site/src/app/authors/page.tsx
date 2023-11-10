@@ -6,6 +6,7 @@ import Modal from '../../components/modal/modal';
 import { AuthorFilter } from '../../components/authorFilter/authorFilter';
 
 const AuthorsPage: FC = () => {
+  // initialisation des hooks
   // const { useListBooks } = useBooksProviders();
   const { createAuthor } = useGetAuthorSpecific('id');
   const [search, setSearchInput] = useState('');
@@ -70,6 +71,7 @@ const AuthorsPage: FC = () => {
     }
   };
 
+  // Open author page
   const openItemPage = (id: string): void => {
     window.location.href = `/authors/${id}`;
   };

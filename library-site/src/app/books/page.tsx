@@ -15,6 +15,7 @@ import { BooksList } from '../../components/ListItem/ListItem';
 import { BooksFilter } from '../../components/bookFilter/bookFilter';
 
 const BooksPage: FC = (): ReactElement => {
+  // initialisation des hooks
   const { createBook } = useGetOneBook('id');
   const genres = useGetGenre();
   const [isModalOpen, setIsModalOpen] = useState(false);

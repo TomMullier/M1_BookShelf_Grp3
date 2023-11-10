@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { GenreModel, PlainBookModel } from '@/models';
 
+// declaration types
 type ListItemProps = {
   children: ReactNode;
 };
@@ -21,6 +22,7 @@ type BooksProps = {
   book: PlainBookModel;
 };
 
+// Composant pour afficher les livres
 export const BooksList: FC<BooksProps> = ({ book }) => (
   <ListItem>
     <div

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AuthorModel } from '@/models';
 
+// Definition des types
 type UseAuthorProviderInput = {
   search?: string;
   sort?: string;
@@ -12,12 +13,14 @@ type UseAuthorProvider = {
   loadauthor: () => void;
 };
 
+// Fonction pour récupérer les auteurs et les trier
 export const useGetAuthor = (
   input?: UseAuthorProviderInput,
 ): UseAuthorProvider => {
   const [authors, setAuthors] = useState<AuthorModel[]>([]);
   const [originauthors, setoriginAuthors] = useState<AuthorModel[]>([]);
 
+  // Fonction pour récupérer les auteurs
   const fetchAuthors = (): void => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/authors`)
@@ -32,7 +35,7 @@ export const useGetAuthor = (
         setAuthors([]);
       });
   };
-
+  // Fonction pour trier les auteurs
   useEffect(() => {
     if (input?.search === '' && input?.sort === '') {
       setAuthors(originauthors);

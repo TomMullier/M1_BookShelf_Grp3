@@ -1,12 +1,9 @@
 import { FC, ReactNode } from 'react';
 
+// declare module des types
 type AuthorItemProps = {
   children: ReactNode;
 };
-
-export const AuthorItem: FC<AuthorItemProps> = ({ children }) => (
-  <div>{children}</div>
-);
 
 type AuthorFilterProps = {
   // search: string;
@@ -15,7 +12,13 @@ type AuthorFilterProps = {
   setSort: (input: string) => void;
 };
 
+export const AuthorItem: FC<AuthorItemProps> = ({ children }) => (
+  <div>{children}</div>
+);
+
 let setzero = true;
+
+// Composant de filtre pour les auteurs
 export const AuthorFilter: FC<AuthorFilterProps> = ({ setSort, setSearch }) => (
   <div className="flex flex-row">
     <div className="flex flex-row items-center">

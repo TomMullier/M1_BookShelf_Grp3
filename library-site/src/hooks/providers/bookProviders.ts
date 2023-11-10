@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { PlainBookModel, GenreModel, Sort } from '@/models';
 
+// Definition des types
 type UseListBooksProvider = {
   books: PlainBookModel[];
   load: () => void;
@@ -13,12 +14,14 @@ type UseListBooksProviderInput = {
   sort?: Sort;
 };
 
+// Fonction pour récupérer les livres et les trier
 export const useListBooks = (
   input?: UseListBooksProviderInput,
 ): UseListBooksProvider => {
   const [books, setBooks] = useState<PlainBookModel[]>([]);
   const [originbooks, setoriginBooks] = useState<PlainBookModel[]>([]);
 
+  // Fonction pour récupérer les livres
   const fetchBooks = (): void => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/books`)
@@ -35,7 +38,7 @@ export const useListBooks = (
   };
 
   let allbooks = books;
-
+  // Fonction pour trier les livres
   useEffect(() => {
     const sort = input?.sort ?? { field: 'Title' };
     if (input?.search === '' && input?.genre?.length === 0) {

@@ -7,12 +7,16 @@ import { PlainBookModel } from '@/models';
 import Modal from '../../../components/modal/modal';
 
 const AuthorDetailsPage: FC = () => {
-  const openItemPage = (id: number): void => {
-    window.location.href = `/books/${id}`;
-  };
+  // initialisation des hooks
+
   const [isModalOpenDeleteAuthor, setIsModalOpenDeleteAuthor] = useState(false);
   const idAuth = usePathname().split('/')[2];
   const { author, deleteAuthor } = useGetAuthorSpecific(idAuth);
+
+  // ouverture de la page du livre
+  const openItemPage = (id: number): void => {
+    window.location.href = `/books/${id}`;
+  };
 
   function handleKeyPress(id: number): void {
     openItemPage(id);

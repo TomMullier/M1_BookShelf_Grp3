@@ -2,6 +2,7 @@ import React, { FC, ReactNode, useState } from 'react';
 import { GenreModel, Sort } from '@/models';
 import { useGetGenre } from '@/hooks';
 
+// declaration types
 type ListItemProps = {
   children: ReactNode;
 };
@@ -19,6 +20,7 @@ type BooksFilterProps = {
   setFilterTypes: (input: GenreModel[]) => void;
 };
 
+// Composant de filtre pour les livres
 export const BooksFilter: FC<BooksFilterProps> = ({
   sort,
   setSort,
@@ -41,6 +43,7 @@ export const BooksFilter: FC<BooksFilterProps> = ({
     }
   };
 
+  // ajoute le type sélectionné dans le tableau des filtres
   const addType = (): void => {
     if (typeSelect) {
       if (
@@ -54,6 +57,7 @@ export const BooksFilter: FC<BooksFilterProps> = ({
     }
   };
 
+  // retire le type sélectionné du tableau des filtres
   const removeType = (type: (typeof genres)[0]): void => {
     setFilterTypes(filterTypes.filter((filterType) => filterType !== type));
   };
