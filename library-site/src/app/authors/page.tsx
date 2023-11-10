@@ -76,8 +76,9 @@ const AuthorsPage: FC = () => {
   function handleKeyPress(id: string): void {
     openItemPage(id);
   }
-
-  useEffect(() => loadauthor(), [loadauthor]);
+  // tableau vide nécessaire pour que le useEffect ne se lance qu'une fois
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loadauthor(), []);
 
   return (
     <section className="layout_author">

@@ -1,7 +1,6 @@
 import React, { FC, ReactNode, useState } from 'react';
-import { GenreModel } from '@/models';
+import { GenreModel, Sort } from '@/models';
 import { useGetGenre } from '@/hooks';
-import { Sort } from '../../models/sort.model';
 
 type ListItemProps = {
   children: ReactNode;
@@ -45,6 +44,9 @@ export const BooksFilter: FC<BooksFilterProps> = ({
   const addType = (): void => {
     if (typeSelect) {
       if (
+        // si on fait un retour à la ligne, il demande de le retirer
+        // et inversement
+        // eslint-disable-next-line prettier/prettier
         filterTypes.find((filterType) => filterType === typeSelect) === undefined
       ) {
         setFilterTypes([...filterTypes, typeSelect]);
@@ -82,7 +84,11 @@ export const BooksFilter: FC<BooksFilterProps> = ({
 
       <br />
       {filterTypes.map((type) => (
-        <button className="filter_item active" type="button" onClick={(): void => removeType(type)}>
+        <button
+          className="filter_item active"
+          type="button"
+          onClick={(): void => removeType(type)}
+        >
           {type.name}
           {' X'}
         </button>

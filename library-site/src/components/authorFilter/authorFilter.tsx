@@ -9,9 +9,9 @@ export const AuthorItem: FC<AuthorItemProps> = ({ children }) => (
 );
 
 type AuthorFilterProps = {
-  search: string;
+  // search: string;
   setSearch: (input: string) => void;
-  sort: string;
+  // sort: string;
   setSort: (input: string) => void;
 };
 
