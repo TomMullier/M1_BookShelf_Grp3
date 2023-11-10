@@ -104,9 +104,6 @@ const BooksPage: FC = (): ReactElement => {
             <div className="text">
               <h1 className="welcome">Hello !</h1>
               <p>Selection of the best books, just for you</p>
-              <a href="/" className="latest">
-                Show latest
-              </a>
             </div>
             <div className="image_ bg-book_fly bg-contain bg-right bg-no-repeat" />
           </div>
