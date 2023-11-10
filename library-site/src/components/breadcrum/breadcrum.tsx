@@ -8,10 +8,10 @@ type BreadcrumProps = {
 const returnBCHtml = (url: string): string => {
   const urlArray = url.split('/');
   let html = '';
-  html += '<div class = "breadcrum"><ol>';
+  html += '<div class="breadcrum"><ol>';
   urlArray.forEach((element, index) => {
     if (index === 0) {
-      html += "<li className='breadcrum_home breadcrum_item'>";
+      html += "<li class='breadcrum_home breadcrum_item'>";
       if (url !== '/') html += "<a href='/'>Home</a>";
       else html += 'Home';
       html += '</li>';
@@ -20,11 +20,11 @@ const returnBCHtml = (url: string): string => {
       const actual = urlArray[urlArray.length - 1];
       if (element !== '') {
         if (element === actual) {
-          html += "<li className='breadcrum_separator'>/</li>";
-          html += `<li className='breadcrum_item active'>${element}</li>`;
+          html += "<li class='breadcrum_separator'>/</li>";
+          html += `<li class='breadcrum_item active'>${element}</li>`;
         } else {
-          html += "<li className='breadcrum_separator'>/</li>";
-          html += "<li className='breadcrum_item'>";
+          html += "<li class='breadcrum_separator'>/</li>";
+          html += "<li class='breadcrum_item'>";
           html += `<a href='${path}'>${element}</a>`;
           html += '</li>';
         }

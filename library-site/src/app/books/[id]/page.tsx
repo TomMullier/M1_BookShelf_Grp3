@@ -13,7 +13,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { usePathname } from 'next/navigation';
 
 // import { useParams } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC, ReactElement, useState } from 'react';
 import { useGetOneBook, useGetGenre, useGetComment } from '@/hooks';
 // import { useBooksProviders } from '@/hooks';
 import Comment from '../../../components/comment/comment';
@@ -40,10 +40,10 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const BooksDetailsPage: FC = () => {
+const BooksDetailsPage: FC = (): ReactElement => {
   // get id from url
-  const url = window.location.href;
-  const id = url.substring(url.lastIndexOf('/') + 1);
+  const url = usePathname();
+  const id = url.split('/')[2];
 
   const { book, updateBook, deleteBook } = useGetOneBook(id);
   const genres = useGetGenre();

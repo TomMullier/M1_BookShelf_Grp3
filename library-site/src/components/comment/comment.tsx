@@ -25,9 +25,6 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
     }
   };
 
-  document.getElementById(name)?.addEventListener('click', () => {
-    openModalEditComment();
-  });
   const openModalEditComment = (): void => {
     setIsModalOpenEditComment(true);
     const trucToRemove = document.querySelector(
@@ -55,6 +52,9 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
     }, 100);
   };
 
+  document.getElementById(name)?.addEventListener('click', () => {
+    openModalEditComment();
+  });
   const pathname = usePathname();
   const checkCommentEdit = (): void => {
     let valid = true;
