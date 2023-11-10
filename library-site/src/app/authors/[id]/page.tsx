@@ -2,9 +2,8 @@
 
 import { FC, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import Modal from '../../../components/modal/modal';
-
 import { useGetAuthorSpecific } from '@/hooks';
+import Modal from '../../../components/modal/modal';
 
 const AuthorDetailsPage: FC = () => {
   const openItemPage = (id: number): void => {
