@@ -13,7 +13,6 @@ const AuthorDetailsPage: FC = () => {
   const [isModalOpenDeleteAuthor, setIsModalOpenDeleteAuthor] = useState(false);
   const idAuth = usePathname().split('/')[2];
   const { author, deleteAuthor } = useGetAuthorSpecific(idAuth);
-
   function handleKeyPress(id: number): void {
     openItemPage(id);
   }
@@ -36,6 +35,21 @@ const AuthorDetailsPage: FC = () => {
     deleteAuthor();
     window.location.href = '/authors';
   };
+
+  const setProfilePicture = (): void => {
+    const picture = document.querySelector('.author_image');
+    const authorF = author?.photoUrl;
+    console.log(authorF);
+    if (author?.photoUrl) {
+      picture.classList.add('bg-cover');
+      picture.classList.add('bg-center');
+      picture.classList.add('bg-no-repeat');
+      picture.style.backgroundImage = `url(${author?.photoUrl})`;
+    }
+  };
+  setTimeout(() => {
+    setProfilePicture();
+  },1000);
 
   return (
     <section className="layout_book">
@@ -68,7 +82,7 @@ const AuthorDetailsPage: FC = () => {
           <div className="author_informations_title">Informations</div>
           <div className="author_informations_list">
             <div className="author_informations_item">
-              <div className="bg-people bg-cover bg-center bg-no-repeat" />
+              <div className="author_image bg-cover bg-center bg-no-repeat" />
             </div>
             <div className="author_informations_item">
               <span>Firstname :</span>
