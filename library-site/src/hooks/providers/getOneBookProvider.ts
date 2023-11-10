@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { log } from 'console';
 import { PlainBookModel } from '@/models';
 
-export const useGetOneBook = (id: string) => {
+export const useGetOneBook = (id: string): object => {
   const [book, setBook] = useState<PlainBookModel | undefined>(undefined);
 
   useEffect(() => {
@@ -12,19 +13,22 @@ export const useGetOneBook = (id: string) => {
         setBook(data.data);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
         setBook(undefined);
       });
   }, [id]);
 
   const updateBook = (bookToUpdate: PlainBookModel): void => {
     axios
-      .patch<PlainBookModel>(`${process.env.NEXT_PUBLIC_API_URL}/books/${id}`, bookToUpdate)
+      .patch<PlainBookModel>(
+        `${process.env.NEXT_PUBLIC_API_URL}/books/${id}`,
+        bookToUpdate,
+      )
       .then((data) => {
         setBook(data.data);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
       });
   };
 
@@ -35,18 +39,21 @@ export const useGetOneBook = (id: string) => {
         setBook(undefined);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
       });
   };
 
   const createBook = (bookToCreate: PlainBookModel): void => {
     axios
-      .post<PlainBookModel>(`${process.env.NEXT_PUBLIC_API_URL}/books/`, bookToCreate)
+      .post<PlainBookModel>(
+        `${process.env.NEXT_PUBLIC_API_URL}/books/`,
+        bookToCreate,
+      )
       .then((data) => {
         setBook(data.data);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
       });
   };
 
