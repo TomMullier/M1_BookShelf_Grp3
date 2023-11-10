@@ -32,6 +32,7 @@ export class AuthorUseCases {
    * Create an author
    * @param input Data for the author to be created
    * @returns Created author
+   * @throws 404: Author was not found
    * @throws 409: Author with this name already exists
    */
   public async createAuthor(

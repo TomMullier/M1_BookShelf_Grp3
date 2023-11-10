@@ -21,5 +21,5 @@ export class CreateAuthorDto {
     example: 'data:image/png;base64,dVBORw0KGgoAAAANSUhEUgAgAZoAAAAuCAYAAAARKt',
   })
   @IsString()
-  photoUrl: string;
+  photoUrl?: string;
 }
