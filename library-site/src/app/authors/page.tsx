@@ -84,13 +84,6 @@ const AuthorsPage: FC = () => {
       {/* Step 2: Add a search bar */}
       <div className="search_container">
         <div>
-          <i aria-hidden className="fa fa-search" />
-          <input
-            type="text"
-            placeholder="Search by author"
-            value={search}
-            onChange={(e): void => setSearchInput(e.target.value)}
-          />
           <AuthorFilter
             search={search}
             setSearch={setSearchInput}

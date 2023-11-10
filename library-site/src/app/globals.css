@@ -510,7 +510,7 @@ body {
   justify-content: center;
 }
 .layout_book .left_side_book .books_container .search_container {
-  width: 100%;
+  width: auto;
   display: flex;
   flex-direction: row;
   align-items: center;

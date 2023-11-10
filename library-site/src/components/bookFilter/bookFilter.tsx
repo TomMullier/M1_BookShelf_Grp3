@@ -44,7 +44,11 @@ export const BooksFilter: FC<BooksFilterProps> = ({
 
   const addType = (): void => {
     if (typeSelect) {
-      setFilterTypes([...filterTypes, typeSelect]);
+      if (
+        filterTypes.find((filterType) => filterType === typeSelect) === undefined
+      ) {
+        setFilterTypes([...filterTypes, typeSelect]);
+      }
     }
   };
 
@@ -55,14 +59,17 @@ export const BooksFilter: FC<BooksFilterProps> = ({
   // console.log(typeSelect);
   return (
     <div>
-      <input
-        type="text"
-        value={search}
-        onChange={(e): void => {
-          e.preventDefault();
-          setSearch(e.target.value);
-        }}
-      />
+      <div>
+        <i aria-hidden className="fa-solid fa-search" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e): void => {
+            e.preventDefault();
+            setSearch(e.target.value);
+          }}
+        />
+      </div>
       <br />
       <select onChange={onSelectType}>
         {genres.map((genre) => (
@@ -72,23 +79,28 @@ export const BooksFilter: FC<BooksFilterProps> = ({
       <button type="button" onClick={addType}>
         <p>Add filter</p>
       </button>
+
       <br />
       {filterTypes.map((type) => (
-        <button type="button" onClick={(): void => removeType(type)}>
+        <button className="filter_item active" type="button" onClick={(): void => removeType(type)}>
           {type.name}
           {' X'}
         </button>
       ))}
       <br />
-      {sorts.map((currentSort) => (
-        <button
-          type="button"
-          onClick={(): void => setSort(currentSort)}
-          disabled={sort.field === currentSort.field}
-        >
-          {currentSort.field}
-        </button>
-      ))}
+      <div className="filter_container">
+        <div className="filter_title">Filter by :</div>
+        {sorts.map((currentSort) => (
+          <button
+            type="button"
+            className="filter_item active"
+            onClick={(): void => setSort(currentSort)}
+            disabled={sort.field === currentSort.field}
+          >
+            {currentSort.field}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

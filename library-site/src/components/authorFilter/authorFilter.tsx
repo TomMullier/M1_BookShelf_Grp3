@@ -15,29 +15,35 @@ type AuthorFilterProps = {
   setSort: (input: string) => void;
 };
 
-export const AuthorFilter: FC<AuthorFilterProps> = ({
-  sort,
-  setSort,
-  search,
-  setSearch,
-}) => (
-  <div>
-    <input
-      type="text"
-      value={search}
-      onChange={(e): void => {
-        e.preventDefault();
-        setSearch(e.target.value);
-      }}
-    />
-    <br />
+let setzero = true;
+export const AuthorFilter: FC<AuthorFilterProps> = ({ setSort, setSearch }) => (
+  <div className="flex flex-row">
+    <div className="flex flex-row items-center">
+      <i aria-hidden className="fa-solid fa-search flex" />
+      <input
+        type="text"
+        className="w-12"
+        onChange={(e): void => {
+          e.preventDefault();
+          setSearch(e.target.value);
+        }}
+      />
+    </div>
     <input
       type="number"
-      min="0"
+      min="-1"
       max="100"
-      value={sort}
+      className="w-12"
       onChange={(e): void => {
         e.preventDefault();
+        if (e.target.value === '-1') {
+          e.target.value = '';
+          setzero = true;
+        }
+        if (setzero && e.target.value === '1') {
+          e.target.value = '0';
+          setzero = false;
+        }
         setSort(e.target.value);
       }}
     />

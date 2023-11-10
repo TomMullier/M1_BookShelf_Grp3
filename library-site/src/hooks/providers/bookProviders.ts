@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { PlainBookModel, GenreModel } from '@/models';
-import { Sort } from '@/models/sort.model';
+import { PlainBookModel, GenreModel, Sort } from '@/models';
 
 type UseListBooksProvider = {
   books: PlainBookModel[];
@@ -31,6 +30,7 @@ export const useListBooks = (
         // Besoin du console.log pour afficher l'erreur dans la console
         // eslint-disable-next-line no-console
         console.error(err);
+        setBooks([]);
       });
   };
 

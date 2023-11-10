@@ -24,7 +24,7 @@ const BooksPage: FC = (): ReactElement => {
   const [sort, setSort] = useState<Sort>({ field: 'Title' });
 
   const { useGetAuthor } = useAuthorProviders({ search, sort });
-  const { authors } = useGetAuthor();
+  const { authors, loadauthor } = useGetAuthor();
 
   const { useListBooks } = useBooksProviders({
     sort,
@@ -90,8 +90,11 @@ const BooksPage: FC = (): ReactElement => {
       alert('Please fill all the fields');
     }
   };
-
-  useEffect(() => load(), [load]);
+  // tableau vide nécessaire pour que le useEffect ne se lance qu'une fois
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => load(), []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loadauthor(), []);
 
   return (
     <section className="layout_book">
@@ -120,7 +123,6 @@ const BooksPage: FC = (): ReactElement => {
         <div className="books_container shadow-md">
           <div className="books_option_container">
             <div className="search_container">
-              <i aria-hidden className="fa-solid fa-search" />
               <BooksFilter
                 sort={sort}
                 setSort={setSort}

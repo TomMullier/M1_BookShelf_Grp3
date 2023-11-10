@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthorModel } from '@/models';
 
 type UseAuthorProviderInput = {
@@ -14,16 +14,13 @@ type UseAuthorProvider = {
 
 export const useGetAuthor = (
   input?: UseAuthorProviderInput,
-): {
-  authors: AuthorModel[];
-  loadauthor: () => void;
-} => {
+): UseAuthorProvider => {
   const [authors, setAuthors] = useState<AuthorModel[]>([]);
-  const [originauthors, setoriginAuthors] = useReducer();
+  const [originauthors, setoriginAuthors] = useState<AuthorModel[]>([]);
 
   const fetchAuthors = (): void => {
     axios
-      .get('http://localhost:3001/authors')
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/authors`)
       .then((data) => {
         setAuthors(data.data);
         setoriginAuthors(data.data);
@@ -37,11 +34,12 @@ export const useGetAuthor = (
   };
 
   useEffect(() => {
-    if (input?.search === '' && input?.sort === '0') {
+    if (input?.search === '' && input?.sort === '') {
       setAuthors(originauthors);
     } else {
-      const filteredauthors = originauthors
-        .filter((author) => {
+      const allauthors = originauthors;
+      const filteredauthors = allauthors
+        .filter((author: AuthorModel) => {
           if (input?.search) {
             return author.lastName
               .toLowerCase()
@@ -49,7 +47,7 @@ export const useGetAuthor = (
           }
           return true;
         })
-        .filter((author) => {
+        .filter((author: AuthorModel) => {
           if (input?.sort) {
             return author.books.length === parseInt(input.sort, 10);
           }
@@ -60,7 +58,6 @@ export const useGetAuthor = (
     // ici il nous est inutile d'exporter originAuthors car on ne l'utilisera pas ailleurs
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input?.search, input?.sort]);
-
   return { authors, loadauthor: fetchAuthors };
 };
 
