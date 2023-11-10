@@ -1,19 +1,18 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { log } from 'console';
 import { AuthorModel } from '@/models';
 
-export const useGetAuthorSpecific = (id: string) => {
+export const useGetAuthorSpecific = (id: string): object => {
   const [author, setAuthor] = useState<AuthorModel | undefined>(undefined);
   useEffect(() => {
     axios
       .get<AuthorModel>(`${process.env.NEXT_PUBLIC_API_URL}/authors/${id}`)
       .then((data) => {
         setAuthor(data.data);
-        console.log(data.data);
       })
       .catch((err) => {
-        console.log(err);
-        setAuthor(undefined);
+        log(err);
       });
   }, [id]);
 
@@ -27,7 +26,7 @@ export const useGetAuthorSpecific = (id: string) => {
         setAuthor(data.data);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
       });
   };
 
@@ -38,7 +37,7 @@ export const useGetAuthorSpecific = (id: string) => {
         setAuthor(undefined);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
       });
   };
 
@@ -50,10 +49,9 @@ export const useGetAuthorSpecific = (id: string) => {
       )
       .then((data) => {
         setAuthor(data.data);
-        console.log(data.data);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
       });
   };
 
