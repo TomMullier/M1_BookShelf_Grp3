@@ -61,41 +61,43 @@ export const BooksFilter: FC<BooksFilterProps> = ({
   // console.log(typeSelect);
   return (
     <div>
-      <div>
+      <div className="searchBook">
         <i aria-hidden className="fa-solid fa-search" />
         <input
           type="text"
           value={search}
+          placeholder="Search by title"
           onChange={(e): void => {
             e.preventDefault();
             setSearch(e.target.value);
           }}
         />
       </div>
-      <br />
-      <select onChange={onSelectType}>
-        {genres.map((genre) => (
-          <option value={genre.name}>{genre.name}</option>
-        ))}
-      </select>
-      <button type="button" onClick={addType}>
-        <p>Add filter</p>
-      </button>
-
-      <br />
-      {filterTypes.map((type) => (
-        <button
-          className="filter_item active"
-          type="button"
-          onClick={(): void => removeType(type)}
-        >
-          {type.name}
-          {' X'}
+      <div className="select_filter_container">
+        <select className="selectFilter" onChange={onSelectType}>
+          {genres.map((genre) => (
+            <option value={genre.name}>{genre.name}</option>
+          ))}
+        </select>
+        <button className="labelSelect" type="button" onClick={addType}>
+          <p>Add filter</p>
         </button>
-      ))}
-      <br />
+      </div>
+
+      <div className="filter_buttons_container">
+        {filterTypes.map((type) => (
+          <button
+            className="filter_item active"
+            type="button"
+            onClick={(): void => removeType(type)}
+          >
+            {type.name}
+            <i aria-hidden className="fa-solid fa-xmark" />
+          </button>
+        ))}
+      </div>
       <div className="filter_container">
-        <div className="filter_title">Filter by :</div>
+        <div className="filter_title">Order by :</div>
         {sorts.map((currentSort) => (
           <button
             type="button"
