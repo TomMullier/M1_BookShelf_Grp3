@@ -24,7 +24,8 @@ const BooksPage: FC = (): ReactElement => {
   const [sort, setSort] = useState<Sort>({ field: 'Title' });
 
   const { useGetAuthor } = useAuthorProviders({ search, sort });
-  const { authors } = useGetAuthor();
+  const { authors, loadauthor } = useGetAuthor();
+  console.log(authors);
 
   const { useListBooks } = useBooksProviders({ sort, search, genre: filterTypes });
   const { books, load } = useListBooks();
@@ -87,6 +88,7 @@ const BooksPage: FC = (): ReactElement => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => load(), []); // if [load] reload element infinite loop
+  useEffect(() => loadauthor(), []); // if [load] reload element infinite loop
 
   return (
     <section className="layout_book">
@@ -115,7 +117,6 @@ const BooksPage: FC = (): ReactElement => {
         <div className="books_container shadow-md">
           <div className="books_option_container">
             <div className="search_container">
-              <i aria-hidden className="fa-solid fa-search" />
               <BooksFilter
                 sort={sort}
                 setSort={setSort}

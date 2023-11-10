@@ -14,13 +14,13 @@ type UseAuthorProvider = {
 
 export const useGetAuthor = (
   input?: UseAuthorProviderInput,
-): UseAuthorProvider[] => {
+): UseAuthorProvider => {
   const [authors, setAuthors] = useState<AuthorModel[]>([]);
   const [originauthors, setoriginAuthors] = useState<AuthorModel[]>([]);
 
   const fetchAuthors = (): void => {
     axios
-      .get('http://localhost:3001/authors')
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/authors`)
       .then((data) => {
         setAuthors(data.data);
         setoriginAuthors(data.data);
@@ -31,8 +31,8 @@ export const useGetAuthor = (
       });
   };
   useEffect(() => {
-    console.log(input);
-    if (input?.search === '' && input?.sort  === '0') {
+    console.log(originauthors);
+    if (input?.search === '' && input?.sort === '') {
       setAuthors(originauthors);
     } else {
       const allauthors = originauthors;
@@ -40,13 +40,12 @@ export const useGetAuthor = (
         input?.search ? author.lastName.toLowerCase().includes(input.search.toLowerCase()): true
       ),
       ).filter((author) => (
-          input?.sort ? author.books.length === parseInt(input.sort, 10) : true,
+          input?.sort ? author.books.length === parseInt(input.sort, 10) : true
       ),
       );
       setAuthors(filteredauthors);
     }
   }, [input?.search, input?.sort]);
-
   return { authors, loadauthor: fetchAuthors };
 };
 

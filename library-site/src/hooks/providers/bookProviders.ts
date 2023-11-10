@@ -29,6 +29,7 @@ export const useListBooks = (
       })
       .catch((error) => {
         console.error(error);
+        setBooks([]);
       });
   };
 
@@ -50,7 +51,7 @@ export const useListBooks = (
       // eslint-disable-next-line react-hooks/exhaustive-deps
       allbooks = originbooks; // Disable car warning pas important
       const inputgenres = input?.genre?.map((genre) => genre.name);
-      console.log(input);
+      console.log(sort);
       // eslint-disable-next-line max-len, prettier/prettier
       const filteredbooks = allbooks.filter((book) => (
         input?.search ? book.name.toLowerCase().includes(input.search.toLowerCase()) : true
