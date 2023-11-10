@@ -45,10 +45,9 @@ const AuthorDetailsPage: FC = () => {
         <div className="book_list_author">
           {/* Element est focusable */}
           {/* eslint-disable-next-line */}
-          {
-            author?.books.map((book) => (
+          {author?.books.map((book) => (
             // eslint-disable-next-line
-              <div
+            <div
               className="book_list_author_item"
               key={book.id}
               onClick={(): void => {
@@ -63,8 +62,7 @@ const AuthorDetailsPage: FC = () => {
               <div className="book_list_author_item_image bg-book_cover bg-center bg-no-repeat bg-cover" />
               <div className="book_list_author_item_name">{book.name}</div>
             </div>
-          ))
-}
+          ))}
         </div>
       </section>
       <section className="right_book">
@@ -87,7 +85,12 @@ const AuthorDetailsPage: FC = () => {
           <div className="actions_container">
             {/* No need for keyboard listener */}
             {/* eslint-disable-next-line */}
-            <div className="button_author_delete" onClick={openModalDeleteAuthor}>Delete</div>
+            <div
+              className="button_author_delete"
+              onClick={openModalDeleteAuthor}
+            >
+              Delete
+            </div>
           </div>
         </div>
       </section>
