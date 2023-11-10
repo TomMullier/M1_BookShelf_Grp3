@@ -865,6 +865,7 @@ body {
   background-color: red;
   border-radius: 10px;
   border: 1px solid #878e94;
+  margin: 0 auto;
 }
 .layout_book .right_book .book_title {
   font-size: 1.5rem;
