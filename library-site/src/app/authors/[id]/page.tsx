@@ -12,8 +12,7 @@ const AuthorDetailsPage: FC = () => {
   };
   const [isModalOpenDeleteAuthor, setIsModalOpenDeleteAuthor] = useState(false);
   const idAuth = usePathname().split('/')[2];
-  const { author, updateAuthor, deleteAuthor, createAuthor } =
-    useGetAuthorSpecific(idAuth);
+  const { author, deleteAuthor } = useGetAuthorSpecific(idAuth);
 
   function handleKeyPress(id: number): void {
     openItemPage(id);
@@ -33,7 +32,6 @@ const AuthorDetailsPage: FC = () => {
   };
 
   const confirmDeleteAuthor = (): void => {
-    console.log('Author deleted');
     setIsModalOpenDeleteAuthor(false);
     deleteAuthor();
     window.location.href = '/authors';
@@ -49,22 +47,24 @@ const AuthorDetailsPage: FC = () => {
           {/* eslint-disable-next-line */}
           {
             author?.books.map((book) => (
-            <div
-                className="book_list_author_item"
-                key={book.id}
-                onClick={(): void => {
+            // eslint-disable-next-line
+              <div
+              className="book_list_author_item"
+              key={book.id}
+              onClick={(): void => {
                 handleKeyPress(book.id);
               }}
-                onKeyDown={(): void => {
+              onKeyDown={(): void => {
                 handleKeyPress(book.id);
               }}
-                role="button"
-                tabIndex={0}
-              >
-                <div className="book_list_author_item_image bg-book_cover bg-center bg-no-repeat bg-cover" />
-                <div className="book_list_author_item_name">{book.name}</div>
-              </div>
-          ))}
+              role="button"
+              tabIndex={0}
+            >
+              <div className="book_list_author_item_image bg-book_cover bg-center bg-no-repeat bg-cover" />
+              <div className="book_list_author_item_name">{book.name}</div>
+            </div>
+          ))
+}
         </div>
       </section>
       <section className="right_book">

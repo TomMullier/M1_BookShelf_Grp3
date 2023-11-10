@@ -1,14 +1,13 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
-import { useBooksProviders, useAuthorProviders } from '@/hooks';
+import { useAuthorProviders, useGetAuthorSpecific } from '@/hooks';
 import Modal from '../../components/modal/modal';
-import { useGetAuthorSpecific } from '@/hooks';
 import { AuthorFilter } from '../../components/authorFilter/authorFilter';
 
 const AuthorsPage: FC = () => {
-  const { useListBooks } = useBooksProviders();
-  const { author, updateAuthor, deleteAuthor, createAuthor } = useGetAuthorSpecific("id");
+  // const { useListBooks } = useBooksProviders();
+  const { createAuthor } = useGetAuthorSpecific('id');
   const [search, setSearchInput] = useState('');
   const [sort, setSort] = useState('');
 
@@ -56,20 +55,17 @@ const AuthorsPage: FC = () => {
       ) as HTMLInputElement;
       // ne peux pas être null
       const image = fileInput.files[0]; // eslint-disable-line
-      const imageType = /image.*/;
       const reader = new FileReader();
       reader.onload = (): void => {
         // creation de la propriété photo
         Addauthor.photoUrl = reader.result; // eslint-disable-line
       };
 
-      console.log('Author created :');
-      console.log(Addauthor);
       setIsModalOpen(false);
       createAuthor(Addauthor);
       window.location.reload();
     } else {
-      alert('Please fill all the fields');
+      alert('Please fill all the fields'); // eslint-disable-line no-alert
     }
   };
 
@@ -80,7 +76,7 @@ const AuthorsPage: FC = () => {
     openItemPage(id);
   }
 
-  useEffect(() => loadauthor(), []);
+  useEffect(() => loadauthor(), []); // eslint-disable-line
 
   return (
     <section className="layout_author">
@@ -117,7 +113,8 @@ const AuthorsPage: FC = () => {
           <div key={aut.firstName} className="author_card">
             <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
             <div className="author_name">
-              {aut.firstName}{' '}{aut.lastName}
+              {aut.firstName}
+              {aut.lastName}
             </div>
             <div className="number_written">{aut.books.length}</div>
             {/* Element is focusable mais dit qu'il ne l'est pas */}

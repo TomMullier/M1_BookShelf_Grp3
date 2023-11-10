@@ -4,7 +4,6 @@ import { FC, ReactElement, useEffect, useState } from 'react';
 import {
   useBooksProviders,
   useGetOneBook,
-  useGetAuthor,
   useGetGenre,
   useAuthorProviders,
 } from '@/hooks';
@@ -25,7 +24,7 @@ const BooksPage: FC = (): ReactElement => {
   const [sort, setSort] = useState<Sort>({ field: 'Title' });
 
   const { useGetAuthor } = useAuthorProviders({ search, sort });
-  const { authors, loadauthor } = useGetAuthor();
+  const { authors } = useGetAuthor();
 
   const { useListBooks } = useBooksProviders({ sort, search, genre: filterTypes });
   const { books, load } = useListBooks();
@@ -63,7 +62,7 @@ const BooksPage: FC = (): ReactElement => {
       valid = false;
     }
     if (valid) {
-      const book = {
+      const crbook = {
         name: (document.getElementById('title') as HTMLInputElement).value,
         author: {
           firstName: (
@@ -72,6 +71,7 @@ const BooksPage: FC = (): ReactElement => {
           lastName: (
             document.getElementById('author') as HTMLSelectElement
           ).value.split(' ')[1],
+          id: 'id',
         },
         genres: genreChecked,
         writtenOn: (document.getElementById('date') as HTMLInputElement).value,
@@ -79,11 +79,9 @@ const BooksPage: FC = (): ReactElement => {
         comments: [],
       };
       setIsModalOpen(false);
-      console.log('Book Created');
-      console.log(book);
-      createBook(book);
+      createBook(crbook);
     } else {
-      alert('Please fill all the fields');
+      alert('Please fill all the fields'); // eslint-disable-line no-alert
     }
   };
 

@@ -41,19 +41,14 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const BooksDetailsPage: FC = () => {
-  // const { useListBooks } = useBooksProviders();
-  // const { books, load } = useListBooks();
-  // const { id } = useParams();
-  // useEffect(() => load(), []);
-
   // get id from url
   const url = window.location.href;
   const id = url.substring(url.lastIndexOf('/') + 1);
 
   const { book, updateBook, deleteBook } = useGetOneBook(id);
   const genres = useGetGenre();
-  const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
-  const { comment, updateComment, createComment } = useGetComment(name);
+  const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false); // eslint-disable-line
+  const { createComment } = useGetComment(id);
   const authorUrl = `/authors/${book?.author.id}`;
   const [open, setOpen] = useState(false);
 
@@ -68,7 +63,8 @@ const BooksDetailsPage: FC = () => {
   const handleDrawerClose = (): void => {
     setOpen(false);
     if (document.querySelector('.MuiToolbar-root')) {
-      document.querySelector('.MuiToolbar-root').style.borderRadius = '10px';
+      document.querySelector('.MuiToolbar-root').style.borderRadius = '10px'; // eslint-disable-line
+      // say that could be null, but made verification before
     }
   };
 
@@ -113,13 +109,11 @@ const BooksDetailsPage: FC = () => {
         book: bookId,
         id: '1',
       };
-      console.log('Comment posted');
-      console.log(Checomment);
       createComment(Checomment);
       setIsModalOpen(false);
       window.location.href = `/books/${bookId}`;
     } else {
-      alert('Please fill all the fields');
+      alert('Please fill all the fields'); // eslint-disable-line no-alert
     }
   };
 
@@ -137,14 +131,14 @@ const BooksDetailsPage: FC = () => {
       }
     });
     setTimeout(() => {
-      (document.getElementById('title') as HTMLInputElement).value = book?.name;
+      (document.getElementById('title') as HTMLInputElement).value = book?.name; 
       (document.getElementById('date') as HTMLInputElement).value =
         book?.writtenOn;
       const genresList = document.querySelectorAll('.genresList input');
       book?.genres.forEach((genre) => {
         genresList.forEach((genre2) => {
           if (genre === genre2.id) {
-            genre2.checked = true;
+            genre2.checked = true; // eslint-disable-line
           }
         });
       });
@@ -157,7 +151,6 @@ const BooksDetailsPage: FC = () => {
 
   const confirmDeleteBook = (): void => {
     setIsModalOpenDeleteBook(false);
-    console.log('Book deleted');
     deleteBook();
     window.location.href = '/books';
   };
@@ -196,13 +189,13 @@ const BooksDetailsPage: FC = () => {
         author: book?.author,
         genres: genreChecked,
         writtenOn: (document.getElementById('date') as HTMLInputElement).value,
+        id: book?.id,
+        comments: book?.comments,
       };
       setIsModalOpenEditBook(false);
-      console.log('Book Created');
-      console.log(Modbook);
       updateBook(Modbook);
     } else {
-      alert('Please fill all the fields');
+      alert('Please fill all the fields'); // eslint-disable-line no-alert
     }
   };
 
@@ -210,6 +203,7 @@ const BooksDetailsPage: FC = () => {
     <section className="layout_book">
       <section className="left_book">
         {/* Book owners */}
+        {/* We begun book owerns but didn't manage to finish it in time */}
         {/* <div className="book_owners">
           <div className="book_owners_title">Owners</div>
           <div className="book_owners_list">
@@ -318,6 +312,7 @@ const BooksDetailsPage: FC = () => {
           <div className="book_author">
             <div className="bg-people bg-cover bg-center bg-no-repeat" />
             <p>
+              {/* eslint-disable-next-line */}
               {book?.author.firstName}
               {' '}
               {book?.author.lastName}
@@ -430,7 +425,6 @@ const BooksDetailsPage: FC = () => {
           </div>
         </form>
       </Modal>
-      {/* modal confirm delete */}
       <Modal
         isOpen={isModalOpenDeleteBook}
         onCancel={closeModalDeleteBook}

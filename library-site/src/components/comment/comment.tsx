@@ -13,7 +13,7 @@ type CommentProps = {
 
 const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
   const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
-  const { comment, updateComment, createComment } = useGetComment(name);
+  const { updateComment } = useGetComment(name);
 
   const closeModalEditComment = (): void => {
     setIsModalOpenEditComment(false);
@@ -24,6 +24,10 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
       trucToRemove.style.zIndex = '5';
     }
   };
+
+  document.getElementById(name)?.addEventListener('click', () => {
+    openModalEditComment();
+  });
   const openModalEditComment = (): void => {
     setIsModalOpenEditComment(true);
     const trucToRemove = document.querySelector(
@@ -39,11 +43,16 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
       }
     });
     setTimeout(() => {
-      const comment2 = document.getElementById('post_comment') as HTMLInputElement;
+      const comment2 = document.getElementById(
+        'post_comment',
+      ) as HTMLInputElement;
       comment2.value = children as string;
-      const author2 = document.getElementById('post_author') as HTMLInputElement;
-      author2.value = document.getElementById('commAuth')?.textContent as string;
-    },100);
+      const author2 = document.getElementById(
+        'post_author',
+      ) as HTMLInputElement;
+      author2.value = document.getElementById(`auth${name}`)
+        ?.innerText as string;
+    }, 100);
   };
 
   const pathname = usePathname();
@@ -81,18 +90,16 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
     }
   };
   return (
-    <span>
+    <div>
       <div className={styles.comment}>
-        <div id="commAuth" className={styles.commentAuthor}>
-          <p>
-            {author}
-          </p>
+        <div id={`auth${name}`} className={styles.commentAuthor}>
+          <p>{author}</p>
         </div>
         <div className={styles.commentContent}>
           <p>{children}</p>
           <div className={styles.commentDate}>{date}</div>
           <div className={styles.commentActions}>
-            <button type="button" onClick={openModalEditComment}>
+            <button type="button" id={name}>
               Edit
             </button>
           </div>
@@ -130,7 +137,7 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
           </div>
         </form>
       </Modal>
-    </span>
+    </div>
   );
 };
 

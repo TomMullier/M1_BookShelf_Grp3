@@ -8,7 +8,11 @@ import { usePathname } from 'next/navigation';
 import Breadcrumb from '../components/breadcrum/breadcrum';
 
 const inter = Inter({ subsets: ['latin'] });
-
+/**
+ * Root layer of the application
+ * @param children
+ * @returns
+ */
 export default function RootLayout({
   children,
 }: {
