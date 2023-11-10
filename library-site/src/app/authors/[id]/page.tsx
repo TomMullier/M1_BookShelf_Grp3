@@ -49,7 +49,7 @@ const AuthorDetailsPage: FC = () => {
   };
   setTimeout(() => {
     setProfilePicture();
-  },1000);
+  }, 1000);
 
   return (
     <section className="layout_book">

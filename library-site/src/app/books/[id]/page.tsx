@@ -13,8 +13,10 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { usePathname } from 'next/navigation';
 
 // import { useParams } from 'next/navigation';
-import { FC, ReactElement, useState } from 'react';
-import { useGetOneBook, useGetGenre, useGetComment } from '@/hooks';
+import { FC, ReactElement, useState, useEffect } from 'react';
+import { useAuthorProviders, useGetOneBook, useGetGenre, useGetComment } from '@/hooks';
+import { AuthorFilter } from '../../components/authorFilter/authorFilter';
+
 // import { useBooksProviders } from '@/hooks';
 import Comment from '../../../components/comment/comment';
 import Modal from '../../../components/modal/modal';
@@ -51,6 +53,11 @@ const BooksDetailsPage: FC = (): ReactElement => {
   const { createComment } = useGetComment(id);
   const authorUrl = `/authors/${book?.author.id}`;
   const [open, setOpen] = useState(false);
+
+  const [sort, setSort] = useState('');
+  const [search, setSearchInput] = useState('');
+  const { useGetAuthor } = useAuthorProviders({ search, sort });
+  const { authors, loadauthor } = useGetAuthor();
 
   let drawerCont: HTMLElement | null;
   const handleDrawerOpen = (): void => {
@@ -212,6 +219,23 @@ const BooksDetailsPage: FC = (): ReactElement => {
       alert('Please fill all the fields');
     }
   };
+  useEffect(() => loadauthor(), []);
+  const setProfilePicture = (): void => {
+    const picture = document.querySelector('.author_image');
+    const authorZe = book?.author;
+    const authorF = authors.find((author) => author.id === authorZe?.id);
+    console.log(authors)
+    console.log(authorF);
+    if (authorF?.photoUrl) {
+      picture.classList.add('bg-cover');
+      picture.classList.add('bg-center');
+      picture.classList.add('bg-no-repeat');
+      picture.style.backgroundImage = `url(${authorF?.photoUrl})`;
+    }
+  };
+  setTimeout(() => {
+    setProfilePicture();
+  }, 1000);
 
   return (
     <section className="layout_book">
@@ -324,7 +348,7 @@ const BooksDetailsPage: FC = (): ReactElement => {
           <div className="book_image bg-book_cover bg-cover bg-center bg-no-repeat" />
           <div className="book_title">{book?.name}</div>
           <div className="book_author">
-            <div className="bg-people bg-cover bg-center bg-no-repeat" />
+            <div className="author_image bg-cover bg-center bg-no-repeat" />
             <p>
               {/* ici, on désactive la règle car on veut explicitement le prénom suivi du nom */}
               {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
