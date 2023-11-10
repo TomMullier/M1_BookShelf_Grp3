@@ -107,6 +107,7 @@ const AuthorsPage: FC = () => {
             <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
             <div className="author_name">
               {aut.firstName}
+              {' '}
               {aut.lastName}
             </div>
             <div className="number_written">{aut.books.length}</div>
