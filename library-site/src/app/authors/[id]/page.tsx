@@ -3,6 +3,7 @@
 import { FC, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useGetAuthorSpecific } from '@/hooks';
+import { PlainBookModel } from '@/models';
 import Modal from '../../../components/modal/modal';
 
 const AuthorDetailsPage: FC = () => {
@@ -42,18 +43,15 @@ const AuthorDetailsPage: FC = () => {
         {/* Book List */}
         <h1>Book List</h1>
         <div className="book_list_author">
-          {/* Element est focusable */}
-          {/* eslint-disable-next-line */}
-          {author?.books.map((book) => (
-            // eslint-disable-next-line
+          {author?.books.map((book: PlainBookModel) => (
             <div
               className="book_list_author_item"
               key={book.id}
               onClick={(): void => {
-                handleKeyPress(book.id);
+                handleKeyPress(book.id as unknown as number);
               }}
               onKeyDown={(): void => {
-                handleKeyPress(book.id);
+                handleKeyPress(book.id as unknown as number);
               }}
               role="button"
               tabIndex={0}
@@ -82,18 +80,18 @@ const AuthorDetailsPage: FC = () => {
             </div>
           </div>
           <div className="actions_container">
-            {/* No need for keyboard listener */}
-            {/* eslint-disable-next-line */}
             <div
               className="button_author_delete"
               onClick={openModalDeleteAuthor}
+              onKeyDown={openModalDeleteAuthor}
+              role="button"
+              tabIndex={0}
             >
               Delete
             </div>
           </div>
         </div>
       </section>
-      {/* modal confirm delete */}
       <Modal
         isOpen={isModalOpenDeleteAuthor}
         onCancel={closeModalDeleteAuthor}

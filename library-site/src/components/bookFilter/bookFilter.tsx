@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import { GenreModel } from '@/models';
 import { useGetGenre } from '@/hooks';
 import { Sort } from '../../models/sort.model';
@@ -34,9 +34,12 @@ export const BooksFilter: FC<BooksFilterProps> = ({
 
   const [typeSelect, setTypeSelect] = useState<GenreModel>(genres[0]);
 
-  const onSelectType = (e): void => {
+  const onSelectType = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     e.preventDefault();
-    setTypeSelect(genres.find((genre) => genre.name === e.target.value));
+    const selectedGenre = genres.find((genre) => genre.name === e.target.value);
+    if (selectedGenre) {
+      setTypeSelect(selectedGenre);
+    }
   };
 
   const addType = (): void => {
@@ -49,7 +52,7 @@ export const BooksFilter: FC<BooksFilterProps> = ({
     setFilterTypes(filterTypes.filter((filterType) => filterType !== type));
   };
 
-  console.log(typeSelect);
+  // console.log(typeSelect);
   return (
     <div>
       <input

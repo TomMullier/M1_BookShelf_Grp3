@@ -1,4 +1,4 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { PlainBookModel, GenreModel } from '@/models';
 import { Sort } from '@/models/sort.model';
@@ -27,8 +27,10 @@ export const useListBooks = (
         setBooks(response.data);
         setoriginBooks(response.data);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.error(err);
       });
   };
 
@@ -36,10 +38,8 @@ export const useListBooks = (
 
   useEffect(() => {
     const sort = input?.sort ?? { field: 'Title' };
-    console.log(books);
     if (input?.search === '' && input?.genre?.length === 0) {
       const sorted = originbooks.sort((a, b) => {
-        console.log('sorting');
         if (sort.field === 'Title') {
           return a.name.localeCompare(b.name);
         }
@@ -50,28 +50,27 @@ export const useListBooks = (
       // eslint-disable-next-line react-hooks/exhaustive-deps
       allbooks = originbooks; // Disable car warning pas important
       const inputgenres = input?.genre?.map((genre) => genre.name);
-      console.log(input);
-      // eslint-disable-next-line max-len, prettier/prettier
-      const filteredbooks = allbooks.filter((book) => (
-        input?.search ? book.name.toLowerCase().includes(input.search.toLowerCase()) : true
-        ),
-          // eslint-disable-next-line function-paren-newline
-        ).filter((book) => (
-        inputgenres?.length ? book.genres.some((genre) => inputgenres.includes(genre)!) : true
-        ),
-          // eslint-disable-next-line function-paren-newline
-        ).sort((a, b) => {
-          console.log('sorting');
+      const filteredbooks = allbooks
+        .filter((book) => {
+          if (input?.search) {
+            return book.name.toLowerCase().includes(input.search.toLowerCase());
+          }
+          return true;
+        })
+        .filter((book) => {
+          if (inputgenres?.length) {
+            return book.genres.some((genre) => inputgenres.includes(genre)!);
+          }
+          return true;
+        })
+        .sort((a, b) => {
           if (sort.field === 'Title') {
             return a.name.localeCompare(b.name);
           }
           return a.author.lastName.localeCompare(b.author.lastName);
-        },
-        );
-      console.log(filteredbooks);
+        });
       setBooks(filteredbooks);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input?.sort, input?.search, input?.genre]);
   return { books, load: fetchBooks };
 };

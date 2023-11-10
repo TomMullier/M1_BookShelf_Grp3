@@ -66,8 +66,7 @@ const Home: FC = (): ReactElement => {
         <div className="discover_text">Book recommendations</div>
         <div className="home_books_elements">
           {books.slice(0, 5).map((book) => (
-            // No need for keayboard listener
-            <div // eslint-disable-line
+            <div
               className="book_item"
               id={book.id}
               onClick={(): void => {
@@ -76,6 +75,9 @@ const Home: FC = (): ReactElement => {
               role="button"
               tabIndex={0}
               key={book.id}
+              onKeyDown={(): void => {
+                handleKeyPress(book.id);
+              }}
             >
               <div className=" bg-book_cover bg-cover bg-center bg-no-repeat" />
 

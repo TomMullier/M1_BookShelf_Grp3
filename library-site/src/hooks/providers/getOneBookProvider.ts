@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { log } from 'console';
 import { PlainBookModel } from '@/models';
 
 export const useGetOneBook = (id: string): object => {
@@ -13,7 +12,9 @@ export const useGetOneBook = (id: string): object => {
         setBook(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
         setBook(undefined);
       });
   }, [id]);
@@ -28,7 +29,9 @@ export const useGetOneBook = (id: string): object => {
         setBook(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 
@@ -39,7 +42,9 @@ export const useGetOneBook = (id: string): object => {
         setBook(undefined);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 
@@ -53,7 +58,9 @@ export const useGetOneBook = (id: string): object => {
         setBook(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 

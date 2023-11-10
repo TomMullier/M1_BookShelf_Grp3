@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
         <title>Library</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src="https://kit.fontawesome.com/b89837f3ad.js" /> {/*eslint-disable-line*/}
+        <script async src="https://kit.fontawesome.com/b89837f3ad.js" />
       </head>
       <body className={inter.className}>
         <div className="left_side">

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { log } from 'console';
 import { AuthorModel } from '@/models';
 
 export const useGetAuthorSpecific = (id: string): object => {
@@ -12,7 +11,9 @@ export const useGetAuthorSpecific = (id: string): object => {
         setAuthor(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   }, [id]);
 
@@ -26,7 +27,9 @@ export const useGetAuthorSpecific = (id: string): object => {
         setAuthor(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 
@@ -37,7 +40,9 @@ export const useGetAuthorSpecific = (id: string): object => {
         setAuthor(undefined);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 
@@ -51,7 +56,9 @@ export const useGetAuthorSpecific = (id: string): object => {
         setAuthor(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 

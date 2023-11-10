@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GenreModel } from '@/models';
-import { log } from 'console';
 
 export const useGetGenre = (): GenreModel[] => {
   const [genres, setGenres] = useState<GenreModel[]>([]);
@@ -13,7 +12,9 @@ export const useGetGenre = (): GenreModel[] => {
         setGenres(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
         setGenres([]);
       });
   }, []);

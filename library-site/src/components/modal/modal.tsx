@@ -28,6 +28,14 @@ const closeBackground = (
   }
 };
 
+const closeBackgroundKey = (e: React.KeyboardEvent<HTMLDivElement>): void => {
+  if (e.key === 'Escape') {
+    closeBackground(
+      e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
+    );
+  }
+};
+
 const Modal: FC<ModalProps> = ({
   isOpen,
   children,
@@ -43,6 +51,9 @@ const Modal: FC<ModalProps> = ({
       id="backgroundModal"
       className={styles.modalOverlay}
       onClick={closeBackground}
+      onKeyDown={closeBackgroundKey}
+      role="button"
+      tabIndex={0}
     >
       <span className={styles.modal} role="dialog">
         <div className={styles.modalHeader}>

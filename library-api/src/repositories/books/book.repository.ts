@@ -151,12 +151,17 @@ export class BookRepository extends Repository<Book> {
 
         // Création des relations entre le livre et les genres
         await manager.save<BookGenre>(
-          // eslint-disable-next-line prettier/prettier
-          newGenres.map((genre) => manager.create<BookGenre>(BookGenre, {
+          newGenres.map(
+            (genre) =>
+              // on a desactivé la règle prettier car lorsqu'on met le retour à la ligne,
+              // il demande à ce qu'il n'y en ait pas
+              // eslint-disable-next-line implicit-arrow-linebreak
+              manager.create<BookGenre>(BookGenre, {
                 id: v4(),
                 book: { id: book.id },
                 genre,
               }),
+            // même chose ici, si retour, eslint demande à ce qu'il n'y en ai pas
             // eslint-disable-next-line function-paren-newline
           ),
         );
@@ -204,12 +209,17 @@ export class BookRepository extends Repository<Book> {
 
         // Création des relations entre le livre et les genres
         await manager.save<BookGenre>(
-          // eslint-disable-next-line prettier/prettier
-          newGenres.map((genre) => manager.create<BookGenre>(BookGenre, {
+          newGenres.map(
+            (genre) =>
+              // on a desactivé la règle car lorsqu'on met le retour à la ligne,
+              // il demande à ce qu'il n'y en ait pas
+              // eslint-disable-next-line implicit-arrow-linebreak
+              manager.create<BookGenre>(BookGenre, {
                 id: v4(),
                 book: { id },
                 genre,
               }),
+            // même chose ici, si retour, eslint demande à ce qu'il n'y en ai pas
             // eslint-disable-next-line function-paren-newline
           ),
         );

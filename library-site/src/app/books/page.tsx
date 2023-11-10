@@ -26,7 +26,11 @@ const BooksPage: FC = (): ReactElement => {
   const { useGetAuthor } = useAuthorProviders({ search, sort });
   const { authors } = useGetAuthor();
 
-  const { useListBooks } = useBooksProviders({ sort, search, genre: filterTypes });
+  const { useListBooks } = useBooksProviders({
+    sort,
+    search,
+    genre: filterTypes,
+  });
   const { books, load } = useListBooks();
 
   const closeModal = (): void => {
@@ -81,12 +85,13 @@ const BooksPage: FC = (): ReactElement => {
       setIsModalOpen(false);
       createBook(crbook);
     } else {
-      alert('Please fill all the fields'); // eslint-disable-line no-alert
+      // on a besoin du alert pour indiquer de manière visuelle que le formulaire n'est pas rempli
+      // eslint-disable-next-line no-alert
+      alert('Please fill all the fields');
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => load(), []); // if [load] reload element infinite loop
+  useEffect(() => load(), [load]);
 
   return (
     <section className="layout_book">

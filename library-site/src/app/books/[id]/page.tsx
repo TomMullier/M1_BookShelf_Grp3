@@ -47,7 +47,7 @@ const BooksDetailsPage: FC = (): ReactElement => {
 
   const { book, updateBook, deleteBook } = useGetOneBook(id);
   const genres = useGetGenre();
-  const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false); // eslint-disable-line
+  // const [isModalOpenEditComment, setIsModalOpenEditComment] = useState(false);
   const { createComment } = useGetComment(id);
   const authorUrl = `/authors/${book?.author.id}`;
   const [open, setOpen] = useState(false);
@@ -62,9 +62,9 @@ const BooksDetailsPage: FC = (): ReactElement => {
   };
   const handleDrawerClose = (): void => {
     setOpen(false);
-    if (document.querySelector('.MuiToolbar-root')) {
-      // say that could be null, but made verification before
-      document.querySelector('.MuiToolbar-root').style.borderRadius = '10px';
+    const toolBar = document.querySelector('.MuiToolbar-root') as HTMLElement;
+    if (toolBar) {
+      toolBar.style.borderRadius = '10px';
     }
   };
 
@@ -113,7 +113,9 @@ const BooksDetailsPage: FC = (): ReactElement => {
       setIsModalOpen(false);
       window.location.href = `/books/${bookId}`;
     } else {
-      alert('Please fill all the fields'); // eslint-disable-line no-alert
+      // on a besoin du alert pour indiquer de manière visuelle que le formulaire n'est pas rempli
+      // eslint-disable-next-line no-alert
+      alert('Please fill all the fields');
     }
   };
 
@@ -132,13 +134,23 @@ const BooksDetailsPage: FC = (): ReactElement => {
     });
     setTimeout(() => {
       (document.getElementById('title') as HTMLInputElement).value = book?.name;
+      // ici nous désactivons eslint car si nous mettons un retour à la ligne, il en demande un
+      // et inversement, si nous n'en mettons pas, la ligne est trop longue
+      // eslint-disable-next-line operator-linebreak
       (document.getElementById('date') as HTMLInputElement).value =
         book?.writtenOn;
       const genresList = document.querySelectorAll('.genresList input');
-      book?.genres.forEach((genre) => {
+      book?.genres.forEach((genre: string) => {
         genresList.forEach((genre2) => {
-          if (genre === genre2.id) {
-            genre2.checked = true; // eslint-disable-line
+          const genreId = genre2.id;
+          if (genre === genreId) {
+            // ici, nous désactivons la règle car nous avons beosin de réassigner
+            // la valeur checked de genre2 afin de cocher la case
+
+            // nous avons également besoin de forcer le type pour résoudre l'erreur sur checked
+
+            // eslint-disable-next-line no-param-reassign
+            (genre2 as HTMLInputElement).checked = true;
           }
         });
       });
@@ -195,7 +207,9 @@ const BooksDetailsPage: FC = (): ReactElement => {
       setIsModalOpenEditBook(false);
       updateBook(Modbook);
     } else {
-      alert('Please fill all the fields'); // eslint-disable-line no-alert
+      // on a besoin du alert pour indiquer de manière visuelle que le formulaire n'est pas rempli
+      // eslint-disable-next-line no-alert
+      alert('Please fill all the fields');
     }
   };
 
@@ -270,11 +284,11 @@ const BooksDetailsPage: FC = (): ReactElement => {
                 className="drawer_header_title"
               >
                 <p>Comments</p>
-                {/* Add button */}
-                {/* Pas besoin de keyboard listener */}
-                {/* eslint-disable-next-line */}
                 <div
                   onClick={openModal}
+                  onKeyDown={openModal}
+                  role="button"
+                  tabIndex={0}
                   className="book_comments_button"
                   title="Post a comment"
                 >
@@ -312,7 +326,8 @@ const BooksDetailsPage: FC = (): ReactElement => {
           <div className="book_author">
             <div className="bg-people bg-cover bg-center bg-no-repeat" />
             <p>
-              {/* eslint-disable-next-line */}
+              {/* ici, on désactive la règle car on veut explicitement le prénom suivi du nom */}
+              {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
               {book?.author.firstName} {book?.author.lastName}
             </p>
           </div>
@@ -324,14 +339,22 @@ const BooksDetailsPage: FC = (): ReactElement => {
         <div className="book_actions">
           <div className="book_actions_title">Actions</div>
           <div className="book_actions_buttons">
-            {/* Pas besoin de keyboard listener */}
-            {/* eslint-disable-next-line */}
-            <div className="book_actions_button" onClick={OpenModalEdit}>
+            <div
+              className="book_actions_button"
+              onClick={OpenModalEdit}
+              onKeyDown={OpenModalEdit}
+              role="button"
+              tabIndex={0}
+            >
               Edit
             </div>
-            {/* Pas besoin de keyboard listener */}
-            {/* eslint-disable-next-line */}
-            <div className="book_actions_button" onClick={OpenModalDelete}>
+            <div
+              className="book_actions_button"
+              onClick={OpenModalDelete}
+              onKeyDown={OpenModalDelete}
+              role="button"
+              tabIndex={0}
+            >
               Delete
             </div>
             <a className="book_actions_button" href={authorUrl}>
@@ -391,8 +414,6 @@ const BooksDetailsPage: FC = (): ReactElement => {
             />
           </div>
           {/* <div className="author_group">
-            /* Ne prend pas en compte mon htmlFor
-            /* eslint-disable-next-line jsx-a11y/label-has-associated-control
             <label htmlFor="create_book_author">Author</label>
             <select name="create_book_author" id="author">
               {authors.map((author) => (

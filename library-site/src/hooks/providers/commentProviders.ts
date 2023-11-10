@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { log } from 'console';
 import { PlainCommentModel } from '@/models';
 
 export const useGetComment = (id: string): object => {
@@ -17,7 +16,9 @@ export const useGetComment = (id: string): object => {
         setComment(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
         setComment(undefined);
       });
   }, [id]);
@@ -32,7 +33,9 @@ export const useGetComment = (id: string): object => {
         setComment(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 
@@ -46,7 +49,9 @@ export const useGetComment = (id: string): object => {
         setComment(data.data);
       })
       .catch((err) => {
-        log(err);
+        // Besoin du console.log pour afficher l'erreur dans la console
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
   return { comment, updateComment, createComment };

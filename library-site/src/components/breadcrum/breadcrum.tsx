@@ -38,7 +38,9 @@ const Breadcrum: FC<BreadcrumProps> = ({ url }) => {
   const [html, setHtml] = useState<string>('');
   useEffect(() => {
     setHtml(returnBCHtml(url));
-  }, [html]);
+  }, [html, url]);
+  // on a desactive l'erreur car on veut que le html soit interpreté
+  // eslint-disable-next-line react/no-danger
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 };
 

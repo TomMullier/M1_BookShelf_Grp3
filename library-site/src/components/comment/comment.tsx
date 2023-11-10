@@ -1,8 +1,8 @@
 import React, { FC, ReactElement, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useGetComment } from '@/hooks';
 import styles from './comment.module.css';
 import Modal from '../modal/modal';
-import { useGetComment } from '@/hooks';
 
 type CommentProps = {
   children: ReactElement | string;
@@ -80,12 +80,15 @@ const Comment: FC<CommentProps> = ({ children, author, date, name }) => {
         book: bookId,
         id: name,
       };
-      console.log('Comment posted');
-      console.log(Modcomment);
+      // console.log('Comment posted');
+      // console.log(Modcomment);
       updateComment(Modcomment);
       closeModalEditComment();
       window.location.reload();
     } else {
+      // ici, nous devons afficher un message d'erreur
+      // c'est la solution la plus simple que nous avons trouvé
+      // eslint-disable-next-line no-alert
       alert('Please fill all the fields');
     }
   };

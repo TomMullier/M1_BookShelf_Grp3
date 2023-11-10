@@ -50,22 +50,23 @@ const AuthorsPage: FC = () => {
         photoUrl: '',
       };
       // gestion de la photo
-      const fileInput = document.getElementById(
-        'author_photo',
-      ) as HTMLInputElement;
-      // ne peux pas être null
-      const image = fileInput.files[0]; // eslint-disable-line
+      // const fileInput = document.getElementById(
+      //   'author_photo',
+      // ) as HTMLInputElement;
+
+      // const image = fileInput.files[0];
       const reader = new FileReader();
       reader.onload = (): void => {
-        // creation de la propriété photo
-        Addauthor.photoUrl = reader.result; // eslint-disable-line
+        Addauthor.photoUrl = reader.result as string;
       };
 
       setIsModalOpen(false);
       createAuthor(Addauthor);
       window.location.reload();
     } else {
-      alert('Please fill all the fields'); // eslint-disable-line no-alert
+      // on a besoin du alert pour indiquer de manière visuelle que le formulaire n'est pas rempli
+      // eslint-disable-next-line no-alert
+      alert('Please fill all the fields');
     }
   };
 
@@ -76,7 +77,7 @@ const AuthorsPage: FC = () => {
     openItemPage(id);
   }
 
-  useEffect(() => loadauthor(), []); // eslint-disable-line
+  useEffect(() => loadauthor(), [loadauthor]);
 
   return (
     <section className="layout_author">
@@ -117,8 +118,6 @@ const AuthorsPage: FC = () => {
               {aut.lastName}
             </div>
             <div className="number_written">{aut.books.length}</div>
-            {/* Element is focusable mais dit qu'il ne l'est pas */}
-            {/* eslint-disable-next-line */}
             <div
               onClick={(): void => {
                 handleKeyPress(aut.id);
@@ -127,6 +126,7 @@ const AuthorsPage: FC = () => {
                 handleKeyPress(aut.id);
               }}
               role="button"
+              tabIndex={0}
               className="author_button"
             >
               Author Page
