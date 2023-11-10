@@ -58,7 +58,14 @@ const Home: FC = (): ReactElement => {
           </div>
 
           <div className="opened_text">Come and visit us !</div>
-          <div className="opened_button">See on map</div>
+          <a
+            target="_blank"
+            href="https://www.google.fr/maps/place/41+Bd+Vauban,+59000+Lille/@50.6340373,3.0461707,17z/data=!3m1!4b1!4m6!3m5!1s0x47c2d578c8d161ab:0x23fd816717322432!8m2!3d50.6340339!4d3.0487456!16s%2Fg%2F11b8v808d8?entry=ttu"
+            className="opened_button"
+            rel="noreferrer"
+          >
+            See on map
+          </a>
         </div>
       </div>
       <div className="home_discover">
