@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
+import { uploadDirect } from '@uploadcare/upload-client';
 import { useAuthorProviders, useGetAuthorSpecific } from '@/hooks';
 import Modal from '../../components/modal/modal';
 import { AuthorFilter } from '../../components/authorFilter/authorFilter';
@@ -27,8 +28,23 @@ const AuthorsPage: FC = () => {
       }
     });
   };
+  let PHOTO_URL = '';
+  const UPLOADCARE_PUBLIC_KEY = 'demopublickey';
 
-  const CheckAuthorCreation = (): void => {
+  const uploadPP = async (): Promise<void> => {
+    const fileInput = document.getElementById(
+      'author_photo',
+    ) as HTMLInputElement;
+    const image = fileInput.files[0];
+    await uploadDirect(image, {
+      publicKey: UPLOADCARE_PUBLIC_KEY,
+      store: 'auto',
+    }).then((file) => {
+      console.log(file);
+      PHOTO_URL = file?.cdnUrl;
+    });
+  };
+  const CheckAuthorCreation = async (): void => {
     let valid = true;
     const checkForm = document.querySelectorAll('.create_author_form input');
     checkForm.forEach((input) => {
@@ -36,37 +52,33 @@ const AuthorsPage: FC = () => {
         valid = false;
       }
     });
-    if (valid) {
-      const Addauthor = {
-        firstName: (
-          document.getElementById('author_firstname') as HTMLInputElement
-        ).value,
-        lastName: (
-          document.getElementById('author_lastname') as HTMLInputElement
-        ).value,
-        books: [],
-        id: '1',
-        photoUrl: '',
-      };
-      // gestion de la photo
-      // const fileInput = document.getElementById(
-      //   'author_photo',
-      // ) as HTMLInputElement;
+    const pp = await uploadPP().then(() => {
+      console.log(PHOTO_URL);
 
-      // const image = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = (): void => {
-        Addauthor.photoUrl = reader.result as string;
-      };
+      if (!PHOTO_URL) valid = false;
+      if (valid) {
+        const Addauthor = {
+          firstName: (
+            document.getElementById('author_firstname') as HTMLInputElement
+          ).value,
+          lastName: (
+            document.getElementById('author_lastname') as HTMLInputElement
+          ).value,
+          books: [],
+          id: '1',
+          photoUrl: PHOTO_URL,
+        };
 
-      setIsModalOpen(false);
-      createAuthor(Addauthor);
-      window.location.reload();
-    } else {
-      // on a besoin du alert pour indiquer de manière visuelle que le formulaire n'est pas rempli
-      // eslint-disable-next-line no-alert
-      alert('Please fill all the fields');
-    }
+        setIsModalOpen(false);
+        console.log(Addauthor);
+        createAuthor(Addauthor);
+        window.location.reload();
+      } else {
+        // on a besoin du alert pour indiquer de manière visuelle que le formulaire n'est pas rempli
+        // eslint-disable-next-line no-alert
+        alert('Please fill all the fields');
+      }
+    });
   };
 
   const openItemPage = (id: string): void => {
@@ -78,6 +90,22 @@ const AuthorsPage: FC = () => {
   // tableau vide nécessaire pour que le useEffect ne se lance qu'une fois
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => loadauthor(), []);
+
+  const setProfilePicture = (): void => {
+    const authorPicture = document.querySelectorAll('.author_image');
+    authorPicture.forEach((picture) => {
+      const authorId = picture.parentElement?.id;
+      const authorF = authors.find((aut) => aut.id === authorId);
+      console.log(authorF);
+      if (authorF?.photoUrl) {
+        picture.classList.add('bg-cover');
+        picture.classList.add('bg-center');
+        picture.classList.add('bg-no-repeat');
+        picture.style.backgroundImage = `url(${authorF.photoUrl})`;
+      }
+    });
+  };
+  setProfilePicture();
   return (
     <section className="layout_author">
       {/* Step 2: Add a search bar */}
@@ -106,9 +134,9 @@ const AuthorsPage: FC = () => {
           <div key={aut.id} id={aut.id} className="author_card">
             <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
             <div className="author_name">
-              {aut.firstName}
-              {' '}
-              {aut.lastName}
+              {aut.firstName} 
+{' '}
+{aut.lastName}
             </div>
             <div className="number_written">{aut.books.length}</div>
             <div
@@ -153,6 +181,7 @@ const AuthorsPage: FC = () => {
             <label htmlFor="author_photo">Photo</label>
             <input
               type="file"
+              accept="image/*"
               name="author_photo"
               id="author_photo"
               className="inputfile"
