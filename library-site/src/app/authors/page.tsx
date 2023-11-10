@@ -10,7 +10,6 @@ const AuthorsPage: FC = () => {
   const { createAuthor } = useGetAuthorSpecific('id');
   const [search, setSearchInput] = useState('');
   const [sort, setSort] = useState('');
-
   const { useGetAuthor } = useAuthorProviders({ search, sort });
   const { authors, loadauthor } = useGetAuthor();
 
@@ -79,7 +78,6 @@ const AuthorsPage: FC = () => {
   // tableau vide nécessaire pour que le useEffect ne se lance qu'une fois
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => loadauthor(), []);
-
   return (
     <section className="layout_author">
       {/* Step 2: Add a search bar */}
@@ -105,7 +103,7 @@ const AuthorsPage: FC = () => {
       </div>
       <div className="author_list">
         {authors.map((aut) => (
-          <div key={aut.firstName} className="author_card">
+          <div key={aut.id} id={aut.id} className="author_card">
             <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
             <div className="author_name">
               {aut.firstName}

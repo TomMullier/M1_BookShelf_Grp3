@@ -510,7 +510,7 @@ body {
   justify-content: center;
 }
 .layout_book .left_side_book .books_container .search_container {
-  width: auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1144,6 +1144,20 @@ body {
 }
 .layout_author .search_container div:first-child {
   width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.layout_author .search_container div:first-child i {
+  color: #406bde;
+  font-size: 1rem;
+}
+.layout_author .search_container div:first-child div {
+  border-bottom: 1px solid #406bde;
+  padding: 10px;
+  width: 100%;
 }
 .layout_author .search_container i {
   color: #406bde;

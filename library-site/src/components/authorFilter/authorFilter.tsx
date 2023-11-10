@@ -18,22 +18,22 @@ type AuthorFilterProps = {
 let setzero = true;
 export const AuthorFilter: FC<AuthorFilterProps> = ({ setSort, setSearch }) => (
   <div className="flex flex-row">
-    <div className="flex flex-row items-center">
-      <i aria-hidden className="fa-solid fa-search flex" />
-      <input
-        type="text"
-        className="w-12"
-        onChange={(e): void => {
-          e.preventDefault();
-          setSearch(e.target.value);
-        }}
-      />
-    </div>
+    <i aria-hidden className="fa-solid fa-search flex" />
+    <input
+      type="text"
+      className="w-12"
+      placeholder="Filter by name"
+      onChange={(e): void => {
+        e.preventDefault();
+        setSearch(e.target.value);
+      }}
+    />
     <input
       type="number"
       min="-1"
       max="100"
       className="w-12"
+      placeholder='Filter by number of books written'
       onChange={(e): void => {
         e.preventDefault();
         if (e.target.value === '-1') {
