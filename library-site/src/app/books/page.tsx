@@ -6,7 +6,9 @@ import {
   useGetOneBook,
   useGetAuthor,
   useGetGenre,
+  useAuthorProviders,
 } from '@/hooks';
+
 import { GenreModel } from '@/models';
 import { Sort } from '../../models/sort.model';
 import Modal from '../../components/modal/modal';
@@ -15,13 +17,15 @@ import { BooksFilter } from '../../components/bookFilter/bookFilter';
 
 const BooksPage: FC = (): ReactElement => {
   const { createBook } = useGetOneBook('id');
-  const authors = useGetAuthor();
   const genres = useGetGenre();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [search, setSearchInput] = useState('');
   const [filterTypes, setFilterTypes] = useState<GenreModel[]>([]);
   const [sort, setSort] = useState<Sort>({ field: 'Title' });
+
+  const { useGetAuthor } = useAuthorProviders({ search, sort });
+  const { authors, loadauthor } = useGetAuthor();
 
   const { useListBooks } = useBooksProviders({ sort, search, genre: filterTypes });
   const { books, load } = useListBooks();

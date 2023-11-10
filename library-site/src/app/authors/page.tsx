@@ -1,16 +1,19 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
-import { useBooksProviders, useGetAuthor } from '@/hooks';
+import { useBooksProviders, useAuthorProviders } from '@/hooks';
 import Modal from '../../components/modal/modal';
 import { useGetAuthorSpecific } from '@/hooks';
+import { AuthorFilter } from '../../components/authorFilter/authorFilter';
 
 const AuthorsPage: FC = () => {
   const { useListBooks } = useBooksProviders();
-  const { books, load } = useListBooks();
   const { author, updateAuthor, deleteAuthor, createAuthor } = useGetAuthorSpecific("id");
-  const authors = useGetAuthor();
-  const [searchInput, setSearchInput] = useState<string>(''); // Step 1: Create search input state
+  const [search, setSearchInput] = useState('');
+  const [sort, setSort] = useState('');
+
+  const { useGetAuthor } = useAuthorProviders({ search, sort });
+  const { authors, loadauthor } = useGetAuthor();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -69,17 +72,15 @@ const AuthorsPage: FC = () => {
       alert('Please fill all the fields');
     }
   };
+
   const openItemPage = (id: string): void => {
     window.location.href = `/authors/${id}`;
   };
   function handleKeyPress(id: string): void {
     openItemPage(id);
   }
-  useEffect(() => load(), []);
 
-  // Disable Line -> Il veut que je passe une ligne, mais quand je le fais
-  // il veut que je revienne en arrière, donc je laisse comme ça
-  const filteredBooks = books.filter((book) => book.name.toLowerCase().includes(searchInput.toLowerCase()),); // eslint-disable-line
+  useEffect(() => loadauthor(), []);
 
   return (
     <section className="layout_author">
@@ -90,8 +91,14 @@ const AuthorsPage: FC = () => {
           <input
             type="text"
             placeholder="Search by author"
-            value={searchInput}
+            value={search}
             onChange={(e): void => setSearchInput(e.target.value)}
+          />
+          <AuthorFilter
+            search={search}
+            setSearch={setSearchInput}
+            sort={sort}
+            setSort={setSort}
           />
         </div>
         <div
@@ -107,7 +114,7 @@ const AuthorsPage: FC = () => {
       </div>
       <div className="author_list">
         {authors.map((aut) => (
-          <div className="author_card">
+          <div key={aut.firstName} className="author_card">
             <div className="author_image bg-people bg-cover bg-center bg-no-repeat" />
             <div className="author_name">
               {aut.firstName}{' '}{aut.lastName}

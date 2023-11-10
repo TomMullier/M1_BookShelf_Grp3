@@ -11,9 +11,16 @@ export const AuthorItem: FC<AuthorItemProps> = ({ children }) => (
 type AuthorFilterProps = {
   search: string;
   setSearch: (input: string) => void;
+  sort: string;
+  setSort: (input: string) => void;
 };
 
-export const AuthorFilter: FC<AuthorFilterProps> = ({ search, setSearch }) => (
+export const AuthorFilter: FC<AuthorFilterProps> = ({
+  sort,
+  setSort,
+  search,
+  setSearch,
+}) => (
   <div>
     <input
       type="text"
@@ -24,5 +31,15 @@ export const AuthorFilter: FC<AuthorFilterProps> = ({ search, setSearch }) => (
       }}
     />
     <br />
+    <input
+      type="number"
+      min="0"
+      max="100"
+      value={sort}
+      onChange={(e): void => {
+        e.preventDefault();
+        setSort(e.target.value);
+      }}
+    />
   </div>
 );
