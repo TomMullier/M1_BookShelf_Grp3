@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GenreModel } from '@/models';
+import { log } from 'console';
 
 export const useGetGenre = (): GenreModel[] => {
   const [genres, setGenres] = useState<GenreModel[]>([]);
@@ -12,7 +13,7 @@ export const useGetGenre = (): GenreModel[] => {
         setGenres(data.data);
       })
       .catch((err) => {
-        console.log(err);
+        log(err);
         setGenres([]);
       });
   }, []);
