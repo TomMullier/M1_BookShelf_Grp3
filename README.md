@@ -12,7 +12,10 @@ Cette séparation des tâches, au vu du projet rendu, semble avoir porté ses fr
 
 ### En détail, d'un point de vue back :
 Nous avons utilisé le framework Nest.js pour le côté back. 
-Nous avons commencé par créer les entités de la base de données, les controller, presenter, dto, useCases pour chacunes des features (author, book, comment, genre). Nous avons défini les fonctionnalités pour chacunes de ces features (getAll, getById, create, update, delete). Nous avons également mis en place les tests unitaires et les tests d'intégration avec Jest. La documentation de l'api est également disponible grâce à Swagger à l'adresse [http://localhost:3001/api](http://localhost:3001/api).
+
+Nous avons créé les entités de la base de données, les controller, presenter, dto, useCases pour chacunes des features (auteur, livre, commentaire, genre). Nous avons défini les fonctionnalités pour chacunes de ces features (getAll, getById, create, update, delete). Nous avons également mis en place les tests unitaires et les tests d'intégration avec Jest. La documentation de l'api est également disponible grâce à Swagger à l'adresse [http://localhost:3001/api](http://localhost:3001/api).
+
+Pour l'organisation, nous avons commencé par les fonctionnalités des books. Nous avons ensuite séparé le travail en 2. Maxime s'est occupé des fonctionnalités de genre, auteur, et la création des commentaires. Pendant ce temps Enguerrand s'est lancé dans les tests (d'abord des livres et ensuite de genre, auteur et commentaires au fur et à mesure de leur création). Il a également commencé la documentation Swagger, Maxime l'a fini pendant qu'Enguerrand terminait les tests.
 
 ### En détail, d'un point de vue front :
 Nous avons utilisé Next.js pour le côté front et le framework Tailwind pour le CSS (ainsi que du CSS pure pour gagner en précision). 
