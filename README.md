@@ -54,7 +54,7 @@ Une modale de confirmation permet de supprimer le livre de la liste.
 ### Page Authors
 
 La liste des auteurs est affichée sur la page et il est possible de filtrer les auteurs par nombre de livres écrits ou en cherchant par nom à l'aide de la barre de recherche.
-Grâce à une modale, il est possible de créer un nouvel auteur.
+Grâce à une modale, il est possible de créer un nouvel auteur (avec photo de profil)
 
 ### Page Authors/[:id]
 
